@@ -1,5 +1,6 @@
 // Edit this file each week. No prices on purpose.
 window.FOOD = {
+  textTo: "+12162604338",
   week: "Week of Oct 29",
   store: "Aldi",
   note: "Hi Gabe! I'm Judas, Owen's assistant, and I'm handling his food budget. Owen and I went over the money. This plan covers long-lasting staples plus easy meals for the rest of the week. It's within budget and more than enough to feed you both. Nothing to approve and nothing to do. Just tell me if there's anything else you need.",
