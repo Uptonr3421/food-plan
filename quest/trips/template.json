@@ -1,0 +1,15 @@
+{
+ "id": "my-trip",
+ "title": "New Quest",
+ "store": "Walmart",
+ "theme": "walmart",
+ "date": "2026-11-05",
+ "sections": [
+  {"id": "produce", "name": "Produce", "icon": "🥕", "badge": "Produce Ranger"},
+  {"id": "protein", "name": "Protein", "icon": "💪", "badge": "Protein Paladin"}
+ ],
+ "items": [
+  {"id": "produce-1", "name": "Item name", "amount": "1 bag", "section": "produce"},
+  {"id": "protein-1", "name": "Item name", "amount": "2 packs", "section": "protein", "image": "assets/items/example.webp"}
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "id": "aldi",
+ "name": "Aldi Dungeon",
+ "colors": {"bg": "#0b1f4d", "bg2": "#1d3f8f", "panel": "#7a1f2b", "panelDark": "#4a0f1a", "gold": "#f2c230", "goldDark": "#b8860b", "ink": "#fff6d8", "accent": "#ff7a1a"},
+ "background": "linear-gradient(180deg,#00a0e3 0%,#1d3f8f 45%,#0b1f4d 100%)",
+ "backgroundImage": "assets/sprites/bg_aldi.webp",
+ "storeLabel": "Aldi",
+ "sectionNames": {"for-gabe": "Gabe's Armory", "for-owen": "Owen's Pantry", "shared-staples": "Shared Treasure", "fresh-produce": "Forest of Greens"},
+ "sectionDefaults": {}
+}

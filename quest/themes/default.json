@@ -1,0 +1,10 @@
+{
+ "id": "default",
+ "name": "Classic Dungeon",
+ "colors": {"bg": "#2a1648", "bg2": "#5b2a86", "panel": "#7a1f2b", "panelDark": "#4a0f1a", "gold": "#f2c230", "goldDark": "#b8860b", "ink": "#fff6d8", "accent": "#7fd3ff"},
+ "background": "linear-gradient(180deg,#2b4c9b 0%,#5b2a86 55%,#2a1648 100%)",
+ "backgroundImage": null,
+ "storeLabel": "the Market",
+ "sectionNames": {},
+ "sectionDefaults": {"produce": "Forest of Greens", "protein": "Hall of Protein", "staples": "Pantry Keep", "frozen": "Ice Caverns", "drinks": "Potion Shelf"}
+}

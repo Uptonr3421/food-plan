@@ -1,0 +1,107 @@
+[
+ {
+  "name": "coin",
+  "file": "sprites/coin.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "coin"
+ },
+ {
+  "name": "heart_rainbow",
+  "file": "sprites/heart_rainbow.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "heart rainbow"
+ },
+ {
+  "name": "cart",
+  "file": "sprites/cart.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "cart"
+ },
+ {
+  "name": "scroll",
+  "file": "sprites/scroll.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "scroll"
+ },
+ {
+  "name": "loot_bag",
+  "file": "sprites/loot_bag.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "loot bag"
+ },
+ {
+  "name": "coin_pile",
+  "file": "sprites/coin_pile.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "coin pile"
+ },
+ {
+  "name": "hero_cart",
+  "file": "sprites/hero_cart.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "hero cart"
+ },
+ {
+  "name": "hero_scroll",
+  "file": "sprites/hero_scroll.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "hero scroll"
+ },
+ {
+  "name": "hero_pug",
+  "file": "sprites/hero_pug.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "hero pug"
+ },
+ {
+  "name": "sword",
+  "file": "sprites/sword.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "sword"
+ },
+ {
+  "name": "star",
+  "file": "sprites/star.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "star"
+ },
+ {
+  "name": "receipt_dragon",
+  "file": "sprites/receipt_dragon.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "receipt dragon"
+ },
+ {
+  "name": "panel_frame",
+  "file": "sprites/panel_frame.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "9-slice gold frame (border-image, slice 12)"
+ },
+ {
+  "name": "button",
+  "file": "sprites/button.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "9-slice maroon button (border-image, slice 12)"
+ },
+ {
+  "name": "button_press",
+  "file": "sprites/button_press.png",
+  "source": "generated:tools/make_sprites.py",
+  "crop": null,
+  "use": "pressed button state"
+ }
+]

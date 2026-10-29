@@ -1,0 +1,298 @@
+{
+ "id": "aldi-2026-10-29",
+ "title": "Week of Oct 29",
+ "store": "Aldi",
+ "theme": "aldi",
+ "date": "2026-10-29",
+ "source": "data.js",
+ "sections": [
+  {
+   "id": "for-gabe",
+   "name": "For Gabe",
+   "icon": "💪",
+   "kind": "protein",
+   "badge": "Protein Paladin"
+  },
+  {
+   "id": "for-owen",
+   "name": "For Owen",
+   "icon": "🌱",
+   "kind": "staples",
+   "badge": null
+  },
+  {
+   "id": "shared-staples",
+   "name": "Shared staples",
+   "icon": "🧺",
+   "kind": "staples",
+   "badge": null
+  },
+  {
+   "id": "fresh-produce",
+   "name": "Fresh produce",
+   "icon": "🥕",
+   "kind": "produce",
+   "badge": "Produce Ranger"
+  }
+ ],
+ "items": [
+  {
+   "id": "for-gabe-1",
+   "name": "Eggs",
+   "amount": "3 dozen",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-2",
+   "name": "Milk",
+   "amount": "3 gallons",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-3",
+   "name": "93% lean ground turkey",
+   "amount": "3 packs",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-4",
+   "name": "Bacon",
+   "amount": "1 pack",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-5",
+   "name": "Rotisserie chicken breast",
+   "amount": "2 packs (1 lb each)",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-6",
+   "name": "Deli turkey",
+   "amount": "2 packs (1 lb each)",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-7",
+   "name": "String cheese for work lunches",
+   "amount": "1 pack",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-8",
+   "name": "White bread",
+   "amount": "1 loaf",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-9",
+   "name": "Extra peanut butter jar",
+   "amount": "for bulking",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-gabe-10",
+   "name": "Extra microwave rice cups",
+   "amount": "for bulking",
+   "section": "for-gabe"
+  },
+  {
+   "id": "for-owen-1",
+   "name": "Classic hummus",
+   "amount": "2",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-2",
+   "name": "Pita bread",
+   "amount": "2 packs",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-3",
+   "name": "Plain Greek yogurt",
+   "amount": "2 big tubs",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-4",
+   "name": "Protein yogurt cups",
+   "amount": "2 packs",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-5",
+   "name": "Cottage cheese",
+   "amount": "2",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-6",
+   "name": "String cheese",
+   "amount": "1 pack",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-7",
+   "name": "Peanut butter",
+   "amount": "1 big jar",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-8",
+   "name": "Grape jelly",
+   "amount": "1 jar",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-9",
+   "name": "Whole wheat bread",
+   "amount": "1 loaf",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-10",
+   "name": "Protein bars",
+   "amount": "1 box of 6",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-11",
+   "name": "Bean and cheese burritos",
+   "amount": "1 pack of 8",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-12",
+   "name": "Plant-based burrito bowl",
+   "amount": "1",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-13",
+   "name": "Pepperoni Hot Pockets",
+   "amount": "1 box",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-14",
+   "name": "Thin crust cheese pizza",
+   "amount": "2",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-15",
+   "name": "Frozen edamame",
+   "amount": "1 bag",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-16",
+   "name": "Chickpeas",
+   "amount": "2 cans",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-17",
+   "name": "Lentil vegetable soup",
+   "amount": "1 can",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-18",
+   "name": "Summit energy drinks",
+   "amount": "8 cans",
+   "section": "for-owen"
+  },
+  {
+   "id": "for-owen-19",
+   "name": "Sparkling water",
+   "amount": "12 pack",
+   "section": "for-owen"
+  },
+  {
+   "id": "shared-staples-1",
+   "name": "Ground coffee",
+   "amount": "12 oz",
+   "section": "shared-staples"
+  },
+  {
+   "id": "shared-staples-2",
+   "name": "Coffee creamer",
+   "amount": "32 oz",
+   "section": "shared-staples"
+  },
+  {
+   "id": "shared-staples-3",
+   "name": "Bran flakes",
+   "amount": "1 box",
+   "section": "shared-staples"
+  },
+  {
+   "id": "shared-staples-4",
+   "name": "Microwave rice cups",
+   "amount": "2 packs",
+   "section": "shared-staples"
+  },
+  {
+   "id": "shared-staples-5",
+   "name": "Black beans",
+   "amount": "2 cans",
+   "section": "shared-staples"
+  },
+  {
+   "id": "fresh-produce-1",
+   "name": "Bananas",
+   "amount": "1 bunch",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-2",
+   "name": "Gala apples",
+   "amount": "3 lb bag",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-3",
+   "name": "Baby carrots",
+   "amount": "1 bag",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-4",
+   "name": "Mini cucumbers",
+   "amount": "1 pack",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-5",
+   "name": "Snap peas",
+   "amount": "1 bag",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-6",
+   "name": "Grape tomatoes",
+   "amount": "1 pack",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-7",
+   "name": "Bell peppers",
+   "amount": "3 pack",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-8",
+   "name": "Snap peas",
+   "amount": "1 more bag",
+   "section": "fresh-produce"
+  },
+  {
+   "id": "fresh-produce-9",
+   "name": "Steam-in-bag broccoli",
+   "amount": "2",
+   "section": "fresh-produce"
+  }
+ ]
+}

@@ -1,0 +1,344 @@
+{
+ "note": "Generated pixel fallbacks + concept-art cuts. Regenerate with tools/make_sprites.py then tools/cut_concepts.py.",
+ "sprites": [
+  {
+   "name": "coin",
+   "file": "sprites/coin.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "coin"
+  },
+  {
+   "name": "heart_rainbow",
+   "file": "sprites/heart_rainbow.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "heart rainbow"
+  },
+  {
+   "name": "cart",
+   "file": "sprites/cart.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "cart"
+  },
+  {
+   "name": "scroll",
+   "file": "sprites/scroll.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "scroll"
+  },
+  {
+   "name": "loot_bag",
+   "file": "sprites/loot_bag.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "loot bag"
+  },
+  {
+   "name": "coin_pile",
+   "file": "sprites/coin_pile.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "coin pile"
+  },
+  {
+   "name": "hero_cart",
+   "file": "sprites/hero_cart.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "hero cart"
+  },
+  {
+   "name": "hero_scroll",
+   "file": "sprites/hero_scroll.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "hero scroll"
+  },
+  {
+   "name": "hero_pug",
+   "file": "sprites/hero_pug.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "hero pug"
+  },
+  {
+   "name": "sword",
+   "file": "sprites/sword.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "sword"
+  },
+  {
+   "name": "star",
+   "file": "sprites/star.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "star"
+  },
+  {
+   "name": "receipt_dragon",
+   "file": "sprites/receipt_dragon.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "receipt dragon"
+  },
+  {
+   "name": "panel_frame",
+   "file": "sprites/panel_frame.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "9-slice gold frame (border-image, slice 12)"
+  },
+  {
+   "name": "button",
+   "file": "sprites/button.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "9-slice maroon button (border-image, slice 12)"
+  },
+  {
+   "name": "button_press",
+   "file": "sprites/button_press.png",
+   "source": "generated:tools/make_sprites.py",
+   "crop": null,
+   "use": "pressed button state"
+  },
+  {
+   "name": "title_banner",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    150,
+    10,
+    890,
+    124
+   ],
+   "use": "title screen logo",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_hero_cart",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    25,
+    130,
+    410,
+    565
+   ],
+   "use": "full-body hero with cart",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_cart",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    125,
+    335,
+    410,
+    565
+   ],
+   "use": "shopping cart prop",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_scroll",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    415,
+    190,
+    535,
+    500
+   ],
+   "use": "quest scroll prop",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_hero_scroll",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    415,
+    125,
+    715,
+    565
+   ],
+   "use": "full-body hero with scroll",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_pug",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    740,
+    315,
+    960,
+    560
+   ],
+   "use": "pug companion",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "portrait_cart",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    55,
+    32,
+    200,
+    158
+   ],
+   "use": "party portrait 1",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "portrait_scroll",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    220,
+    32,
+    352,
+    158
+   ],
+   "use": "party portrait 2",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "portrait_pug",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    370,
+    32,
+    522,
+    158
+   ],
+   "use": "party portrait 3 (pug)",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_loot_bag",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    440,
+    232,
+    576,
+    480
+   ],
+   "use": "loot bag (rewards)",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_coin_pile",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    440,
+    565,
+    576,
+    850
+   ],
+   "use": "coin pile (rewards)",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_panel_frame",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    28,
+    190,
+    302,
+    322
+   ],
+   "use": "gold/maroon item panel frame",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_btn_start",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    12,
+    868,
+    282,
+    1002
+   ],
+   "use": "Start Dungeon Run button",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "art_btn_claim",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    296,
+    868,
+    566,
+    1002
+   ],
+   "use": "Claim Rewards button",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "bg_title",
+   "file": null,
+   "source": "concept/banner_heroes",
+   "crop": [
+    0,
+    0,
+    1024,
+    576
+   ],
+   "use": "title screen background",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "bg_aldi",
+   "file": null,
+   "source": "concept/aldi_storefront",
+   "crop": [
+    0,
+    0,
+    1024,
+    576
+   ],
+   "use": "aldi theme background",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "bg_aisle",
+   "file": null,
+   "source": "concept/aisle",
+   "crop": [
+    0,
+    0,
+    1024,
+    576
+   ],
+   "use": "list screen background",
+   "status": "pending: source missing"
+  },
+  {
+   "name": "bg_phone",
+   "file": null,
+   "source": "concept/phone_ui",
+   "crop": [
+    0,
+    0,
+    576,
+    1024
+   ],
+   "use": "portrait background / reference",
+   "status": "pending: source missing"
+  }
+ ]
+}
