@@ -1,0 +1,17 @@
+{
+ "note": "Cut from Upton's original concept art (concept/*.jpg). Use these to match the style.",
+ "files": [
+  "sprites/concept/btn_claim.webp",
+  "sprites/concept/btn_start.webp",
+  "sprites/concept/coin_pile.webp",
+  "sprites/concept/food_bag.webp",
+  "sprites/concept/food_bread.webp",
+  "sprites/concept/food_milk.webp",
+  "sprites/concept/food_produce.webp",
+  "sprites/concept/loot_bag.webp",
+  "sprites/concept/portrait_cart_hero.webp",
+  "sprites/concept/portrait_pug.webp",
+  "sprites/concept/portrait_scroll_hero.webp",
+  "sprites/concept/title_banner.webp"
+ ]
+}

@@ -11,7 +11,7 @@ You're finishing the front end for **Heroic Shopping Quest**, a reusable 16-bit 
 - `index.html`, `css/quest.css`
 - `js/main.js` (screens, checklist, XP, badges), `js/audio.js` (WebAudio chiptunes), `js/fx.js` (pops, confetti, shake), `js/storage.js` (localStorage/IndexedDB), `js/sync.js` (optional ntfy.sh party sync, topic in `#party=`), `js/receipt.js` (Receipt Dragon finale), `js/loader.js` (loads trip + theme), `js/adapter.js` (builds a trip from `../data.js`)
 - `themes/` default, aldi, walmart. `trips/` the current Aldi trip + `template.json`
-- `assets/sprites/` pixel sprites + `assets/manifest.json`. `assets/concept/` is for the 4 original concept images (not yet in the repo; ask Upton for them).
+- `assets/sprites/` pixel sprites + `assets/manifest.json`. `assets/concept/` holds Upton's original concept art (aisle.jpg, ui-mock.jpg, aldi-storefront.jpg). `assets/sprites/concept/` has pieces cut from it (hero and pug portraits, Start/Claim buttons, coin pile, loot bag, food bag, food_milk, food_bread, food_produce, title banner). THIS is the style to match: every new food image, plate or icon must look like these. The current `assets/sprites/*.png` were redrawn without the originals and should be replaced or restyled to match.
 - `tools/` sprite and trip build scripts. `tests/smoke.mjs` (currently hangs, needs fixing).
 
 ## Art direction
@@ -34,7 +34,7 @@ Title screen ("Level up your groceries", Start Dungeon Run). Sectioned rows with
 The live `/quest/` URL returns 200 with no console errors; items render from the trip; there's no "$" in the rendered page; it works offline; a new store trip works from `template.json`.
 
 ## Still to do
-Fix the smoke test, add the original concept art, product thumbnails per store, verify sync on two real phones, add a link from the root page, and general visual polish.
+Fix the smoke test, wire the concept-art pieces into the UI (portraits, buttons, title), make matching food item art in the same style for every list item, product thumbnails per store, verify sync on two real phones, add a link from the root page, and general visual polish.
 
 ## Report back in this exact format
 - LIVE LINK:
