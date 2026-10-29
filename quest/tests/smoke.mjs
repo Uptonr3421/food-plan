@@ -1,42 +1,118 @@
-// Headless smoke test via Chrome DevTools Protocol (no npm deps; Node 22+ and google-chrome).
-// Usage: (cd food-list && python3 -m http.server 8765 &) ; node quest/tests/smoke.mjs [baseUrl]
-import { spawn } from 'node:child_process'; import fs from 'node:fs';
-const BASE = process.argv[2] || 'http://localhost:8765/quest/';
-const chrome = spawn('google-chrome', ['--headless=new', '--no-sandbox', '--disable-gpu', '--remote-debugging-port=9333', '--window-size=412,915', 'about:blank'], { stdio: 'ignore' });
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-let ws, n = 0; const pending = {}, errors = [];
-for (let i = 0; i < 40 && !ws; i++) { try { const t = await (await fetch('http://127.0.0.1:9333/json/list')).json(); const pg = t.find(x => x.type === 'page'); if (pg) ws = new WebSocket(pg.webSocketDebuggerUrl); } catch {} await sleep(250); }
-await new Promise(r => ws.onopen = r);
-ws.onmessage = e => { const m = JSON.parse(e.data); if (m.id && pending[m.id]) { pending[m.id](m.result); delete pending[m.id]; }
-  if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text);
-  if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') errors.push(m.params.args.map(a => a.value || a.description).join(' ')); };
-const send = (method, params = {}) => new Promise(r => { const id = ++n; pending[id] = r; ws.send(JSON.stringify({ id, method, params })); });
-const ev = async expr => (await send('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true })).result.value;
-const shot = async f => { const r = await send('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(f, Buffer.from(r.data, 'base64')); };
-await send('Runtime.enable'); await send('Page.enable');
-let fail = 0; const ok = (c, msg) => { console.log((c ? 'PASS ' : 'FAIL ') + msg); if (!c) fail++; };
-for (const q of ['', '?trip=aldi-week-of-oct-29.json', '?trip=template.json']) {
-  await send('Page.navigate', { url: BASE + q }); await sleep(2500);
-  await ev('localStorage.clear()'); await send('Page.reload'); await sleep(2500);
-  const items = await ev('document.querySelectorAll(".item").length');
-  ok(items > 0, `${q || 'data.js'}: ${items} items render`);
-  if (q === '') {
-    ok(items === 43, 'data.js trip has all 43 items');
-    await shot('/tmp/hsq-title.png');
-    await ev('document.getElementById("start").click()'); await sleep(300);
-    await ev('[...document.querySelectorAll(".item")].slice(0,10).forEach(b=>b.click())'); await sleep(500);
-    ok(await ev('document.querySelectorAll(".item.done").length') === 10, 'tap checks items');
-    ok(/Quest 10\/43/.test(await ev('document.getElementById("questcount").textContent')), 'Quest x/N counter');
-    ok((await ev('document.getElementById("badges").textContent')).includes('Protein Paladin'), 'badges shown');
-    ok(await ev('!document.querySelector(".badge.locked")?.textContent.includes("Protein Paladin")'), 'Protein Paladin unlocked after Gabe section');
-    await shot('/tmp/hsq-list.png');
-    await send('Page.reload'); await sleep(2500);
-    ok(await ev('document.querySelectorAll(".item.done").length') === 10, 'progress persists after reload');
-    await ev('document.getElementById("bossbtn").click()'); await sleep(300); await shot('/tmp/hsq-boss.png');
-    ok(await ev('!document.getElementById("screen-boss").hidden'), 'boss screen opens');
-  }
+// Bounded browser checks: node quest/tests/smoke.mjs [questURL]
+// Playwright is a test-only dependency. There is no app framework or build step.
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { dirname, extname, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { homedir } from 'node:os';
+import vm from 'node:vm';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const require = createRequire(import.meta.url);
+let pw;
+for (const name of ['playwright', process.env.HSQ_PLAYWRIGHT_PATH,
+  resolve(homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright')].filter(Boolean)) {
+  try { pw = require(name); break; } catch {}
 }
-const html = await ev('document.documentElement.outerHTML');
-fs.writeFileSync('/tmp/hsq-rendered.html', html);
-ok(errors.length === 0, 'no JS errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
-ws.close(); chrome.kill(); process.exit(fail ? 1 : 0);
+if (!pw) throw Error('Install Playwright for tests or set HSQ_PLAYWRIGHT_PATH.');
+const MIME = { '.html':'text/html', '.js':'text/javascript', '.css':'text/css', '.json':'application/json',
+  '.png':'image/png', '.jpg':'image/jpeg', '.webp':'image/webp', '.woff2':'font/woff2' };
+let server, browser;
+const deadline = setTimeout(() => { console.error('FAIL smoke exceeded 120 seconds'); process.exit(1); }, 120000);
+deadline.unref();
+const pass = s => console.log('PASS ' + s);
+try {
+  let base = process.argv[2];
+  if (!base) {
+    server = createServer(async (req, res) => {
+      try {
+        let file = resolve(ROOT, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname));
+        if (file !== ROOT && !file.startsWith(ROOT + sep)) { res.writeHead(403).end(); return; }
+        if ((await stat(file)).isDirectory()) file = resolve(file, 'index.html');
+        res.writeHead(200, { 'Content-Type':MIME[extname(file)] || 'application/octet-stream', 'Cache-Control':'no-cache' });
+        res.end(await readFile(file));
+      } catch { console.error('HTTP 404 ' + req.url); res.writeHead(404).end('Not found'); }
+    });
+    await new Promise(ok => server.listen(0, '127.0.0.1', ok));
+    base = 'http://127.0.0.1:' + server.address().port + '/quest/';
+  }
+  const chrome = [process.env.HSQ_CHROME_PATH, 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(p => p && existsSync(p));
+  browser = await pw.chromium.launch({ headless:true, ...(chrome ? {executablePath:chrome} : {}), timeout:15000 });
+  const sandbox = { window:{} };
+  vm.runInNewContext(await readFile(resolve(ROOT, 'data.js'), 'utf8'), sandbox, {timeout:1000});
+  const expected = JSON.parse(JSON.stringify(sandbox.window.FOOD.groups.flatMap(g => g.items.map(it => {
+    const split = it.n.indexOf(', ');
+    return { name:split < 0 ? it.n : it.n.slice(0, split), amount:split < 0 ? '' : it.n.slice(split + 2) };
+  }))));
+  const errors = [];
+  const context = await browser.newContext({viewport:{width:412, height:915}, reducedMotion:'reduce'});
+  const page = await context.newPage();
+  page.setDefaultTimeout(10000);
+  page.on('pageerror', e => errors.push(e.message));
+  page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  page.on('response', r => { if (r.status() >= 400) errors.push('HTTP ' + r.status() + ' ' + r.url()); });
+  for (const query of ['', '?trip=aldi-week-of-oct-29.json', '?trip=template.json']) {
+    await page.goto(base + query, {waitUntil:'networkidle', timeout:20000});
+    await page.waitForFunction(() => !!window.__quest);
+    const actual = await page.evaluate(() => window.__quest.trip.items.map(({name,amount}) => ({name, amount:amount || ''})));
+    assert(actual.length > 0);
+    assert.equal(await page.locator('.item').count(), actual.length);
+    if (!query) assert.deepEqual(actual, expected, 'Preserve every food entry, amount, duplicate and order');
+    assert(!/\$|\b(?:medication|health|prescription)\b/i.test(await page.locator('body').innerText()));
+    // The named trip may share its ID with the adapter, so its saved run can resume.
+    if (!await page.locator('#start').isVisible()) await page.locator('#titlebtn').click();
+    await page.locator('#start').click();
+    if (await page.locator('.item').first().getAttribute('aria-pressed') === 'true') await page.locator('.item').first().click();
+    await page.locator('.item').first().click();
+    await page.reload({waitUntil:'networkidle'});
+    await page.waitForFunction(() => !!window.__quest);
+    assert.equal(await page.locator('.item').first().getAttribute('aria-pressed'), 'true');
+    assert(await page.locator('#screen-list').isVisible());
+    pass((query || 'data.js') + ': items, tap and saved progress');
+    if (!query) {
+      await page.locator('.item').nth(1).click();
+      await page.locator('.item').nth(2).click();
+      assert.match(await page.locator('#combo').innerText(), /COMBO/);
+      const count = await page.locator('.item').count();
+      for (let i=0; i<count; i++) {
+        const row = page.locator('.item').nth(i);
+        if (await row.getAttribute('aria-pressed') !== 'true') await row.click();
+      }
+      for (const name of ['Protein Paladin','Produce Ranger','Fabulous Forager']) {
+        assert.equal(await page.locator('#badges .badge').filter({hasText:name}).evaluate(el => el.classList.contains('locked')), false);
+      }
+      // Reload split this run into two chains; the full-trip combo must remain locked.
+      assert(await page.locator('#badges .badge').filter({hasText:'Perfect Combo'}).evaluate(el => el.classList.contains('locked')));
+      assert.notEqual(await page.locator('#lvl').innerText(), 'LV 1');
+      pass('combo, level and badges');
+      if (!await page.locator('#screen-boss').isVisible()) await page.locator('#bossbtn').click();
+      await page.locator('#receiptin').setInputFiles({name:'synthetic-receipt.png',mimeType:'image/png',
+        buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jZ1kAAAAASUVORK5CYII=','base64')});
+      await page.locator('#screen-rewards').waitFor({state:'visible'});
+      assert(await page.locator('#receiptimg').evaluate(i => i.complete && i.naturalWidth > 0));
+      await page.locator('#claim').click();
+      await page.locator('#rewardsback').click();
+      await page.locator('#pastbtn2').click();
+      assert.equal(await page.locator('.past').count(), 1);
+      pass('boss, synthetic receipt, rewards and history');
+    }
+  }
+  for (const width of [320,768,1280]) {
+    await page.setViewportSize({width,height:900});
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No overflow at ' + width);
+  }
+  pass('320, 768 and 1280px layouts');
+  await page.goto(new URL('../',base).href,{waitUntil:'networkidle'});
+  assert.equal(await page.locator('#list .item').count(),expected.length);
+  pass('root food page');
+  assert.deepEqual(errors,[],'Browser errors');
+  pass('no console errors');
+} finally {
+  clearTimeout(deadline);
+  await browser?.close();
+  if(server) await new Promise(ok => server.close(ok));
+}

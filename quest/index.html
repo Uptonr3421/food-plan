@@ -3,30 +3,33 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#2a1648">
 <title>Heroic Shopping Quest</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="preload" href="assets/final/ui/press-start-2p.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="css/quest.css">
 </head><body>
 <div id="app">
  <header class="hud" id="hud" hidden>
   <div class="hud-row"><span id="lvl" class="lvl">LV 1</span><span id="lvltitle" class="lvltitle">Cart Squire</span>
    <span id="sync" class="sync" hidden>● Party</span>
-   <button id="mute" class="icon-btn" aria-label="Mute sound">♪</button></div>
+   <button id="music" class="icon-btn" aria-label="Enable background music" aria-pressed="false">♫</button>
+   <button id="mute" class="icon-btn" aria-label="Mute sound" aria-pressed="false">♪</button></div>
   <div class="xpbar" aria-label="Experience"><div id="xpfill" class="xpfill"></div><div class="xpseg"></div></div>
   <div class="hud-row small"><span id="questcount">Quest 0/0</span><span id="combo" class="combo"></span><span id="coins">🪙 0</span></div>
+  <div id="combometer" class="combo-meter" hidden><span id="comboring" class="combo-ring" aria-hidden="true"></span><span>Keep the streak!</span><div class="streak-track"><div id="streakfill"></div></div></div>
  </header>
 
  <section id="screen-title" class="screen title">
   <div id="banner" class="banner"><h1>Heroic Shopping Quest</h1><p>Level up your groceries</p></div>
   <div id="party" class="party"></div>
+  <div class="adventurers" aria-hidden="true"><span id="cartbody" class="actor hero"></span><span id="scrollbody" class="actor hero"></span><span id="pugbody" class="actor dog"></span></div>
   <p id="tripinfo" class="tripinfo"></p>
   <button id="start" class="btn big">Start Dungeon Run</button>
   <div class="row"><button id="pastbtn" class="btn">Past Quests</button><button id="sharebtn" class="btn">Share party link</button></div>
-  <p id="sharemsg" class="small center"></p>
+  <p id="sharemsg" class="small center" role="status"></p>
  </section>
 
  <section id="screen-list" class="screen" hidden>
-  <div id="pug" class="pug"><img alt="" id="pugimg"><div id="quip" class="quip">Woof! Let's loot this place.</div></div>
+  <div id="pug" class="pug"><img alt="" id="pugimg"><div id="quip" class="quip" aria-live="polite">Woof! Let's loot this place.</div></div>
   <div id="sections"></div>
   <div id="badges" class="badges"></div>
   <button id="bossbtn" class="btn big boss-cta">Defeat the Receipt Dragon</button>
@@ -36,10 +39,11 @@
 
  <section id="screen-boss" class="screen boss" hidden>
   <h2>Final Boss</h2><p class="center">Defeat the Receipt Dragon</p>
-  <img id="dragon" class="dragon" alt="Receipt Dragon">
+  <div id="dragon" class="dragon" role="img" aria-label="Receipt Dragon"></div>
   <div class="hpbar"><div id="hp" class="hpfill"></div></div>
   <label class="btn big file">📸 Snap the receipt<input id="receiptin" type="file" accept="image/*" capture="environment"></label>
   <p class="small center">The photo stays on this phone. It is never uploaded or synced.</p>
+  <p id="receiptmsg" class="small center" role="status"></p>
   <button id="bossback" class="btn">Back to the list</button>
  </section>
 
@@ -52,7 +56,7 @@
   <button id="sendjudas" class="btn big">Send receipt to Judas</button>
   <p class="small center">Text it to Judas at (216) 260-4338<br>or email onew100110@gmail.com</p>
   <div class="row"><button id="dl" class="btn">Download</button><a id="mail" class="btn" href="mailto:onew100110@gmail.com?subject=Aldi%20receipt">Email</a></div>
-  <p id="sendmsg" class="small center"></p>
+  <p id="sendmsg" class="small center" role="status"></p>
   <button id="rewardsback" class="btn">Back to the list</button>
  </section>
 

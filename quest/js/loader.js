@@ -25,10 +25,12 @@ export async function loadTheme(id) {
 }
 export async function loadArt() {
   const map = {};
-  try {
-    const m = await getJSON('assets/manifest.json');
-    (m.sprites || m).forEach(s => { if (s.file && (!s.status || s.status === 'ok')) map[s.name] = 'assets/' + s.file; });
-  } catch {}
+  const manifest = await getJSON('assets/ASSET-MANIFEST.json');
+  manifest.assets.forEach(s => {
+    if (['done', 'in_review'].includes(s.status)) map[s.id] = s.file;
+  });
+  map.portrait_cart = map.portrait_cart_hero;
+  map.portrait_scroll = map.portrait_scroll_hero;
   return map;
 }
 export function sectionLabel(sec, theme) {

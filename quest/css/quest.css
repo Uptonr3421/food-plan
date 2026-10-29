@@ -1,5 +1,6 @@
 :root{--bg:#2a1648;--bg2:#5b2a86;--panel:#7a1f2b;--panelDark:#4a0f1a;--gold:#f2c230;--goldDark:#b8860b;--ink:#fff6d8;--accent:#7fd3ff;
  --font:"Press Start 2P",ui-monospace,Menlo,Consolas,monospace;--px:4px}
+@font-face{font-family:"Press Start 2P";font-style:normal;font-weight:400;font-display:swap;src:url('../assets/final/ui/press-start-2p.ttf') format('truetype')}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
 body{font-family:var(--font);color:var(--ink);background:var(--bg);background-image:var(--scene,linear-gradient(180deg,#2b4c9b,#5b2a86 55%,#2a1648));background-attachment:fixed;background-size:cover;background-position:center;font-size:12px;line-height:1.6;image-rendering:pixelated}
@@ -28,6 +29,12 @@ h2{font-size:15px;margin:10px 0}
 .party figure{margin:0;text-align:center;font-size:8px}
 .party img{width:88px;height:88px;object-fit:cover;display:block;border:var(--px) solid var(--gold);box-shadow:0 0 0 var(--px) #000;background:var(--bg2)}
 .tripinfo{text-align:center;font-size:10px}
+.adventurers{display:flex;justify-content:center;align-items:flex-end;gap:8px;min-height:100px;margin:10px 0}
+.actor{display:block;image-rendering:pixelated;background-repeat:no-repeat;background-position:0 0}
+.actor.hero{width:96px;height:96px;background-size:384px 96px;animation:hero-walk 1.2s steps(2) infinite}
+.actor.dog{width:64px;height:64px;background-size:256px 64px;animation:pug-wag .7s steps(2) infinite}
+@keyframes hero-walk{from{background-position:-96px 0}to{background-position:-288px 0}}
+@keyframes pug-wag{from{background-position:-64px 0}to{background-position:-192px 0}}
 /* hud */
 .hud{position:sticky;top:0;z-index:10;padding:8px 10px;margin-bottom:12px;background:var(--panelDark)}
 .hud-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
@@ -37,6 +44,14 @@ h2{font-size:15px;margin:10px 0}
 .xpfill{height:100%;width:0;transition:width .3s steps(6);background:linear-gradient(90deg,#e40303 0 16.66%,#ff8c00 0 33.33%,#ffed00 0 50%,#008026 0 66.66%,#004dff 0 83.33%,#750787 0);background-size:var(--full,100%) 100%}
 .xpseg{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 2px),#000 0 10%)}
 .combo{color:var(--gold)}
+.combo-meter{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:8px}
+.combo-ring{width:24px;height:24px;flex-shrink:0;border:3px solid var(--gold);border-radius:50%;background:conic-gradient(var(--gold) var(--remaining,360deg),#21102e 0)}
+.streak-track{height:8px;background:#130b22;flex:1;border:1px solid var(--goldDark)}
+#streakfill{height:100%;background:linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787)}
+.icon-btn[aria-pressed="true"]{background:#ffffff18;box-shadow:inset 0 -3px var(--gold)}
+:focus-visible{outline:3px solid #fff6d8;outline-offset:4px}
+.pug img.wag{animation:wag .45s steps(3)}
+@keyframes wag{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
 /* list */
 .section-head{display:flex;align-items:center;gap:10px;padding:10px;margin:18px 0 8px;background:var(--bg2)}
 .section-head .ic{font-size:20px}.section-head b{flex:1;color:var(--gold);font-size:12px;font-weight:normal}
@@ -58,12 +73,14 @@ h2{font-size:15px;margin:10px 0}
 .badge.locked{opacity:.35;filter:grayscale(1)}
 .boss-cta{margin-top:20px}
 /* boss */
-.boss .dragon{display:block;width:192px;height:192px;margin:10px auto;animation:bob 1s steps(2) infinite}
+.boss .dragon{display:block;width:192px;height:192px;margin:10px auto;background-size:576px 192px;background-repeat:no-repeat;background-position:0 0;image-rendering:pixelated;animation:bob 1s steps(2) infinite}
 @keyframes bob{50%{transform:translateY(-6px)}}
 .hpbar{height:16px;border:3px solid var(--gold);background:#000;margin:8px 20px}
 .hpfill{height:100%;width:100%;background:#e40303;transition:width .6s steps(8)}
 .file{position:relative;overflow:hidden}.file input{position:absolute;inset:0;opacity:0;font-size:100px;cursor:pointer}
-.dragon.defeated{animation:none;filter:grayscale(1) brightness(.6);transform:rotate(90deg)}
+.dragon.defeated{animation:none;background-position:-384px 0}
+.dragon.hit{background-position:-192px 0;filter:brightness(1.3)}
+.btn:disabled{cursor:default;opacity:.7;transform:none}
 /* rewards */
 .pride{padding:12px;text-align:center;font-size:11px;background:linear-gradient(180deg,#e40303 0 16.6%,#ff8c00 0 33.3%,#ffed00 0 50%,#008026 0 66.6%,#004dff 0 83.3%,#750787 0);text-shadow:2px 2px 0 #000;margin:6px 0 14px}
 .pride span{display:block;font-size:18px;color:#fff;margin-bottom:6px}

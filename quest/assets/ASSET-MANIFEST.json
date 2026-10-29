@@ -34,9 +34,15 @@
    "category": "characters",
    "file": "assets/final/characters/portrait_cart_hero.png",
    "size_px": "128x128",
-   "description": "Burly bearded hero, white tank top, chain necklace, wrist cuffs; framed bust portrait",
+   "description": "Gabe, burly bearded magical hero in royal-purple and blue coat, gold enchanted shoulders and glowing cyan clasp; framed bust. Outfit approved by Owen 2026-10-29, superseding white cutoff reference.",
    "style_reference": "assets/concept/ui-mock.jpg (top-left frame), sprites/concept/portrait_cart_hero.webp",
-   "status": "todo"
+   "status": "in_review",
+   "generation": {
+    "tool": "built-in imagegen",
+    "source": "exec-60a3a1fb-e7a1-4c9d-b1b1-84e11eb3fb03.png",
+    "prompt": "Use case: precise-object-edit\nAsset type: final framed pixel-art portrait for Gabe, the magical cart hero in a SNES-style shopping RPG.\nInput image is the edit target. Replace the white tank-top outfit with a heroic magical outfit: rich royal-purple and cobalt-blue battle-mage coat with sculpted gold trim, broad enchanted shoulder pieces, gold-and-leather magical bracers, and a glowing cyan rune clasp or pendant. Give Gabe confident protective heroic bearing and an optimistic determined expression. Keep his recognizable thick dark beard, tousled brown hair, broad strong build, warm face and proportions.\nInvariants: preserve the exact ornate square gold frame, maroon interior, centered bust composition, crisp 128x128 logical pixel grid and limited SNES palette. Preserve real transparent alpha outside the frame. Do not add text, words, staff, weapons, extra characters or background scenery. The outfit must clearly read as a magical fantasy hero and not a white cutoff. Clean production sprite with no blur or photorealism.",
+    "export": "128x128 nearest-neighbor, 64-color indexed PNG with alpha; visually inspected"
+   }
   },
   {
    "id": "portrait_scroll_hero",
@@ -45,7 +51,13 @@
    "size_px": "128x128",
    "description": "Smiling short-haired hero in blue tunic with leather straps; framed bust",
    "style_reference": "assets/concept/ui-mock.jpg (top-middle), sprites/concept/portrait_scroll_hero.webp",
-   "status": "todo"
+   "status": "in_review",
+   "generation": {
+    "tool": "built-in imagegen",
+    "source": "exec-ef2e39a0-1347-497e-a085-65d15a6a74bf.png",
+    "prompt": "Use case: stylized-concept\nAsset type: final 128x128 SNES RPG portrait sprite for Heroic Shopping Quest.\nInput images: Image 1 is original character/style reference only. Image 2 is a newly redrawn pug portrait reference for the EXACT matching frame and pixel treatment; do not include the pug.\nRedraw clean pixel art with consistent 128x128 logical grid, limited palette and crisp square pixels, no soft or photographic detail. Square ornate gold #f2c230 / #b8860b frame with curled corners, maroon #7a1f2b interior and dark #4a0f1a shading, cream highlights #fff6d8. Composition matches Image 2: one centered bust, full frame visible, transparent alpha outside frame. No lettering, logos, numbers, watermark or other characters.\nSubject: Scroll hero, the middle character in Image 1. A cheerful adult man with short brown hair and short trimmed beard, blue medieval tunic, brown leather straps and small shoulder pouch, smiling warmly. Faithful to reference character design. A bit of a rolled parchment scroll visible in the lower corner. This is a framed bust portrait, not a full body.",
+    "export": "128x128 nearest-neighbor, 64-color indexed PNG with alpha; visually inspected"
+   }
   },
   {
    "id": "portrait_pug",
@@ -54,16 +66,35 @@
    "size_px": "128x128",
    "description": "Pug with brown backpack and rainbow heart tag; framed bust",
    "style_reference": "assets/concept/ui-mock.jpg (top-right), sprites/concept/portrait_pug.webp",
-   "status": "todo"
+   "status": "in_review",
+   "generation": {
+    "tool": "built-in imagegen",
+    "source": "exec-4d00d2e5-f52d-4878-ae2f-f9b1cc08330f.png",
+    "prompt": "Use case: stylized-concept\nAsset type: final character portrait PNG sprite for a SNES-style mobile shopping game, named portrait_pug.\nInput images: Image 1 is style reference only, not an edit target. Redraw the pug portrait cleanly; do not copy the screenshot.\nPrimary request: A single crisp 16-bit pixel-art bust portrait of the happy fawn pug from the reference: dark muzzle, expressive round eyes, brown adventurer backpack and a rainbow-striped heart tag. Exactly one portrait, centered inside an ornate square gold frame with subtle curled corners and a maroon interior.\nStyle: authentic hand-pixeled SNES RPG inventory art with a consistent low-resolution 128 by 128 pixel grid, limited palette, crisp square pixels, no anti-aliased or photographic detail. Frame gold #f2c230 and shadow #b8860b, panel #7a1f2b and #4a0f1a, cream #fff6d8, night #2a1648. Preserve reference character design, charm and proportions.\nComposition: square 1:1, frame fully visible with clean padding. Outside the frame is genuinely transparent, alpha channel, no shadow outside frame. No words, letters, numbers, watermark or extra characters. Deliver production-ready artwork, not a UI mockup or sprite atlas.",
+    "export": "128x128 nearest-neighbor, 64-color indexed PNG with alpha; visually inspected"
+   }
   },
   {
    "id": "hero_cart_full",
    "category": "characters",
    "file": "assets/final/characters/hero_cart_full.png",
    "size_px": "96x96 per frame, sheet",
-   "description": "Full-body cart hero pushing cart (idle + 2-frame push walk)",
+   "description": "Gabe magical cart hero in purple and blue coat with gold trim, enchanted bracers and cyan clasp; idle, two push frames, cheer. User-approved outfit supersedes white tank.",
    "style_reference": "assets/concept/aldi-storefront.jpg, aisle.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     96,
+     96
+    ],
+    "layout": "horizontal",
+    "states": [
+     "idle",
+     "push_left",
+     "push_right",
+     "cheer"
+    ]
+   }
   },
   {
    "id": "hero_scroll_full",
@@ -81,7 +112,20 @@
    "size_px": "64x64 per frame, sheet",
    "description": "Full-body pug: idle, tail wag, victory dance (4+ frames)",
    "style_reference": "assets/concept/aisle.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     64,
+     64
+    ],
+    "layout": "horizontal",
+    "states": [
+     "idle",
+     "wag_left",
+     "wag_right",
+     "victory"
+    ]
+   }
   },
   {
    "id": "receipt_dragon",
@@ -90,7 +134,19 @@
    "size_px": "192x192 per frame, sheet",
    "description": "Final boss: Receipt Dragon made of curling receipt paper, idle/hit/defeated frames",
    "style_reference": "new, in concept style",
-   "status": "todo"
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     192,
+     192
+    ],
+    "layout": "horizontal",
+    "states": [
+     "idle",
+     "hit",
+     "defeated"
+    ]
+   }
   },
   {
    "id": "panel_frame",
@@ -99,7 +155,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Gold ornate frame on maroon, 9-slice",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "btn_start",
@@ -108,7 +164,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "START DUNGEON RUN button, normal + pressed",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "btn_claim",
@@ -117,7 +173,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "CLAIM REWARDS button, normal + pressed",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "checkbox",
@@ -288,7 +344,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Eggs (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_milk",
@@ -297,7 +353,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Milk (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_93__lean_ground_turkey",
@@ -306,7 +362,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: 93% lean ground turkey (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_bacon",
@@ -315,7 +371,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Bacon (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_rotisserie_chicken_breast",
@@ -324,7 +380,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Rotisserie chicken breast (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_deli_turkey",
@@ -333,7 +389,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Deli turkey (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_string_cheese_for_work_lunches",
@@ -342,7 +398,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: String cheese for work lunches (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_white_bread",
@@ -351,7 +407,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: White bread (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_extra_peanut_butter_jar",
@@ -360,7 +416,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Extra peanut butter jar (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_extra_microwave_rice_cups",
@@ -369,7 +425,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Extra microwave rice cups (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_classic_hummus",
@@ -378,7 +434,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Classic hummus (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_pita_bread",
@@ -387,7 +443,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Pita bread (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_plain_greek_yogurt",
@@ -477,7 +533,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Plant-based burrito bowl (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_pepperoni_hot_pockets",
@@ -486,7 +542,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Pepperoni Hot Pockets (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_thin_crust_cheese_pizza",
@@ -495,7 +551,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Thin crust cheese pizza (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_frozen_edamame",
@@ -504,7 +560,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Frozen edamame (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_chickpeas",
@@ -513,7 +569,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Chickpeas (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_lentil_vegetable_soup",
@@ -522,7 +578,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Lentil vegetable soup (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_summit_energy_drinks",
@@ -531,7 +587,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Summit energy drinks (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_sparkling_water",
@@ -540,7 +596,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Sparkling water (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_ground_coffee",
@@ -549,7 +605,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Ground coffee (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_coffee_creamer",
@@ -558,7 +614,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Coffee creamer (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_bran_flakes",
@@ -567,7 +623,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Bran flakes (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_microwave_rice_cups",
@@ -576,7 +632,7 @@
    "size_px": "64x64",
    "description": "Pixel item art: Microwave rice cups (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_black_beans",

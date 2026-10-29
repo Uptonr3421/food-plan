@@ -8,18 +8,19 @@ function db() {
     r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error);
   });
 }
-async function tx(mode, fn) { const d = await db(); return new Promise((ok, bad) => { const t = d.transaction(ST, mode); const req = fn(t.objectStore(ST)); t.oncomplete = () => ok(req && req.result); t.onerror = () => bad(t.error); }); }
+async function tx(mode, fn) { const d = await db(); return new Promise((ok, bad) => { const t = d.transaction(ST, mode); const req = fn(t.objectStore(ST)); t.oncomplete = () => { d.close(); ok(req && req.result); }; t.onerror = t.onabort = () => { d.close(); bad(t.error); }; }); }
 export const saveReceipt = rec => tx('readwrite', s => s.put(rec));
 export const getReceipt = id => tx('readonly', s => s.get(id));
 export async function downscale(file, max = 1200) {
+  if (!file.type.startsWith('image/') || file.size > 25 * 1024 * 1024) throw new Error('Choose an image under 25 MB');
   const url = URL.createObjectURL(file);
   try {
     const img = await new Promise((ok, bad) => { const i = new Image(); i.onload = () => ok(i); i.onerror = bad; i.src = url; });
     const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
     const c = document.createElement('canvas'); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
     c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-    return await new Promise(ok => c.toBlob(b => ok(b || file), 'image/jpeg', 0.82));
-  } catch { return file; } finally { URL.revokeObjectURL(url); }
+    return await new Promise((ok, bad) => c.toBlob(b => b ? ok(b) : bad(new Error('Image could not be prepared')), 'image/jpeg', 0.82));
+  } finally { URL.revokeObjectURL(url); }
 }
 export async function shareReceipt(blob, name, text) {
   const file = new File([blob], name, { type: blob.type || 'image/jpeg' });

@@ -7,9 +7,12 @@ export const progress = {
   save: (tripId, p) => set('progress:' + tripId, p),
   clear: tripId => { try { localStorage.removeItem(K + 'progress:' + tripId); } catch {} },
 };
-export const settings = { muted: () => get('muted', false), setMuted: v => set('muted', !!v) };
+export const settings = {
+  muted: () => get('muted', false), setMuted: v => set('muted', !!v),
+  music: () => get('music', false), setMusic: v => set('music', !!v),
+};
 export const history = {
   list: () => get('history', []),
-  add: entry => { const h = get('history', []); h.unshift(entry); set('history', h.slice(0, 50)); },
+  add: entry => { const h = get('history', []).filter(q => q.id !== entry.id); h.unshift(entry); set('history', h.slice(0, 50)); },
 };
 export const clientId = (() => { let id = get('client', null); if (!id) { id = Math.random().toString(36).slice(2, 10); set('client', id); } return id; })();

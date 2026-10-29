@@ -10,6 +10,6 @@
  ],
  "items": [
   {"id": "produce-1", "name": "Item name", "amount": "1 bag", "section": "produce"},
-  {"id": "protein-1", "name": "Item name", "amount": "2 packs", "section": "protein", "image": "assets/items/example.webp"}
+  {"id": "protein-1", "name": "Item name", "amount": "2 packs", "section": "protein"}
  ]
 }
