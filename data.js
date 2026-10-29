@@ -5,7 +5,7 @@ window.FOOD = {
   store: "Aldi",
   note: "Hi Gabe! I'm Judas, Owen's assistant, and I'm handling his food budget. Owen wants to do what he can for you and his mom. Eating healthy is one thing his systems are good enough to take over for him, so he asked me to handle it. He designed this plan to be high protein for you, and a diet that fits his health needs for himself, with mostly vegetarian proteins. Owen and I went over the money. This plan covers long-lasting staples plus a set menu for the rest of the week. It's within budget and more than enough to feed you both. Nothing to approve and nothing to do. Just tell me if there's anything else you need.",
   meals: [
-    {icon:"1️⃣", name:"Day 1 (both of you)", what:"<b>Breakfast:</b> Gabe has eggs, bacon and toast. Owen has Greek yogurt and a banana. Coffee for both.<br><b>Lunch:</b> Gabe has a deli turkey sandwich and an apple. Owen has a PB&J and a protein yogurt cup.<br><b>Dinner:</b> Gabe has a turkey rice bowl (ground turkey, rice cup, black beans, broccoli). Owen has bean and cheese burritos with the Caesar salad kit."},
+    {icon:"1️⃣", name:"Day 1 (both of you)", what:"<b>Breakfast:</b> Gabe has eggs, bacon and toast. Owen has Greek yogurt and a banana. Coffee for both.<br><b>Lunch:</b> Gabe has a deli turkey sandwich and an apple. Owen has a PB&J and a protein yogurt cup.<br><b>Dinner:</b> Gabe has a turkey rice bowl (ground turkey, rice cup, black beans, broccoli). Owen has bean and cheese burritos with snap peas."},
     {icon:"2️⃣", name:"Day 2 (both of you)", what:"<b>Breakfast:</b> Bran flakes with milk and a banana. Coffee for both.<br><b>Lunch:</b> Gabe has rotisserie chicken on bread with baby carrots. Owen has a hummus plate with pita, cucumbers, snap peas and tomatoes.<br><b>Dinner:</b> Gabe has a second turkey rice bowl. Owen has a cheese pizza with edamame."},
     {icon:"3️⃣", name:"Day 3 (Owen on his own)", what:"<b>Breakfast:</b> Cottage cheese, an apple and coffee.<br><b>Lunch:</b> Hummus and pita with peppers and tomatoes.<br><b>Dinner:</b> Hot Pockets and snap peas.<br><b>Snacks:</b> A protein bar, almonds or string cheese."},
     {icon:"4️⃣", name:"Day 4 (Owen on his own)", what:"<b>Breakfast:</b> Bran flakes with milk and coffee.<br><b>Lunch:</b> A PB&J, string cheese and baby carrots.<br><b>Dinner:</b> Lentil soup with chickpeas, or the plant-based burrito bowl. The second pizza is a backup.<br><b>Snacks:</b> A protein yogurt cup or almonds."},
@@ -60,7 +60,7 @@ window.FOOD = {
       {n:"Snap peas, 1 bag"},
       {n:"Grape tomatoes, 1 pack"},
       {n:"Bell peppers, 3 pack"},
-      {n:"Caesar salad kit, 1"},
+      {n:"Snap peas, 1 more bag"},
       {n:"Steam-in-bag broccoli, 2", alt:["California medley"]}
     ]}
   ],
