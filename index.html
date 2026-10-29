@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Our food plan</title>
+<style>
+:root{--g:#2f7d4f;--bg:#f6f4ef;--card:#fff;--ink:#222;--soft:#6b6b6b;--line:#e6e1d8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.45}
+.hero{height:190px;background:url(img/healthy.jpg) center/cover;position:relative}
+.hero h1{position:absolute;left:16px;bottom:12px;margin:0;color:#fff;font-size:28px;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.wrap{max-width:640px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+.note{border-left:5px solid var(--g)}
+h2{font-size:20px;margin:0 0 10px}
+.sub{color:var(--soft);font-size:15px;margin:-6px 0 10px}
+.meal,.trip{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line)}
+.meal:first-of-type,.trip:first-of-type{border-top:0}
+.ic{font-size:28px;line-height:1}
+.item{padding:10px 0;border-top:1px solid var(--line)}
+.item .nm{font-weight:600}.item.skip .nm{text-decoration:line-through;color:var(--soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{border:1px solid var(--line);background:#faf9f6;border-radius:999px;padding:6px 12px;font-size:15px;color:var(--ink)}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.photo{width:100%;border-radius:12px;display:block;margin-top:4px}
+textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}
+.btn{display:block;width:100%;margin-top:10px;padding:14px;border:0;border-radius:12px;background:var(--g);color:#fff;font-size:18px;font-weight:600}
+.small{color:var(--soft);font-size:14px}
+</style></head><body>
+<div class="hero"><h1>Our food plan 🛒</h1></div>
+<div class="wrap">
+ <div class="card note"><div id="week" class="small"></div><p id="note" style="margin:6px 0 0"></p></div>
+ <div class="card"><h2>Easy meals this week</h2><div id="meals"></div></div>
+ <div class="card"><h2>Two ways to shop</h2><div id="trips"></div></div>
+ <div class="card"><h2>The shopping list</h2><p class="sub">Want something different? Tap a swap. Totally optional.</p>
+  <img class="photo" src="img/groceries.jpg" alt="Fresh produce shelves"><div id="list"></div></div>
+ <div class="card"><h2>Anything else you need?</h2>
+  <p class="sub">Favorite brands, things you're out of, or ideas for how you'd like this to work. Anything is fine.</p>
+  <textarea id="msg" placeholder="Type here..."></textarea>
+  <button class="btn" id="send">Text this to Judas</button>
+  <p class="small" id="hint">This opens your texting app with your note filled in.</p></div>
+ <p class="small" style="text-align:center">Made with care by Judas, Owen's assistant</p>
+</div>
+<script src="data.js"></script>
+<script>
+const F=window.FOOD,$=id=>document.getElementById(id),pick={};
+$("week").textContent=F.week+" · "+F.store;$("note").textContent=F.note;
+$("meals").innerHTML=F.meals.map(m=>`<div class="meal"><span class="ic">${m.icon}</span><div><b>${m.name}</b><div class="small">${m.what}</div></div></div>`).join("");
+$("trips").innerHTML=F.trips.map(t=>`<div class="trip"><span class="ic">${t.icon}</span><div><b>${t.t}</b><div class="small">${t.d}</div></div></div>`).join("");
+function draw(){$("list").innerHTML=F.groups.map((g,gi)=>`<h2 style="margin-top:16px">${g.icon} ${g.name}</h2>`+g.items.map((it,ii)=>{const k=gi+"-"+ii,p=pick[k];
+ const opts=["Keep"].concat(it.alt||[]).concat(["Skip"]);
+ return `<div class="item ${p==="Skip"?"skip":""}"><div class="nm">${it.n}</div><div class="chips">${opts.map(o=>`<button class="chip ${(p||"Keep")===o?"on":""}" data-k="${k}" data-o="${o}">${o==="Keep"?"✓ Keep":o==="Skip"?"Skip":"Swap: "+o}</button>`).join("")}</div></div>`}).join("")).join("");}
+draw();
+$("list").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;pick[b.dataset.k]=b.dataset.o;draw();});
+$("send").onclick=()=>{const ch=[];F.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{const p=pick[gi+"-"+ii];if(p&&p!=="Keep")ch.push(p==="Skip"?"Skip "+it.n:it.n+" -> "+p);}));
+ let body=(ch.length?"Changes: "+ch.join("; ")+". ":"")+$("msg").value.trim();if(!body)body="Looks good!";
+ const num=F.textTo||"";location.href="sms:"+num+"?body="+encodeURIComponent(body);};
+</script></body></html>
