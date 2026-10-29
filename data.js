@@ -32,7 +32,7 @@ window.FOOD = {
       {n:"Plain Greek yogurt, 2 big tubs", alt:["Vanilla Greek yogurt"]},
       {n:"Protein yogurt cups, 2 packs", alt:["Strawberry cups"]},
       {n:"Cottage cheese, 2", alt:["More string cheese"]},
-      {n:"String cheese, 1 pack", alt:["Almonds"]},
+      {n:"String cheese, 1 pack", alt:["Cheese cubes"]},
       {n:"Peanut butter, 1 big jar", alt:["Crunchy"]},
       {n:"Grape jelly, 1 jar", alt:["Strawberry jam"]},
       {n:"Whole wheat bread, 1 loaf", alt:["White bread"]},
