@@ -1,73 +1,81 @@
 // Edit this file each week. No prices on purpose.
+// Oct 29 evening: rebuilt from the actual Aldi receipt (Store #29, 63 items).
 window.FOOD = {
   textTo: "+12162604338",
-  week: "Week of Oct 29",
+  week: "Week of Oct 29, built from what we actually bought",
   store: "Aldi",
-  note: "Hi Gabe! I'm Judas, Owen's assistant, and I'm handling his food budget. Owen wants to do what he can for you and his mom. Eating healthy is one thing his systems are good enough to take over for him, so he asked me to handle it. He designed this plan to be high protein for you, and a diet that fits his health needs for himself, with mostly vegetarian proteins. Owen and I went over the money. This plan covers long-lasting staples plus a set menu for the rest of the week. It's within budget and more than enough to feed you both. Nothing to approve and nothing to do. Just tell me if there's anything else you need.",
+  note: "Hi Gabe! The shopping's done, and this plan now matches exactly what came home from Aldi. There's a set menu for each day, your work lunches, and a short top-up list for the few things we didn't get. Nothing to approve and nothing to do. Just tell me if there's anything else you need.",
   meals: [
-    {icon:"1️⃣", name:"Day 1 (both of you)", what:"<b>Breakfast:</b> Gabe has eggs, bacon and toast. Owen has Greek yogurt and a banana. Coffee for both.<br><b>Lunch:</b> Gabe has a deli turkey sandwich and an apple. Owen has a PB&J and a protein yogurt cup.<br><b>Dinner:</b> Gabe has a turkey rice bowl (ground turkey, rice cup, black beans, broccoli). Owen has bean and cheese burritos with snap peas."},
-    {icon:"2️⃣", name:"Day 2 (both of you)", what:"<b>Breakfast:</b> Bran flakes with milk and a banana. Coffee for both.<br><b>Lunch:</b> Gabe has rotisserie chicken on bread with baby carrots. Owen has a hummus plate with pita, cucumbers, snap peas and tomatoes.<br><b>Dinner:</b> Gabe has a second turkey rice bowl. Owen has a cheese pizza with edamame."},
-    {icon:"3️⃣", name:"Day 3 (Owen on his own)", what:"<b>Breakfast:</b> Cottage cheese, an apple and coffee.<br><b>Lunch:</b> Hummus and pita with peppers and tomatoes.<br><b>Dinner:</b> Hot Pockets and snap peas.<br><b>Snacks:</b> A protein bar or string cheese."},
-    {icon:"4️⃣", name:"Day 4 (Owen on his own)", what:"<b>Breakfast:</b> Bran flakes with milk and coffee.<br><b>Lunch:</b> A PB&J, string cheese and baby carrots.<br><b>Dinner:</b> Lentil soup with chickpeas, or the plant-based burrito bowl. The second pizza is a backup.<br><b>Snacks:</b> A protein yogurt cup or a protein bar."},
-    {icon:"🧳", name:"Gabe's work lunches (3)", what:"Pack the night before: a deli turkey or chicken sandwich on white bread, string cheese, an apple or banana, and a handful of baby carrots. No cooking."},
-    {icon:"🏋️", name:"Gabe's bulking extras", what:"More eggs, milk, ground turkey, peanut butter and rice, so there's plenty to help you gain mass. A glass of milk with a PB sandwich is an easy extra meal."},
-    {icon:"🥚", name:"When Gabe is back", what:"Eggs, bacon, the rest of the deli turkey and rotisserie chicken, and milk are still there for him."}
+    {icon:"1️⃣", name:"Day 1 (both of you)", what:"<b>Breakfast:</b> Gabe has 3 eggs, bacon and an everything bagel. Owen has a Greek yogurt cup and a banana.<br><b>Lunch:</b> Gabe has a tuna sandwich (2 pouches, mayo, wheat bread, a cheese slice) with lime chips. Owen has a spinach wrap with hummus, a cheese slice and baby carrots.<br><b>Dinner:</b> Gabe has a ground turkey bowl (1 turkey tub, black beans, broccoli florets). Owen has a chicken burrito with broccoli."},
+    {icon:"2️⃣", name:"Day 2 (both of you)", what:"<b>Breakfast:</b> Shredded wheat or Monsters cereal with milk, plus a banana.<br><b>Lunch:</b> Gabe has a turkey bowl from the second tub. Owen has a Hot Pocket and an apple.<br><b>Dinner:</b> Gabe has the meat lover pizza. Owen has the deluxe mac and cheese with the rest of the broccoli.<br><b>Dessert:</b> Share the cheesecake sampler."},
+    {icon:"3️⃣", name:"Day 3 (Owen on his own)", what:"<b>Breakfast:</b> A breakfast pita and a Greek yogurt cup.<br><b>Lunch:</b> A hummus wrap with baby carrots.<br><b>Dinner:</b> Chicken burritos.<br><b>Snacks:</b> An apple, organic yogurt or a sweet bagel."},
+    {icon:"4️⃣", name:"Day 4 (Owen on his own)", what:"<b>Breakfast:</b> Hash brown patties and a breakfast pita.<br><b>Lunch:</b> A Hot Pocket with an apple.<br><b>Dinner:</b> A black bean and cheese wrap, or chicken ramen with an egg.<br><b>Snacks:</b> A Greek yogurt cup or the Halloween snacks."},
+    {icon:"🧳", name:"Gabe's work lunches (3)", what:"Pack the night before: a tuna sandwich (2 pouches with mayo on wheat bread, plus a pepper jack or cheddar slice), an apple or banana, and a handful of baby carrots. No cooking."},
+    {icon:"🏋️", name:"Gabe's bulking extras", what:"3 dozen eggs, about 5 lb of ground turkey (two tubs plus the big 85/15 pack), bacon, whole milk Greek yogurt and whole milk. Spicy ramen with 2 eggs and turkey makes an easy extra meal."},
+    {icon:"🥚", name:"Use first", what:"Ground turkey (cook the big 85/15 pack within 2 days or freeze it), bananas and broccoli florets. Then the eggs and yogurt."}
   ],
   groups: [
-    {name:"For Gabe", icon:"💪", items:[
-      {n:"Eggs, 3 dozen", alt:["Egg bites"]},
-      {n:"Milk, 3 gallons", alt:["2%","1%"]},
-      {n:"93% lean ground turkey, 3 packs", alt:["99% lean turkey breast"]},
-      {n:"Bacon, 1 pack", alt:["Breakfast sausage"]},
-      {n:"Rotisserie chicken breast, 2 packs (1 lb each)", alt:["Grilled chicken strips"]},
-      {n:"Deli turkey, 2 packs (1 lb each)", alt:["Deli ham"]},
-      {n:"String cheese for work lunches, 1 pack", alt:["Cheese sticks, other flavor"]},
-      {n:"White bread, 1 loaf", alt:["Whole wheat bread"]},
-      {n:"Extra peanut butter jar, for bulking", alt:["Crunchy"]},
-      {n:"Extra microwave rice cups, for bulking"}
+    {name:"Bought for Gabe", icon:"💪", items:[
+      {n:"Large eggs, 3 dozen"},
+      {n:"85/15 ground turkey, 1 big pack"},
+      {n:"Ground turkey tubs, 2 (1 lb each)"},
+      {n:"Premium bacon, 1 pack"},
+      {n:"Pouch tuna, 4"},
+      {n:"Mayonnaise, 1 jar"},
+      {n:"Sausage and meat lover pizza, 1"},
+      {n:"Chicken sausage, 1 pack"},
+      {n:"Sliced sharp cheddar, 1 pack"},
+      {n:"Pepper jack slices, 1 pack"},
+      {n:"Spicy ramen, 2"},
+      {n:"Whole milk Greek yogurt 4-packs, 3"},
+      {n:"Everything bagels, 1 pack"}
     ]},
-    {name:"For Owen", icon:"🌱", items:[
-      {n:"Classic hummus, 2", alt:["Roasted red pepper hummus"]},
-      {n:"Pita bread, 2 packs", alt:["Protein wraps"]},
-      {n:"Plain Greek yogurt, 2 big tubs", alt:["Vanilla Greek yogurt"]},
-      {n:"Protein yogurt cups, 2 packs", alt:["Strawberry cups"]},
-      {n:"Cottage cheese, 2", alt:["More string cheese"]},
-      {n:"String cheese, 1 pack", alt:["Cheese cubes"]},
-      {n:"Peanut butter, 1 big jar", alt:["Crunchy"]},
-      {n:"Grape jelly, 1 jar", alt:["Strawberry jam"]},
-      {n:"Whole wheat bread, 1 loaf", alt:["White bread"]},
-      {n:"Protein bars, 1 box of 6", alt:["Different flavor"]},
-      {n:"Bean and cheese burritos, 1 pack of 8", alt:["Plant-based burrito bowls"]},
-      {n:"Plant-based burrito bowl, 1", alt:["Another lentil soup"]},
-      {n:"Pepperoni Hot Pockets, 1 box", alt:["Cheese Hot Pockets"]},
-      {n:"Thin crust cheese pizza, 2", alt:["Hot Pockets"]},
-      {n:"Frozen edamame, 1 bag", alt:["More chickpeas"]},
-      {n:"Chickpeas, 2 cans", alt:["Chili beans"]},
-      {n:"Lentil vegetable soup, 1 can", alt:["Chili with beans"]},
-      {n:"Summit energy drinks, 8 cans", alt:["More sparkling water"]},
-      {n:"Sparkling water, 12 pack", alt:["Different flavor"]}
+    {name:"Bought for Owen", icon:"🌱", items:[
+      {n:"Assorted hummus, 1"},
+      {n:"Spinach tomato wraps, 1 pack"},
+      {n:"Chicken burritos, 1 pack"},
+      {n:"Pepperoni Hot Pockets, 2 boxes (4 each)"},
+      {n:"Breakfast pitas, 1 box"},
+      {n:"Hash brown patties, 1 box"},
+      {n:"Deluxe mac and cheese, 1"},
+      {n:"Chicken ramen, 1 pack"},
+      {n:"Raspberry and cherry Greek yogurt 4-pack, 1"},
+      {n:"Indulgent Greek yogurt, 1"},
+      {n:"Organic whole milk yogurts, 1"},
+      {n:"Sweet bagels, 1 pack"},
+      {n:"Summit Waves energy drinks, 2"}
     ]},
-    {name:"Shared staples", icon:"🧺", items:[
-      {n:"Ground coffee, 12 oz", alt:["Bigger can"]},
-      {n:"Coffee creamer, 32 oz", alt:["French vanilla","Sweet cream","Sugar-free hazelnut"]},
-      {n:"Bran flakes, 1 box", alt:["Crispy oats","Protein granola"]},
-      {n:"Microwave rice cups, 2 packs"},
-      {n:"Black beans, 2 cans", alt:["Pinto beans"]}
+    {name:"Shared", icon:"🧺", items:[
+      {n:"Whole milk, 1 gallon"},
+      {n:"Almondmilk creamer, 1"},
+      {n:"100% wheat bread, 1 loaf"},
+      {n:"Deli cheese slices, 2 packs"},
+      {n:"Black beans, 2 cans"},
+      {n:"Frosted shredded wheat, 1 box"},
+      {n:"Monsters cereal, 1 box"},
+      {n:"Ketchup, 38 oz"},
+      {n:"Hint of lime chips, 1 bag"},
+      {n:"Coconut water, 1 liter"},
+      {n:"Cheesecake sampler, 1"},
+      {n:"Annie's Halloween snacks, 1"},
+      {n:"Honey or cranberry dip, 1"}
     ]},
-    {name:"Fresh produce", icon:"🥕", items:[
-      {n:"Bananas, 1 bunch"},
-      {n:"Gala apples, 3 lb bag"},
+    {name:"Produce", icon:"🥕", items:[
+      {n:"Bananas, about 2 lb"},
+      {n:"Pink Lady apples, 1 bag"},
       {n:"Baby carrots, 1 bag"},
-      {n:"Mini cucumbers, 1 pack"},
-      {n:"Snap peas, 1 bag"},
-      {n:"Grape tomatoes, 1 pack"},
-      {n:"Bell peppers, 3 pack"},
-      {n:"Snap peas, 1 more bag"},
-      {n:"Steam-in-bag broccoli, 2", alt:["California medley"]}
+      {n:"Broccoli florets, 1 bag"}
+    ]},
+    {name:"Still need (small top-up)", icon:"📝", items:[
+      {n:"Ground coffee, 1 can (skip it if there's some at home)"},
+      {n:"Milk, 1 more gallon, so Gabe has enough for the week"},
+      {n:"Peanut butter, 1 jar"},
+      {n:"Frozen mixed vegetables, 1 bag, since the broccoli runs out by Day 2"},
+      {n:"Microwave rice cups, 1 pack, for the turkey bowls"}
     ]}
   ],
   trips: [
-    {icon:"🚶", t:"Quick walk to Dollar General", d:"Just the basics when you're back, like bread, peanut butter, jelly, milk and cereal."},
-    {icon:"🚗", t:"Bigger Aldi trip together", d:"The full list above, whenever it works for you. Only if you want it."}
+    {icon:"✅", t:"The big Aldi trip is done", d:"Everything below the top-up list is already at home."},
+    {icon:"🚶", t:"Quick top-up at Dollar General or Aldi", d:"Just the short 'Still need' list, whenever it's easy."}
   ]
 };
