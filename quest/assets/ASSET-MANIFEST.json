@@ -1,0 +1,767 @@
+{
+ "version": 1,
+ "rule": "assets/concept/* and assets/sprites/concept/* are STYLE REFERENCE ONLY. Isolate, clip and redraw every asset clean at a consistent pixel grid with transparent backgrounds into assets/final/. Do not ship the reference crops.",
+ "palette": {
+  "gold": "#f2c230",
+  "goldDark": "#b8860b",
+  "maroon": "#7a1f2b",
+  "maroonDark": "#4a0f1a",
+  "purple": "#5b2a86",
+  "night": "#2a1648",
+  "blue": "#2b4c9b",
+  "ink": "#fff6d8",
+  "rainbow": [
+   "#e40303",
+   "#ff8c00",
+   "#ffed00",
+   "#008026",
+   "#004dff",
+   "#750787"
+  ]
+ },
+ "reference": {
+  "concept": [
+   "assets/concept/aisle.jpg",
+   "assets/concept/ui-mock.jpg",
+   "assets/concept/aldi-storefront.jpg"
+  ],
+  "crops": "assets/sprites/concept/ (see index.json)",
+  "placeholder_generated": "assets/sprites/*.png (replace)"
+ },
+ "assets": [
+  {
+   "id": "portrait_cart_hero",
+   "category": "characters",
+   "file": "assets/final/characters/portrait_cart_hero.png",
+   "size_px": "128x128",
+   "description": "Burly bearded hero, white tank top, chain necklace, wrist cuffs; framed bust portrait",
+   "style_reference": "assets/concept/ui-mock.jpg (top-left frame), sprites/concept/portrait_cart_hero.webp",
+   "status": "todo"
+  },
+  {
+   "id": "portrait_scroll_hero",
+   "category": "characters",
+   "file": "assets/final/characters/portrait_scroll_hero.png",
+   "size_px": "128x128",
+   "description": "Smiling short-haired hero in blue tunic with leather straps; framed bust",
+   "style_reference": "assets/concept/ui-mock.jpg (top-middle), sprites/concept/portrait_scroll_hero.webp",
+   "status": "todo"
+  },
+  {
+   "id": "portrait_pug",
+   "category": "characters",
+   "file": "assets/final/characters/portrait_pug.png",
+   "size_px": "128x128",
+   "description": "Pug with brown backpack and rainbow heart tag; framed bust",
+   "style_reference": "assets/concept/ui-mock.jpg (top-right), sprites/concept/portrait_pug.webp",
+   "status": "todo"
+  },
+  {
+   "id": "hero_cart_full",
+   "category": "characters",
+   "file": "assets/final/characters/hero_cart_full.png",
+   "size_px": "96x96 per frame, sheet",
+   "description": "Full-body cart hero pushing cart (idle + 2-frame push walk)",
+   "style_reference": "assets/concept/aldi-storefront.jpg, aisle.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "hero_scroll_full",
+   "category": "characters",
+   "file": "assets/final/characters/hero_scroll_full.png",
+   "size_px": "96x96 per frame, sheet",
+   "description": "Full-body scroll hero reading list (idle + cheer)",
+   "style_reference": "assets/concept/aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "pug_full",
+   "category": "characters",
+   "file": "assets/final/characters/pug_full.png",
+   "size_px": "64x64 per frame, sheet",
+   "description": "Full-body pug: idle, tail wag, victory dance (4+ frames)",
+   "style_reference": "assets/concept/aisle.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "receipt_dragon",
+   "category": "boss",
+   "file": "assets/final/boss/receipt_dragon.png",
+   "size_px": "192x192 per frame, sheet",
+   "description": "Final boss: Receipt Dragon made of curling receipt paper, idle/hit/defeated frames",
+   "style_reference": "new, in concept style",
+   "status": "todo"
+  },
+  {
+   "id": "panel_frame",
+   "category": "ui",
+   "file": "assets/final/ui/panel_frame.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Gold ornate frame on maroon, 9-slice",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "btn_start",
+   "category": "ui",
+   "file": "assets/final/ui/btn_start.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "START DUNGEON RUN button, normal + pressed",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "btn_claim",
+   "category": "ui",
+   "file": "assets/final/ui/btn_claim.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "CLAIM REWARDS button, normal + pressed",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "checkbox",
+   "category": "ui",
+   "file": "assets/final/ui/checkbox.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Empty + checked checkbox",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "sword",
+   "category": "ui",
+   "file": "assets/final/ui/sword.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Sword icon",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "star",
+   "category": "ui",
+   "file": "assets/final/ui/star.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Gold star",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "xp_bar",
+   "category": "ui",
+   "file": "assets/final/ui/xp_bar.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Rainbow segmented XP bar, 9-slice frame + fill",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "coin",
+   "category": "ui",
+   "file": "assets/final/ui/coin.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Spinning coin, 4 frames",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "coin_pile",
+   "category": "ui",
+   "file": "assets/final/ui/coin_pile.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Coin pile",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "loot_bag",
+   "category": "ui",
+   "file": "assets/final/ui/loot_bag.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Open loot bag with groceries + coins",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "title_banner",
+   "category": "ui",
+   "file": "assets/final/ui/title_banner.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "HEROIC SHOPPING QUEST / LEVEL UP YOUR GROCERIES banner",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "pride_banner",
+   "category": "ui",
+   "file": "assets/final/ui/pride_banner.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Pixel pride flag banner for victory screen",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "heart_rainbow",
+   "category": "ui",
+   "file": "assets/final/ui/heart_rainbow.png",
+   "size_px": "as needed, crisp pixel grid",
+   "description": "Rainbow heart tag icon",
+   "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "bg_store_generic",
+   "category": "backgrounds",
+   "file": "assets/final/backgrounds/bg_store_generic.png",
+   "size_px": "360x640 portrait + 1024x576 landscape",
+   "description": "Store front, no brand logo (generic)",
+   "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "bg_store_aldi",
+   "category": "backgrounds",
+   "file": "assets/final/backgrounds/bg_store_aldi.png",
+   "size_px": "360x640 portrait + 1024x576 landscape",
+   "description": "Aldi storefront, matches aldi-storefront.jpg",
+   "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "bg_store_walmart",
+   "category": "backgrounds",
+   "file": "assets/final/backgrounds/bg_store_walmart.png",
+   "size_px": "360x640 portrait + 1024x576 landscape",
+   "description": "Walmart-style storefront",
+   "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "bg_aisle",
+   "category": "backgrounds",
+   "file": "assets/final/backgrounds/bg_aisle.png",
+   "size_px": "360x640 portrait + 1024x576 landscape",
+   "description": "Grocery aisle interior",
+   "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "bg_boss_lair",
+   "category": "backgrounds",
+   "file": "assets/final/backgrounds/bg_boss_lair.png",
+   "size_px": "360x640 portrait + 1024x576 landscape",
+   "description": "Checkout lane boss arena",
+   "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
+   "status": "todo"
+  },
+  {
+   "id": "badge_protein_paladin",
+   "category": "badges",
+   "file": "assets/final/badges/badge_protein_paladin.png",
+   "size_px": "64x64",
+   "description": "Protein Paladin achievement badge",
+   "style_reference": "ui-mock.jpg palette",
+   "status": "todo"
+  },
+  {
+   "id": "badge_produce_ranger",
+   "category": "badges",
+   "file": "assets/final/badges/badge_produce_ranger.png",
+   "size_px": "64x64",
+   "description": "Produce Ranger achievement badge",
+   "style_reference": "ui-mock.jpg palette",
+   "status": "todo"
+  },
+  {
+   "id": "badge_fabulous_forager",
+   "category": "badges",
+   "file": "assets/final/badges/badge_fabulous_forager.png",
+   "size_px": "64x64",
+   "description": "Fabulous Forager (rainbow) achievement badge",
+   "style_reference": "ui-mock.jpg palette",
+   "status": "todo"
+  },
+  {
+   "id": "food_eggs",
+   "category": "food",
+   "file": "assets/final/food/food_eggs.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Eggs (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_milk",
+   "category": "food",
+   "file": "assets/final/food/food_milk.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Milk (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_93__lean_ground_turkey",
+   "category": "food",
+   "file": "assets/final/food/food_93__lean_ground_turkey.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: 93% lean ground turkey (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_bacon",
+   "category": "food",
+   "file": "assets/final/food/food_bacon.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Bacon (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_rotisserie_chicken_breast",
+   "category": "food",
+   "file": "assets/final/food/food_rotisserie_chicken_breast.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Rotisserie chicken breast (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_deli_turkey",
+   "category": "food",
+   "file": "assets/final/food/food_deli_turkey.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Deli turkey (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_string_cheese_for_work_lunches",
+   "category": "food",
+   "file": "assets/final/food/food_string_cheese_for_work_lunches.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: String cheese for work lunches (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_white_bread",
+   "category": "food",
+   "file": "assets/final/food/food_white_bread.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: White bread (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_extra_peanut_butter_jar",
+   "category": "food",
+   "file": "assets/final/food/food_extra_peanut_butter_jar.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Extra peanut butter jar (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_extra_microwave_rice_cups",
+   "category": "food",
+   "file": "assets/final/food/food_extra_microwave_rice_cups.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Extra microwave rice cups (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_classic_hummus",
+   "category": "food",
+   "file": "assets/final/food/food_classic_hummus.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Classic hummus (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_pita_bread",
+   "category": "food",
+   "file": "assets/final/food/food_pita_bread.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Pita bread (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_plain_greek_yogurt",
+   "category": "food",
+   "file": "assets/final/food/food_plain_greek_yogurt.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Plain Greek yogurt (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_protein_yogurt_cups",
+   "category": "food",
+   "file": "assets/final/food/food_protein_yogurt_cups.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Protein yogurt cups (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_cottage_cheese",
+   "category": "food",
+   "file": "assets/final/food/food_cottage_cheese.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Cottage cheese (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_string_cheese",
+   "category": "food",
+   "file": "assets/final/food/food_string_cheese.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: String cheese (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_peanut_butter",
+   "category": "food",
+   "file": "assets/final/food/food_peanut_butter.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Peanut butter (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_grape_jelly",
+   "category": "food",
+   "file": "assets/final/food/food_grape_jelly.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Grape jelly (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_whole_wheat_bread",
+   "category": "food",
+   "file": "assets/final/food/food_whole_wheat_bread.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Whole wheat bread (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_protein_bars",
+   "category": "food",
+   "file": "assets/final/food/food_protein_bars.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Protein bars (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_bean_and_cheese_burritos",
+   "category": "food",
+   "file": "assets/final/food/food_bean_and_cheese_burritos.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Bean and cheese burritos (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_plant_based_burrito_bowl",
+   "category": "food",
+   "file": "assets/final/food/food_plant_based_burrito_bowl.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Plant-based burrito bowl (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_pepperoni_hot_pockets",
+   "category": "food",
+   "file": "assets/final/food/food_pepperoni_hot_pockets.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Pepperoni Hot Pockets (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_thin_crust_cheese_pizza",
+   "category": "food",
+   "file": "assets/final/food/food_thin_crust_cheese_pizza.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Thin crust cheese pizza (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_frozen_edamame",
+   "category": "food",
+   "file": "assets/final/food/food_frozen_edamame.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Frozen edamame (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_chickpeas",
+   "category": "food",
+   "file": "assets/final/food/food_chickpeas.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Chickpeas (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_lentil_vegetable_soup",
+   "category": "food",
+   "file": "assets/final/food/food_lentil_vegetable_soup.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Lentil vegetable soup (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_summit_energy_drinks",
+   "category": "food",
+   "file": "assets/final/food/food_summit_energy_drinks.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Summit energy drinks (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_sparkling_water",
+   "category": "food",
+   "file": "assets/final/food/food_sparkling_water.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Sparkling water (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_ground_coffee",
+   "category": "food",
+   "file": "assets/final/food/food_ground_coffee.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Ground coffee (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_coffee_creamer",
+   "category": "food",
+   "file": "assets/final/food/food_coffee_creamer.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Coffee creamer (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_bran_flakes",
+   "category": "food",
+   "file": "assets/final/food/food_bran_flakes.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Bran flakes (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_microwave_rice_cups",
+   "category": "food",
+   "file": "assets/final/food/food_microwave_rice_cups.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Microwave rice cups (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_black_beans",
+   "category": "food",
+   "file": "assets/final/food/food_black_beans.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Black beans (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_bananas",
+   "category": "food",
+   "file": "assets/final/food/food_bananas.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Bananas (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_gala_apples",
+   "category": "food",
+   "file": "assets/final/food/food_gala_apples.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Gala apples (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_baby_carrots",
+   "category": "food",
+   "file": "assets/final/food/food_baby_carrots.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Baby carrots (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_mini_cucumbers",
+   "category": "food",
+   "file": "assets/final/food/food_mini_cucumbers.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Mini cucumbers (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_snap_peas",
+   "category": "food",
+   "file": "assets/final/food/food_snap_peas.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Snap peas (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_grape_tomatoes",
+   "category": "food",
+   "file": "assets/final/food/food_grape_tomatoes.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Grape tomatoes (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_bell_peppers",
+   "category": "food",
+   "file": "assets/final/food/food_bell_peppers.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Bell peppers (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "food_steam_in_bag_broccoli",
+   "category": "food",
+   "file": "assets/final/food/food_steam_in_bag_broccoli.png",
+   "size_px": "64x64",
+   "description": "Pixel item art: Steam-in-bag broccoli (packaged look, generic, no real brand logos)",
+   "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
+   "status": "todo"
+  },
+  {
+   "id": "plate_breakfast",
+   "category": "plates",
+   "file": "assets/final/plates/plate_breakfast.png",
+   "size_px": "96x96",
+   "description": "Plated meal art for menu view",
+   "style_reference": "food_* style",
+   "status": "todo"
+  },
+  {
+   "id": "plate_lunch",
+   "category": "plates",
+   "file": "assets/final/plates/plate_lunch.png",
+   "size_px": "96x96",
+   "description": "Plated meal art",
+   "style_reference": "food_* style",
+   "status": "todo"
+  },
+  {
+   "id": "plate_dinner",
+   "category": "plates",
+   "file": "assets/final/plates/plate_dinner.png",
+   "size_px": "96x96",
+   "description": "Plated meal art",
+   "style_reference": "food_* style",
+   "status": "todo"
+  }
+ ],
+ "audio": [
+  {
+   "id": "start",
+   "current": "js/audio.js sfx.start",
+   "desc": "Start Dungeon Run jingle",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "check",
+   "current": "js/audio.js sfx.check",
+   "desc": "Item check blip, pitch rises with combo",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "uncheck",
+   "current": "js/audio.js sfx.uncheck",
+   "desc": "Uncheck",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "coin",
+   "current": "js/audio.js sfx.coin",
+   "desc": "Coin",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "combo",
+   "current": "js/audio.js sfx.combo",
+   "desc": "Combo x3+ arpeggio",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "level",
+   "current": "js/audio.js sfx.level",
+   "desc": "Level up",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "badge",
+   "current": "js/audio.js sfx.badge",
+   "desc": "Badge unlock",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "roar",
+   "current": "js/audio.js sfx.roar",
+   "desc": "Dragon roar",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "hit",
+   "current": "js/audio.js sfx.hit",
+   "desc": "Boss hit",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "fanfare",
+   "current": "js/audio.js sfx.fanfare",
+   "desc": "Victory fanfare",
+   "status": "exists (synth), polish"
+  },
+  {
+   "id": "bgm_store",
+   "desc": "Looping 16-bit store theme (optional, off by default, mute respected)",
+   "status": "todo"
+  },
+  {
+   "id": "bgm_boss",
+   "desc": "Boss battle loop",
+   "status": "todo"
+  },
+  {
+   "id": "pug_bark",
+   "desc": "Pug bark/snort on quip",
+   "status": "todo"
+  }
+ ]
+}

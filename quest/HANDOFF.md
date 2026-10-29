@@ -1,46 +1,76 @@
-# Heroic Shopping Quest — Handoff for the visual design agent
+# Heroic Shopping Quest — Full Handoff (cloud agents)
 
-You're finishing the front end for **Heroic Shopping Quest**, a reusable 16-bit (SNES-style) shopping checklist that Upton and Gabe use on their phones while shopping together. It must work for any store (Aldi, Walmart, others) and be reusable for every future trip.
+Owner: Upton (Owen). Players: Upton + Gabe, shopping together on two phones. Live: https://uptonr3421.github.io/food-plan/quest/  Repo: `Uptonr3421/food-plan`, folder `/quest/`, branch `main`, GitHub Pages.
 
-## Repo and hosting
-- Repo: `Uptonr3421/food-plan` (GitHub Pages: https://uptonr3421.github.io/food-plan/). App lives in `/quest/` → https://uptonr3421.github.io/food-plan/quest/
-- Root `index.html` + `data.js` hold the current food plan. Don't change `data.js` contents or break the root page.
-- Commit as `user.name=Uptonr3421`, `user.email=onew100110@gmail.com`. Free hosting and services only. All assets live in the repo (no hotlinking).
+## Mission
+Turn the working first pass into a polished, reusable 16-bit (SNES-era) shopping-quest library that works for **any store** (Aldi today; Walmart and others later) and every future trip. Lightweight, fun, in depth.
 
-## Current state (first working pass, rough edges expected)
-- `index.html`, `css/quest.css`
-- `js/main.js` (screens, checklist, XP, badges), `js/audio.js` (WebAudio chiptunes), `js/fx.js` (pops, confetti, shake), `js/storage.js` (localStorage/IndexedDB), `js/sync.js` (optional ntfy.sh party sync, topic in `#party=`), `js/receipt.js` (Receipt Dragon finale), `js/loader.js` (loads trip + theme), `js/adapter.js` (builds a trip from `../data.js`)
-- `themes/` default, aldi, walmart. `trips/` the current Aldi trip + `template.json`
-- `assets/sprites/` pixel sprites + `assets/manifest.json`. `assets/concept/` holds Upton's original concept art (aisle.jpg, ui-mock.jpg, aldi-storefront.jpg). `assets/sprites/concept/` has pieces cut from it (hero and pug portraits, Start/Claim buttons, coin pile, loot bag, food bag, food_milk, food_bread, food_produce, title banner). THIS is the style to match: every new food image, plate or icon must look like these. The current `assets/sprites/*.png` were redrawn without the originals and should be replaced or restyled to match.
-- `tools/` sprite and trip build scripts. `tests/smoke.mjs` (currently hangs, needs fixing).
+## Rule zero: the art is reference only
+`assets/concept/*.jpg` (Upton's 3 concept images) and `assets/sprites/concept/*.webp` (rough crops) are **style reference only**. Isolate every element, clip it and **redraw it clean**: consistent pixel grid, limited palette, transparent backgrounds, crisp at 2x/3x (`image-rendering: pixelated`). Output goes to `assets/final/<category>/`. Never ship the reference crops or the placeholder `assets/sprites/*.png`. The full labeled list of what to make (73 assets + audio) is in **`assets/ASSET-MANIFEST.json`**. Update each entry's `status` to `done` and keep its `file` path as you go.
 
 ## Art direction
-Gold-framed maroon panels, purple and blue gradients, Press Start 2P font, chunky pixel UI. Cast: a burly cart-pushing hero, a scroll-reading hero in a blue tunic, and a pug with a backpack and rainbow heart tag. LGBT flair, joyful not overpowering: rainbow segmented XP bar, rainbow coin trails and confetti, pride banner on victory, "Fabulous Forager" badge.
+- Palette (see manifest): gold #f2c230 / #b8860b frames, maroon #7a1f2b / #4a0f1a panels, purple #5b2a86 → night #2a1648 gradients, blue sky #2b4c9b, cream ink #fff6d8.
+- Font: Press Start 2P (or an equivalent pixel font, self-hosted).
+- Cast: **cart hero** (burly, beard, white tank, chain, wrist cuffs, jeans), **scroll hero** (smiling, short hair, blue tunic with leather straps and pouch, reads the list scroll), **pug** (brown backpack, rainbow heart tag). Portraits as framed busts plus full-body animated sprites.
+- Food: generic packaged-goods pixel art like `food_milk`, `food_bread` and `food_produce`. No real brand logos except the store theme's storefront.
+- LGBT flair, joyful not overpowering: rainbow segmented XP bar, rainbow coin trails, rainbow confetti, pride banner on victory, pug's rainbow heart, "Fabulous Forager" badge, "Fabulous Monarch of the List" top title.
 
-## Data model
-Trip JSON: `{store, theme, date, sections:[...], items:[{id,name,amount,section,image?}]}`. Themes only swap colors, background and section names. Load with `?trip=<file>`; default is the data.js trip. A new trip for any store should take under 5 minutes.
+## Current code (vanilla ES modules, no build step, ~600 lines)
+- `index.html`, `css/quest.css`: screens are title, list, boss, rewards and past quests.
+- `js/main.js`: game loop, HUD, checklist, XP/levels/coins, combos, badges, quips, boss, rewards, past quests.
+- `js/audio.js`: WebAudio square/triangle/saw synth, no files. `sfx.start/check(combo)/uncheck/coin/combo/level/badge/roar/hit/fanfare`.
+- `js/fx.js`: `pop()` floating text, `coinTrail()` rainbow coins, `confetti()`, `shake()`. Respects prefers-reduced-motion.
+- `js/storage.js`: localStorage progress and history. `js/receipt.js`: IndexedDB receipts, `downscale()` to 1200px, `shareReceipt()` (Web Share API), `downloadBlob()`.
+- `js/sync.js`: optional ntfy.sh party sync. Topic in URL hash `#party=<topic>`, check/uncheck events over SSE. **Not verified on two real phones.**
+- `js/loader.js` loads trip + theme (`?trip=<file>`). `js/adapter.js` builds a trip from root `../data.js`.
+- `themes/default|aldi|walmart.json`: colors, background, storeLabel, section names.
+- `trips/aldi-week-of-oct-29.json` (43 items; sections For Gabe, For Owen, Shared staples, Fresh produce), `trips/template.json`.
+- `tools/make_sprites.py`, `tools/cut_concepts.py`, `tools/build_trip_from_datajs.mjs`. `tests/smoke.mjs` **hangs; fix it**.
 
-## Features to finish and polish
-Title screen ("Level up your groceries", Start Dungeon Run). Sectioned rows with name and amount, optional product thumbnail in a gold frame with a pixel fallback, tap to check. Blips, +EXP and coin pops, combo streaks, XP bar, Quest x/N, level titles, badges (Protein Paladin, Produce Ranger, Fabulous Forager), pug quips. Final boss "Defeat the Receipt Dragon": camera capture, shake, fanfare, confetti, Claim Rewards screen with the framed receipt, date and count, and a "Send receipt" share button (Web Share API, with download + mailto fallbacks). The receipt stays on the device and is never uploaded or synced. Past Quests log, New Quest reset, mute, saved progress. Optional live sync between two phones; the app must work fully without it.
+## Game design (keep, then deepen)
+- **Title**: banner "HEROIC SHOPPING QUEST / LEVEL UP YOUR GROCERIES", store background from theme, START DUNGEON RUN, Past Quests, Share Party Link.
+- **List**: items grouped by section (themed names like Forest of Greens, Hall of Protein, Pantry Keep, Ice Caverns, Potion Shelf), each row is item art + name + amount + checkbox/sword. Tap to check, tap again to uncheck.
+- **XP**: 10 XP per item, level every 60 XP. Titles in order: Cart Squire, Aisle Scout, Shelf Knight, Basket Baron, Grocery Hero, Loot Legend, Fabulous Monarch of the List. HUD shows Quest x/N, level and title, coins, and the combo counter.
+- **Combos**: checks within 12 s chain. Bonus is +2 XP per chain step (cap 5). At x3+ you get an extra coin, the combo arpeggio, a big "xN COMBO!" pop and a combo quip, and the check blip pitch rises with the combo. Track best combo. Deepen it with a visible combo timer ring, a rainbow streak meter and combo-tier sounds.
+- **Badges**: one per section that defines `badge` (Produce Ranger, Protein Paladin…), earned when that section is complete, plus Fabulous Forager when all items are done. Unlock sound + confetti. Add more (speed run, no-uncheck, perfect combo).
+- **Pug quips**: random on check (e.g. "Bork! Critical hit on that shelf!", "Slay, hero. Slay."), combo quips, and an uncheck line "Put it back? No worries, hero." Add pug bark/snort audio and animation.
+- **Final boss: Receipt Dragon**: opens when all items are checked (also reachable any time). Roar, HP bar, camera capture (`input type=file accept=image/* capture=environment`). On photo: hits + screen shake, HP drains, dragon defeated, fanfare, rainbow confetti and coin shower. Then go to Rewards.
+- **Rewards / Claim**: framed receipt photo, date, items checked, XP, level, badges, pride banner, pug victory dance. **Send receipt** uses the Web Share API with the image file (Upton sends it to his assistant for spend analysis), falling back to Download plus `mailto:onew100110@gmail.com?subject=<Store> receipt`. Claim saves to Past Quests.
+- **Past Quests**: on-device log (store, date, x/N, level, badges, receipt thumbnail).
+- **New Quest** resets. Mute toggle. Progress survives reloads.
+
+## Audio
+Keep it synth-only (WebAudio, no files) unless tiny. Polish each `sfx`, then add optional looping BGM for the store and the boss (off by default, respects mute, starts only after a user gesture) and a pug bark. All of these are in the manifest `audio` list.
+
+## Reusability
+- New trip for any store in under 5 minutes: copy `trips/template.json`, set store and theme, list sections and items. Or run the adapter on `data.js`.
+- Themes only swap palette, background, store label and section names. Add `walmart` and `generic` storefront backgrounds. No store is hard-coded.
+- Item art lookup: `item.image`, then `assets/final/food/food_<slug>.png`, then a section icon fallback.
+- Write `README.md` with the how-to.
 
 ## Hard rules
-- No prices anywhere in `/quest`.
-- No medication or health words anywhere.
-- Don't add or remove food items.
-- No frameworks or big libraries; fast on a phone; big tap targets; readable in a bright store.
-- Receipts are never uploaded.
+1. **No prices anywhere** in `/quest` (grep for `$` digits before every push).
+2. **No medication or health words** anywhere.
+3. Don't add, remove or rename food items. Note: the trip has "Snap peas" listed twice (from data.js); ask Upton, don't fix silently.
+4. Don't change root `data.js` or break the root food page.
+5. Receipts never leave the device except through the user's own share action. Never upload them, never sync them.
+6. No frameworks or big libraries. Phone-first, big tap targets, readable in bright store light, works offline. Keep total page weight small (sprites under ~1 MB).
+7. Commit as `user.name=Uptonr3421`, `user.email=onew100110@gmail.com`. Free hosting only.
 
 ## Acceptance
-The live `/quest/` URL returns 200 with no console errors; items render from the trip; there's no "$" in the rendered page; it works offline; a new store trip works from `template.json`.
+- https://uptonr3421.github.io/food-plan/quest/ returns 200 with no console errors on mobile Safari and Chrome.
+- Items render from the trip. A Walmart trip from the template works.
+- Full run: title → list → combos/level/badge → boss → photo → rewards → past quests.
+- Sync tested on two devices (or clearly reported as not working). The app works with sync off.
+- `assets/ASSET-MANIFEST.json`: every asset has status `done` with its real file.
+- `tests/smoke.mjs` passes. Grep shows no prices and no health words.
 
-## Still to do
-Fix the smoke test, wire the concept-art pieces into the UI (portraits, buttons, title), make matching food item art in the same style for every list item, product thumbnails per store, verify sync on two real phones, add a link from the root page, and general visual polish.
-
-## Report back in this exact format
+## Report back in exactly this format
 - LIVE LINK:
-- COMMIT:
+- COMMIT(S):
 - FILES CHANGED:
+- ASSETS DONE / REMAINING (from manifest):
+- AUDIO DONE:
 - HOW TO START A NEW TRIP:
 - SYNC STATUS:
-- ASSET MANIFEST SUMMARY:
 - KNOWN ISSUES:
