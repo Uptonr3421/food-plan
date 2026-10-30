@@ -9,7 +9,7 @@ export const progress = {
 };
 export const settings = {
   muted: () => get('muted', false), setMuted: v => set('muted', !!v),
-  music: () => get('music', false), setMusic: v => set('music', !!v),
+  music: () => get('music', true), setMusic: v => set('music', !!v),
 };
 export const history = {
   list: () => get('history', []),

@@ -24,7 +24,7 @@ function ac() {
       master.gain.value = muted ? 0 : 0.65;
       master.connect(ctx.destination);
       sfxBus = ctx.createGain(); sfxBus.connect(master);
-      musicBus = ctx.createGain(); musicBus.gain.value = 0.45; musicBus.connect(master);
+      musicBus = ctx.createGain(); musicBus.gain.value = 0.9; musicBus.connect(master);
     } catch { return null; }
   }
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
