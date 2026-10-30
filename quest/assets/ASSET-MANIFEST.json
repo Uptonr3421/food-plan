@@ -103,7 +103,20 @@
    "size_px": "96x96 per frame, sheet",
    "description": "Full-body scroll hero reading list (idle + cheer)",
    "style_reference": "assets/concept/aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     96,
+     96
+    ],
+    "layout": "horizontal",
+    "states": [
+     "idle",
+     "blink",
+     "point",
+     "cheer"
+    ]
+   }
   },
   {
    "id": "pug_full",
@@ -730,7 +743,7 @@
    "size_px": "96x96",
    "description": "Plated meal art for menu view",
    "style_reference": "food_* style",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "plate_lunch",
@@ -739,7 +752,7 @@
    "size_px": "96x96",
    "description": "Plated meal art",
    "style_reference": "food_* style",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "plate_dinner",
@@ -748,7 +761,7 @@
    "size_px": "96x96",
    "description": "Plated meal art",
    "style_reference": "food_* style",
-   "status": "todo"
+   "status": "in_review"
   }
  ],
  "audio": [
