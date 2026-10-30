@@ -1,5 +1,35 @@
 # Heroic Shopping Quest — Handoff
 
+## Continuation checkpoint - October 30, 2026
+
+This is unfinished work handed back at Owen's request. Preserve the full specification below.
+Local implementation commit: `6b27ad3`. New upstream food-plan commits through `e7346c1`
+were merged, preserving their changes to root data.js rather than overwriting them.
+
+- Changes: combo countdown/streak display, undo removes earned XP and coins, extra achievements,
+  opt-in synthesized music and pug bark, multi-hit boss sequence, receipt error handling,
+  receipt URL cleanup, duplicate claim prevention, receipt history reopening, self-hosted font,
+  final-art lookup, keyboard focus retention, root quest link, and bounded browser smoke test.
+- Art package contains 3 redrawn portraits, 24 food sprites, and initial character/boss/UI sheets.
+  `in_review` means a real candidate exists, not final acceptance. Inspect alpha margins and
+  sprite states before changing to done. The rejected local scroll-hero sheet is not included.
+- User-approved override: Gabe is a magical hero in a purple/blue outfit with gold trim and
+  cyan clasp. The white-cutoff costume below is superseded. Keep both Snap peas entries.
+- Before the upstream food update, `node quest/tests/smoke.mjs` passed all three trips,
+  progress reload, combos/levels/badges, synthetic receipt/rewards/history, 320/768/1280px
+  overflow checks, root food list, and no console errors. Re-run after merging the new plan:
+  the saved Oct 29 trip and current root adapter can now differ legitimately.
+- Still missing: remaining manifest assets and background variants, corrected scroll-hero
+  sheet, complete UI-art integration, offline worker, trip README, visual browser review,
+  receipt network-isolation test, real-phone sync and mobile Safari validation.
+- Existing synth music is implemented but needs listening/gameplay review; manifest audio
+  statuses have not been certified. No audio was recorded. No receipts were uploaded.
+- Only delegate to GPT-6.1 Terra at Medium. Do not start new generation batches without
+  considering the user's exhausted usage budget. Work in existing files on main.
+- Check live Git before continuing. Do not force-push over the other agent's food-plan work.
+
+---
+
 **Live:** https://uptonr3421.github.io/food-plan/quest/  
 **Repo:** `Uptonr3421/food-plan` → folder `/quest/` → branch `main` (GitHub Pages)  
 **Asset list:** [`assets/ASSET-MANIFEST.json`](assets/ASSET-MANIFEST.json)
