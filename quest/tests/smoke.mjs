@@ -62,10 +62,20 @@ try {
     assert(actual.length > 0);
     assert.equal(await page.locator('.item').count(), actual.length);
     if (!query) assert.deepEqual(actual, expected, 'Preserve every food entry, amount, duplicate and order');
+    if (!query && actual.some(item => item.name === 'Large eggs')) {
+      const egg = page.locator('.item').filter({has: page.locator('.nm', {hasText: 'Large eggs'})});
+      assert.match(await egg.locator('.thumb img').getAttribute('src'), /food_eggs\.png$/);
+    }
     assert(!/\$|\b(?:medication|health|prescription)\b/i.test(await page.locator('body').innerText()));
     // The named trip may share its ID with the adapter, so its saved run can resume.
     if (!await page.locator('#start').isVisible()) await page.locator('#titlebtn').click();
     await page.locator('#start').click();
+    if (!query && actual.some(item => item.name === 'Large eggs')) {
+      const image = page.locator('.item').filter({has: page.locator('.nm', {hasText: 'Large eggs'})}).locator('.thumb img');
+      await image.scrollIntoViewIfNeeded();
+      await page.waitForFunction(() => { const image = [...document.querySelectorAll('.item')].find(row => row.querySelector('.nm')?.textContent === 'Large eggs')?.querySelector('img'); return image?.complete && image.naturalWidth === 64; });
+      pass('current food names use matching available item art');
+    }
     if (await page.locator('.item').first().getAttribute('aria-pressed') === 'true') await page.locator('.item').first().click();
     await page.locator('.item').first().click();
     await page.reload({waitUntil:'networkidle'});

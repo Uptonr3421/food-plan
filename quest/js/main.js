@@ -57,7 +57,14 @@ function renderCombo() {
   $('streakfill').style.width = (remaining / COMBO_WINDOW * 100) + '%';
 }
 function thumb(item, sec) {
-  const food = art['food_' + item.name.toLowerCase().replace(/[^a-z0-9]/g, '_')];
+  const name = item.name.toLowerCase();
+  const aliases = [
+    [/^(large |medium |extra.large |organic |brown )?eggs$/, 'food_eggs'], [/\bground turkey\b/, 'food_93__lean_ground_turkey'],
+    [/\bbacon\b/, 'food_bacon'], [/\bhummus\b/, 'food_classic_hummus'],
+    [/^(whole |2% |1% )?milk$/, 'food_milk'], [/\bpeanut butter\b/, 'food_extra_peanut_butter_jar'],
+    [/\benergy drinks?\b/, 'food_summit_energy_drinks'], [/\bmicrowave rice cups\b/, 'food_microwave_rice_cups'],
+  ];
+  const food = art['food_' + name.replace(/[^a-z0-9]/g, '_')] || art[aliases.find(([pattern]) => pattern.test(name))?.[1]];
   const image = item.image || food;
   return `<span class="thumb" data-fallback="${esc(food || '')}" data-icon="${esc(sec.icon || '🛒')}">${image ? `<img src="${esc(image)}" alt="" loading="lazy" width="64" height="64">` : esc(sec.icon || '🛒')}</span>`;
 }

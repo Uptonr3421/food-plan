@@ -344,7 +344,8 @@
    "size_px": "64x64",
    "description": "Pixel item art: Eggs (packaged look, generic, no real brand logos)",
    "style_reference": "sprites/concept/food_milk.webp, food_bread.webp, food_produce.webp",
-   "status": "in_review"
+   "status": "done",
+   "verification": "Visually reviewed against concept, 64x64 PNG with transparency; loaded successfully as Large eggs in the Chromium smoke test."
   },
   {
    "id": "food_milk",
