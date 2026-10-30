@@ -44,7 +44,8 @@ function renderHud() {
   $('xpfill').style.width = pct + '%';
   $('xpfill').style.setProperty('--full', pct ? (10000 / pct) + '%' : '100%');
   $('questcount').textContent = `Quest ${n}/${N}`;
-  $('coins').textContent = '🪙 ' + P.coins;
+  if (art.coin) $('coins').innerHTML = `<i class="coin-ic" aria-hidden="true"></i> ${P.coins}`;
+  else $('coins').textContent = '🪙 ' + P.coins;
   $('combo').textContent = combo > 1 ? `x${combo} COMBO` : '';
   $('bossbtn').classList.toggle('ready', n === N);
 }
@@ -95,8 +96,12 @@ function allBadges() {
   list.push({ name: 'Speed Runner', rule: 'speed' }, { name: 'Steady Hands', rule: 'no-uncheck' }, { name: 'Perfect Combo', rule: 'combo' });
   return list;
 }
+function badgeIcon(name) {
+  const img = art['badge_' + String(name).toLowerCase().replace(/[^a-z0-9]+/g, '_')];
+  return img ? `<img src="${esc(img)}" alt="" width="32" height="32">` : '🏅';
+}
 function renderBadges(el) {
-  el.innerHTML = allBadges().map(b => `<span class="badge ${P.badges.includes(b.name) ? '' : 'locked'}">🏅 ${esc(b.name)}</span>`).join('');
+  el.innerHTML = allBadges().map(b => `<span class="badge ${P.badges.includes(b.name) ? '' : 'locked'}">${badgeIcon(b.name)} ${esc(b.name)}</span>`).join('');
 }
 function quip(text) {
   $('quip').textContent = text;
@@ -220,7 +225,7 @@ function showRewards() {
   receiptUrl = URL.createObjectURL(receipt.blob); $('receiptimg').src = receiptUrl;
   const d = new Date(receipt.date);
   $('rewardinfo').textContent = `${receipt.store} · ${d.toLocaleDateString()} · ${receipt.count}/${receipt.total} items looted · ${receipt.xp || 0} XP · LV ${receipt.level || 1}`;
-  $('rewardbadges').innerHTML = (receipt.badges || []).map(name => `<span class="badge">🏅 ${esc(name)}</span>`).join('');
+  $('rewardbadges').innerHTML = (receipt.badges || []).map(name => `<span class="badge">${badgeIcon(name)} ${esc(name)}</span>`).join('');
   $('mail').href = `mailto:onew100110@gmail.com?subject=${encodeURIComponent(receipt.store + ' receipt')}`;
   $('sendmsg').textContent = receipt.stored === false ? 'This photo could not be saved here. Download it before leaving this screen.' : '';
   const claimed = history.list().some(q => q.id === receipt.id);
@@ -274,6 +279,12 @@ async function boot() {
   P = progress.load(trip.id);
   P.awards = P.awards || {}; P.unchecks = P.unchecks || 0; P.startedAt = P.startedAt || Date.now();
   applyTheme(theme);
+  [['checkbox', 'art-checkbox'], ['coin', 'art-coin']].forEach(([key, cls]) => {
+    if (!art[key]) return;
+    document.documentElement.style.setProperty('--' + key, `url("${new URL(art[key], document.baseURI).href}")`);
+    document.body.classList.add(cls);
+  });
+  if (art.pride_banner) document.querySelector('#screen-rewards .pride')?.insertAdjacentHTML('beforebegin', `<img class="pride-art" src="${esc(art.pride_banner)}" alt="" width="128">`);
   if (art.title_banner) { $('banner').classList.add('art'); $('banner').innerHTML = `<img src="${art.title_banner}" alt="Heroic Shopping Quest - Level up your groceries">`; }
   $('party').innerHTML = [['portrait_cart', 'hero_cart', 'Gabe'], ['portrait_scroll', 'hero_scroll', 'Owen'], ['portrait_pug', 'hero_pug', 'Pug']]
     .map(([c, f, n]) => `<figure><img src="${sprite(c, f)}" alt="${n}"><figcaption>${n}</figcaption></figure>`).join('');

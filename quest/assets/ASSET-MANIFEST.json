@@ -182,7 +182,8 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Empty + checked checkbox",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "2-frame strip 96x48: [empty, checked], 48x48 each"
   },
   {
    "id": "sword",
@@ -191,7 +192,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Sword icon",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "star",
@@ -200,7 +201,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Gold star",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "xp_bar",
@@ -209,7 +210,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Rainbow segmented XP bar, 9-slice frame + fill",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "coin",
@@ -218,7 +219,8 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Spinning coin, 4 frames",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "4-frame strip 128x32: front, 3/4, edge, 3/4 back; 32x32 each"
   },
   {
    "id": "coin_pile",
@@ -227,7 +229,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Coin pile",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "loot_bag",
@@ -236,7 +238,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Open loot bag with groceries + coins",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "title_banner",
@@ -245,7 +247,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "HEROIC SHOPPING QUEST / LEVEL UP YOUR GROCERIES banner",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "pride_banner",
@@ -254,7 +256,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Pixel pride flag banner for victory screen",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "heart_rainbow",
@@ -263,7 +265,7 @@
    "size_px": "as needed, crisp pixel grid",
    "description": "Rainbow heart tag icon",
    "style_reference": "assets/concept/ui-mock.jpg, aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "bg_store_generic",
@@ -272,7 +274,8 @@
    "size_px": "360x640 portrait + 1024x576 landscape",
    "description": "Store front, no brand logo (generic)",
    "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "1024x366 landscape, full source scene width kept (source ~2.8-3.2:1; a 16:9 crop would cut the storefront/register). No separate 360x640 portrait cut yet; CSS cover crops to center."
   },
   {
    "id": "bg_store_aldi",
@@ -281,7 +284,8 @@
    "size_px": "360x640 portrait + 1024x576 landscape",
    "description": "Aldi storefront, matches aldi-storefront.jpg",
    "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "1024x366 landscape, full source scene width kept (source ~2.8-3.2:1; a 16:9 crop would cut the storefront/register). No separate 360x640 portrait cut yet; CSS cover crops to center."
   },
   {
    "id": "bg_store_walmart",
@@ -290,7 +294,8 @@
    "size_px": "360x640 portrait + 1024x576 landscape",
    "description": "Walmart-style storefront",
    "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "1024x366 landscape, full source scene width kept (source ~2.8-3.2:1; a 16:9 crop would cut the storefront/register). No separate 360x640 portrait cut yet; CSS cover crops to center."
   },
   {
    "id": "bg_aisle",
@@ -299,7 +304,8 @@
    "size_px": "360x640 portrait + 1024x576 landscape",
    "description": "Grocery aisle interior",
    "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "1024x317 landscape, full source scene width kept (source ~2.8-3.2:1; a 16:9 crop would cut the storefront/register). No separate 360x640 portrait cut yet; CSS cover crops to center."
   },
   {
    "id": "bg_boss_lair",
@@ -308,7 +314,8 @@
    "size_px": "360x640 portrait + 1024x576 landscape",
    "description": "Checkout lane boss arena",
    "style_reference": "assets/concept/aisle.jpg / aldi-storefront.jpg",
-   "status": "todo"
+   "status": "in_review",
+   "note": "1024x323 landscape, full source scene width kept (source ~2.8-3.2:1; a 16:9 crop would cut the storefront/register). No separate 360x640 portrait cut yet; CSS cover crops to center."
   },
   {
    "id": "badge_protein_paladin",
@@ -317,7 +324,7 @@
    "size_px": "64x64",
    "description": "Protein Paladin achievement badge",
    "style_reference": "ui-mock.jpg palette",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "badge_produce_ranger",
@@ -326,7 +333,7 @@
    "size_px": "64x64",
    "description": "Produce Ranger achievement badge",
    "style_reference": "ui-mock.jpg palette",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "badge_fabulous_forager",
@@ -335,7 +342,7 @@
    "size_px": "64x64",
    "description": "Fabulous Forager (rainbow) achievement badge",
    "style_reference": "ui-mock.jpg palette",
-   "status": "todo"
+   "status": "in_review"
   },
   {
    "id": "food_eggs",

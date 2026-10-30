@@ -71,6 +71,14 @@ h2{font-size:15px;margin:10px 0}
 .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
 .badge{font-size:8px;padding:8px;border:3px solid var(--gold);background:var(--bg2);box-shadow:0 0 0 2px #000}
 .badge.locked{opacity:.35;filter:grayscale(1)}
+.badge{display:inline-flex;align-items:center;gap:6px}.badge img{width:32px;height:32px;flex-shrink:0}
+/* optional UI art: enabled by main.js only when the manifest has the asset */
+.art-checkbox .box{flex-basis:32px;height:32px;border:0;background:var(--checkbox) 0 0/64px 32px no-repeat}
+.art-checkbox .item.done .box{background-position:-32px 0}.art-checkbox .item.done .box::after{content:none}
+.coin-ic{display:inline-block;width:16px;height:16px;vertical-align:-3px;background:var(--coin) 0 0/64px 16px no-repeat;animation:coinspin .8s steps(4) infinite}
+@keyframes coinspin{to{background-position:-64px 0}}
+.art-coin .coin-fly{width:16px;height:16px;background:var(--coin) 0 0/64px 16px no-repeat;box-shadow:none;filter:drop-shadow(0 0 2px var(--c));animation:fly .9s steps(9) forwards,coinspin .3s steps(4) infinite}
+.pride-art{display:block;width:128px;height:auto;margin:4px auto 0}
 .boss-cta{margin-top:20px}
 /* boss */
 .boss .dragon{display:block;width:192px;height:192px;margin:10px auto;background-size:576px 192px;background-repeat:no-repeat;background-position:0 0;image-rendering:pixelated;animation:bob 1s steps(2) infinite}
