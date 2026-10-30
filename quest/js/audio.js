@@ -36,13 +36,17 @@ function load(name) {
     .then(r => { if (!r.ok) throw new Error(name + ' ' + r.status); return r.arrayBuffer(); })
     .then(data => new Promise((ok, bad) => ctx.decodeAudioData(data, ok, bad)))
     .then(buffer => (buffers[name] = buffer))
-    .catch(() => { failed[name] = true; }));
+    .catch(() => {
+      if (ext === 'ogg') { ext = 'mp3'; delete loading[name]; return load(name); } // ogg advertised but not decodable
+      failed[name] = true;
+    }));
 }
 // Play a decoded file, else run the synth fallback. QUIET effects are as loud as the others
 // in the pack (see VERIFY.md), so they play 6 dB down.
 function play(name, fallback) {
   if (!ctx || muted) return; // nothing before the first user gesture (unlock)
   const audio = ac();
+  if (audio.state !== 'running') { if (fallback) fallback(); return; }
   const buffer = buffers['sfx_' + name];
   if (!buffer) { load('sfx_' + name); if (fallback) fallback(); return; }
   played[name] = (played[name] || 0) + 1;
@@ -111,11 +115,35 @@ export function setScene(value) {
   if (next && next !== scene) { scene = next; beat = 0; updateLoop(); }
 }
 document.addEventListener('visibilitychange', updateLoop);
-let preloaded = false;
+let preloaded = false, primed = false;
+// iPhone: WebAudio is silenced by the ring/silent switch unless the page's audio session is
+// "playback". Ask for that (Safari 16.4+), play a looping silent <audio> element (older iOS),
+// and play a one-sample buffer inside the gesture so the context really starts.
+function primeIOS() {
+  if (primed) return; primed = true;
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch {}
+  try {
+    const el = document.createElement('audio');
+    el.src = BASE + 'silence.mp3'; el.loop = true; el.setAttribute('playsinline', ''); el.preload = 'auto';
+    el.volume = 0.01; const p = el.play(); if (p) p.catch(() => {});
+    window.__silentEl = el;
+  } catch {}
+  try { const b = ctx.createBuffer(1, 1, 22050), s = ctx.createBufferSource(); s.buffer = b; s.connect(ctx.destination); s.start(0); } catch {}
+}
 export const unlock = () => {
-  if (ac() && !preloaded) { preloaded = true; SFX.forEach(load); }
+  if (!ac()) return;
+  primeIOS();
+  if (ctx.state !== 'running') ctx.resume().catch(() => {});
+  if (!preloaded) { preloaded = true; SFX.forEach(load); }
   updateLoop();
 };
+['touchend', 'pointerup', 'keydown'].forEach(t => document.addEventListener(t, unlock, { capture: true, passive: true }));
+document.addEventListener('visibilitychange', () => {
+  const el = window.__silentEl;
+  if (document.hidden) { if (el) el.pause(); return; }
+  if (el) el.play().catch(() => {});
+  if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {});
+});
 const synth = {
   start: () => seq([392,523,659,784,1047], 0.08),
   check: (combo = 1) => seq([660 + combo * 35, 990 + combo * 45], 0.055),
@@ -149,4 +177,4 @@ export const sfx = {
   bgm_store: () => { setScene('store'); setMusic(true); },
   bgm_boss: () => { setScene('boss'); setMusic(true); },
 };
-window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext, state: () => ctx?.state, played: () => ({ ...played }), music: () => loop?.name || (timer ? 'synth' : null) };
+window.__audio = { session: () => navigator.audioSession?.type, decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext, state: () => ctx?.state, played: () => ({ ...played }), music: () => loop?.name || (timer ? 'synth' : null) };
