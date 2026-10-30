@@ -110,6 +110,8 @@ try {
       assert(await page.locator('#badges .badge').filter({hasText:'Perfect Combo'}).evaluate(el => el.classList.contains('locked')));
       assert.notEqual(await page.locator('#lvl').innerText(), 'LV 1');
       pass('combo, level and badges');
+      await page.waitForFunction(() => window.__audio.decoded().length >= 31 && !window.__audio.failed().length, null, { timeout: 15000 });
+      pass('audio pack effects decode after the first tap');
       if (!await page.locator('#screen-boss').isVisible()) await page.locator('#bossbtn').click();
       await page.locator('#receiptin').setInputFiles({name:'synthetic-receipt.png',mimeType:'image/png',
         buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jZ1kAAAAASUVORK5CYII=','base64')});

@@ -3,7 +3,7 @@
 // All sound starts after a user gesture; music is opt-in.
 let ctx, master, sfxBus, musicBus, muted = false, music = false, scene = 'title', timer, beat = 0;
 const BASE = new URL('../assets/audio/', import.meta.url).href;
-const buffers = {}, loading = {}, failed = {};
+const buffers = {}, loading = {}, failed = {}, played = {};
 const QUIET = new Set(['tap', 'back', 'screen', 'toggle_on', 'toggle_off', 'coin_small', 'exp', 'combo_end', 'streak_tick', 'confetti', 'paper', 'party_check', 'text_blip_1', 'text_blip_2', 'text_blip_3']);
 const SFX = ['start', 'tap', 'back', 'screen', 'toggle_on', 'toggle_off', 'check_1', 'check_2', 'check_3', 'check_4', 'check_5', 'check_6', 'uncheck', 'coin', 'coin_small',
   'combo_3', 'combo_5', 'level', 'badge', 'claim', 'pug_1', 'pug_2', 'roar', 'hit_1', 'hit_2', 'hit_3', 'photo', 'boss_defeat', 'fanfare', 'party_join', 'error'].map(n => 'sfx_' + n);
@@ -41,10 +41,11 @@ function load(name) {
 // Play a decoded file, else run the synth fallback. QUIET effects are as loud as the others
 // in the pack (see VERIFY.md), so they play 6 dB down.
 function play(name, fallback) {
+  if (!ctx || muted) return; // nothing before the first user gesture (unlock)
   const audio = ac();
-  if (!audio || muted) return;
   const buffer = buffers['sfx_' + name];
   if (!buffer) { load('sfx_' + name); if (fallback) fallback(); return; }
+  played[name] = (played[name] || 0) + 1;
   const src = audio.createBufferSource(), gain = audio.createGain();
   src.buffer = buffer; gain.gain.value = QUIET.has(name) ? 0.5 : 1;
   src.connect(gain).connect(sfxBus); src.start();
@@ -148,4 +149,4 @@ export const sfx = {
   bgm_store: () => { setScene('store'); setMusic(true); },
   bgm_boss: () => { setScene('boss'); setMusic(true); },
 };
-window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext, state: () => ctx?.state, music: () => loop?.name || (timer ? 'synth' : null) };
+window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext, state: () => ctx?.state, played: () => ({ ...played }), music: () => loop?.name || (timer ? 'synth' : null) };

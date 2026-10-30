@@ -27,7 +27,7 @@ function applyTheme(t) {
 }
 const sprite = name => art[name] || art.loot_bag || '';
 function show(name) {
-  setScene(name);
+  setScene(name); sfx.screen();
   document.querySelectorAll('.screen').forEach(s => s.hidden = s.id !== 'screen-' + name);
   $('hud').hidden = !(name === 'list' || name === 'boss');
   window.scrollTo(0, 0);
@@ -169,10 +169,12 @@ function syncStatus(s) {
   el.textContent = s === 'synced' ? '● Party connected' : s === 'offline' ? '○ Party unavailable' : '◌ Connecting';
   el.classList.toggle('warn', s !== 'synced');
 }
+const peers = new Set();
 function startParty(topic) {
   if (party) party.stop();
   party = new Party(topic, trip.id, clientId, (ev, mine) => {
     if (mine) return;
+    if (ev.by && !peers.has(ev.by)) { peers.add(ev.by); sfx.party_join(); }
     if (ev.t === 'check' && ev.id) setItem(ev.id, true, { local: false, award: ev.award });
     else if (ev.t === 'uncheck' && ev.id) setItem(ev.id, false, { local: false });
     else if (ev.t === 'reset') { resetQuest(false); }
@@ -198,6 +200,7 @@ async function onReceipt(e) {
   if (receiptBusy) return;
   receiptBusy = true; e.target.disabled = true; $('bossback').disabled = true;
   $('receiptmsg').textContent = 'Preparing your receipt...';
+  sfx.photo();
   try {
     const blob = await downscale(f, 1200);
     const id = trip.id + '-' + Date.now();
@@ -210,10 +213,10 @@ async function onReceipt(e) {
       $('dragon').classList.toggle('hit'); await pause(250);
     }
     $('dragon').classList.remove('hit'); $('dragon').classList.add('defeated');
-    sfx.fanfare(); confetti(160); coinTrail(innerWidth / 2, innerHeight / 2, 18);
+    sfx.boss_defeat(); setTimeout(sfx.fanfare, 1200); confetti(160); coinTrail(innerWidth / 2, innerHeight / 2, 18);
     await pause(500); showRewards();
   } catch {
-    $('receiptmsg').textContent = 'That image could not be opened. Try another photo.';
+    sfx.error(); $('receiptmsg').textContent = 'That image could not be opened. Try another photo.';
     $('hp').style.width = '100%';
   } finally {
     receiptBusy = false; e.target.disabled = false; $('bossback').disabled = false; e.target.value = '';
@@ -240,7 +243,7 @@ async function sendJudas() {
 function claim() {
   if (!receipt) return;
   history.add({ id: receipt.id, tripId: receipt.tripId, title: receipt.title, store: receipt.store, date: receipt.date, checked: receipt.count, total: receipt.total, xp: receipt.xp, level: receipt.level, badges: receipt.badges, receiptId: receipt.stored === false ? null : receipt.id });
-  sfx.badge(); confetti(80); $('claim').textContent = 'Rewards claimed!'; $('claim').disabled = true;
+  sfx.claim(); confetti(80); $('claim').textContent = 'Rewards claimed!'; $('claim').disabled = true;
 }
 async function showPast() {
   show('past');
@@ -306,8 +309,16 @@ async function boot() {
   $('start').onclick = () => { unlock(); sfx.start(); if (!P.started) P.startedAt = Date.now(); P.started = true; save(); show('list'); };
   $('titlebtn').onclick = () => show('title');
   $('sections').addEventListener('click', onListClick);
-  $('mute').onclick = () => { const v = !settings.muted(); settings.setMuted(v); setMuted(v); $('mute').classList.toggle('off', v); $('mute').setAttribute('aria-pressed', String(v)); $('mute').setAttribute('aria-label', v ? 'Unmute sound' : 'Mute sound'); };
-  $('music').onclick = () => { const v = !settings.music(); settings.setMusic(v); unlock(); setMusic(v); $('music').setAttribute('aria-pressed', String(v)); $('music').setAttribute('aria-label', v ? 'Disable background music' : 'Enable background music'); };
+  // Button sounds: any tap unlocks audio; back buttons tick down, others tick (items, start,
+  // toggles and claim have their own sounds).
+  document.addEventListener('click', e => {
+    const b = e.target.closest('button, .btn'); if (!b) return;
+    unlock();
+    if (b.matches('.item, #start, #music, #mute, #claim')) return;
+    if (['bossback', 'rewardsback', 'pastback', 'titlebtn'].includes(b.id)) sfx.back(); else sfx.tap();
+  }, true);
+  $('mute').onclick = () => { const v = !settings.muted(); if (v) sfx.toggle(false); settings.setMuted(v); setMuted(v); if (!v) sfx.toggle(true); $('mute').classList.toggle('off', v); $('mute').setAttribute('aria-pressed', String(v)); $('mute').setAttribute('aria-label', v ? 'Unmute sound' : 'Mute sound'); };
+  $('music').onclick = () => { const v = !settings.music(); settings.setMusic(v); unlock(); setMusic(v); sfx.toggle(v); $('music').setAttribute('aria-pressed', String(v)); $('music').setAttribute('aria-label', v ? 'Disable background music' : 'Enable background music'); };
   $('bossbtn').onclick = openBoss; $('bossback').onclick = () => show('list'); $('rewardsback').onclick = () => show('list');
   $('receiptin').addEventListener('change', onReceipt);
   $('sendjudas').onclick = sendJudas; $('dl').onclick = () => receipt && downloadBlob(receipt.blob, receiptName());
