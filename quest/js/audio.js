@@ -1,8 +1,18 @@
-// Small WebAudio synth. All loops are opt-in and start after a user gesture.
-let ctx, master, muted = false, music = false, scene = 'store', timer, beat = 0;
+// WebAudio: plays the verified audio pack (assets/audio, ogg or mp3) from decoded buffers,
+// falling back to the small synth below when a file is missing or not decoded yet.
+// All sound starts after a user gesture; music is opt-in.
+let ctx, master, sfxBus, musicBus, muted = false, music = false, scene = 'store', timer, beat = 0;
+const BASE = new URL('../assets/audio/', import.meta.url).href;
+const buffers = {}, loading = {}, failed = {};
+const QUIET = new Set(['tap', 'back', 'screen', 'toggle_on', 'toggle_off', 'coin_small', 'exp', 'combo_end', 'streak_tick', 'confetti', 'paper', 'party_check', 'text_blip_1', 'text_blip_2', 'text_blip_3']);
+const SFX = ['start', 'tap', 'back', 'screen', 'toggle_on', 'toggle_off', 'check_1', 'check_2', 'check_3', 'check_4', 'check_5', 'check_6', 'uncheck', 'coin', 'coin_small',
+  'combo_3', 'combo_5', 'level', 'badge', 'claim', 'pug_1', 'pug_2', 'roar', 'hit_1', 'hit_2', 'hit_3', 'photo', 'boss_defeat', 'fanfare', 'party_join', 'error'].map(n => 'sfx_' + n);
+let ext = null;
+const pickExt = () => ext || (ext = document.createElement('audio').canPlayType('audio/ogg; codecs="vorbis"') ? 'ogg' : 'mp3');
 export function setMuted(value) {
   muted = !!value;
   if (master) master.gain.setValueAtTime(muted ? 0 : 0.65, ctx.currentTime);
+  updateLoop();
 }
 function ac() {
   if (!ctx) {
@@ -13,11 +23,34 @@ function ac() {
       master = ctx.createGain();
       master.gain.value = muted ? 0 : 0.65;
       master.connect(ctx.destination);
+      sfxBus = ctx.createGain(); sfxBus.connect(master);
+      musicBus = ctx.createGain(); musicBus.gain.value = 0.45; musicBus.connect(master);
     } catch { return null; }
   }
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
   return ctx;
 }
+function load(name) {
+  if (buffers[name] || failed[name] || !ac()) return Promise.resolve(buffers[name]);
+  return loading[name] || (loading[name] = fetch(BASE + name + '.' + pickExt())
+    .then(r => { if (!r.ok) throw new Error(name + ' ' + r.status); return r.arrayBuffer(); })
+    .then(data => new Promise((ok, bad) => ctx.decodeAudioData(data, ok, bad)))
+    .then(buffer => (buffers[name] = buffer))
+    .catch(() => { failed[name] = true; }));
+}
+// Play a decoded file, else run the synth fallback. QUIET effects are as loud as the others
+// in the pack (see VERIFY.md), so they play 6 dB down.
+function play(name, fallback) {
+  const audio = ac();
+  if (!audio || muted) return;
+  const buffer = buffers['sfx_' + name];
+  if (!buffer) { load('sfx_' + name); if (fallback) fallback(); return; }
+  const src = audio.createBufferSource(), gain = audio.createGain();
+  src.buffer = buffer; gain.gain.value = QUIET.has(name) ? 0.5 : 1;
+  src.connect(gain).connect(sfxBus); src.start();
+  src.onended = () => { src.disconnect(); gain.disconnect(); };
+}
+const pick = list => list[Math.floor(Math.random() * list.length)];
 function tone(freq, delay = 0, duration = 0.09, type = 'square', volume = 0.07) {
   const audio = ac();
   if (!audio || muted) return;
@@ -26,7 +59,7 @@ function tone(freq, delay = 0, duration = 0.09, type = 'square', volume = 0.07) 
   osc.type = type; osc.frequency.value = freq;
   gain.gain.setValueAtTime(volume, time);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
-  osc.connect(gain).connect(master);
+  osc.connect(gain).connect(sfxBus);
   osc.start(time); osc.stop(time + duration + 0.02);
   osc.onended = () => { osc.disconnect(); gain.disconnect(); };
 }
@@ -54,8 +87,12 @@ export function setScene(value) {
   if (next !== scene) { scene = next; beat = 0; updateLoop(); }
 }
 document.addEventListener('visibilitychange', updateLoop);
-export const unlock = () => { ac(); updateLoop(); };
-export const sfx = {
+let preloaded = false;
+export const unlock = () => {
+  if (ac() && !preloaded) { preloaded = true; SFX.forEach(load); }
+  updateLoop();
+};
+const synth = {
   start: () => seq([392,523,659,784,1047], 0.08),
   check: (combo = 1) => seq([660 + combo * 35, 990 + combo * 45], 0.055),
   uncheck: () => seq([440,330,220], 0.06, 'triangle'),
@@ -67,6 +104,25 @@ export const sfx = {
   hit: () => seq([200,120,80], 0.04, 'sawtooth', 0.04),
   fanfare: () => seq([523,523,523,659,0,587,659,0,784,784,1047], 0.11),
   pug_bark: () => { tone(170,0,0.07,'triangle',0.06); tone(120,0.08,0.09,'triangle',0.04); },
+};
+export const sfx = {
+  start: () => play('start', synth.start),
+  check: (combo = 1) => play('check_' + Math.max(1, Math.min(combo, 6)), () => synth.check(combo)),
+  uncheck: () => play('uncheck', synth.uncheck),
+  coin: () => play('coin', synth.coin),
+  combo: (tier = 3) => play(tier >= 5 ? 'combo_5' : 'combo_3', () => synth.combo(tier)),
+  level: () => play('level', synth.level),
+  badge: () => play('badge', synth.badge),
+  roar: () => play('roar', synth.roar),
+  hit: () => play(pick(['hit_1', 'hit_2', 'hit_3']), synth.hit),
+  fanfare: () => play('fanfare', synth.fanfare),
+  pug_bark: () => play(pick(['pug_1', 'pug_2']), synth.pug_bark),
+  // File-only cues (silent until loaded): small UI and event sounds.
+  tap: () => play('tap'), back: () => play('back'), screen: () => play('screen'),
+  toggle: on => play(on ? 'toggle_on' : 'toggle_off'), coin_small: () => play('coin_small'),
+  claim: () => play('claim', synth.badge), photo: () => play('photo'), boss_defeat: () => play('boss_defeat'),
+  party_join: () => play('party_join'), error: () => play('error'),
   bgm_store: () => { setScene('store'); setMusic(true); },
   bgm_boss: () => { setScene('boss'); setMusic(true); },
 };
+window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext };
