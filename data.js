@@ -71,7 +71,8 @@ window.FOOD = {
       {n:"Milk, 1 more gallon, so Gabe has enough for the week"},
       {n:"Peanut butter, 1 jar"},
       {n:"Frozen mixed vegetables, 1 bag, since the broccoli runs out by Day 2"},
-      {n:"Microwave rice cups, 1 pack, for the turkey bowls"}
+      {n:"Microwave rice cups, 1 pack, for the turkey bowls"},
+      {n:"Snap peas, 1 bag (the store was out)"}
     ]}
   ],
   trips: [
