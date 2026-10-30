@@ -762,6 +762,66 @@
    "description": "Plated meal art",
    "style_reference": "food_* style",
    "status": "in_review"
+  },
+  {
+   "id": "anim_gabe",
+   "category": "characters",
+   "file": "assets/final/characters/anim_gabe.png",
+   "size_px": "96x96 per frame, 4x3 sheet",
+   "description": "Gabe check animations, 4 frames per row: Gamer Combo, Wand Spell, Cart Enchant",
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     96,
+     96
+    ],
+    "layout": "grid 4 columns x 3 rows",
+    "states": [
+     "Gamer Combo",
+     "Wand Spell",
+     "Cart Enchant"
+    ]
+   }
+  },
+  {
+   "id": "anim_max",
+   "category": "characters",
+   "file": "assets/final/characters/anim_max.png",
+   "size_px": "64x64 per frame, 4x3 sheet",
+   "description": "Max the pug check animations, 4 frames per row: Treat Catch, Scrap Sniff, Beg",
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     64,
+     64
+    ],
+    "layout": "grid 4 columns x 3 rows",
+    "states": [
+     "Treat Catch",
+     "Scrap Sniff",
+     "Beg"
+    ]
+   }
+  },
+  {
+   "id": "anim_owen",
+   "category": "characters",
+   "file": "assets/final/characters/anim_owen.png",
+   "size_px": "96x96 per frame, 4x3 sheet",
+   "description": "Owen check animations, 4 frames per row: Power Up, Data Beam, Tech Levitate",
+   "status": "in_review",
+   "animation": {
+    "frameSize": [
+     96,
+     96
+    ],
+    "layout": "grid 4 columns x 3 rows",
+    "states": [
+     "Power Up",
+     "Data Beam",
+     "Tech Levitate"
+    ]
+   }
   }
  ],
  "audio": [

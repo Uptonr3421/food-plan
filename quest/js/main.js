@@ -104,12 +104,66 @@ function badgeIcon(name) {
 function renderBadges(el) {
   el.innerHTML = allBadges().map(b => `<span class="badge ${P.badges.includes(b.name) ? '' : 'locked'}">${badgeIcon(b.name)} ${esc(b.name)}</span>`).join('');
 }
-function quip(text) {
+function quip(text, bark = true) {
   $('quip').textContent = text;
   $('pugimg').classList.remove('wag');
   void $('pugimg').offsetWidth;
   $('pugimg').classList.add('wag');
-  sfx.pug_bark();
+  if (bark) sfx.pug_bark();
+}
+// Check animations in the sticky header: each entry is one character sheet (4 columns, one row
+// per move). Adding a character is one entry plus a manifest id; missing art is skipped.
+const CHECK_ANIMS = [
+  { char: 'Gabe', sheet: 'anim_gabe', frame: 96, rows: [
+    { name: 'Gamer Combo', lines: ['Gabe lands a gamer combo! Achievement unlocked!', 'Gabe button-mashes a 1-UP!', 'Gabe: "New high score, babe!"'] },
+    { name: 'Wand Spell', lines: ['Gabe casts a sparkle spell!', 'Gabe waves his wand: +1 magic loot!', 'Gabe: "Abraca-grocery!"'] },
+    { name: 'Cart Enchant', lines: ['Gabe casts a cart spell! The groceries float in!', 'Gabe enchants the cart. Levitate loot!', 'Gabe: "Cart of holding, activate!"'] } ] },
+  { char: 'Max', sheet: 'anim_max', frame: 64, bark: true, rows: [
+    { name: 'Treat Catch', lines: ['Max snags a treat midair!', 'Max catches a snack! Good boy!', 'Max: "Bork! Treat secured!"'] },
+    { name: 'Scrap Sniff', lines: ['Max sniffs out a scrap!', 'Max found a crumb! Snort snort!', 'Max: "Is that... cheese? I smell cheese."'] },
+    { name: 'Beg', lines: ['Max begs for a taste. Those eyes!', 'Max sits pretty for a treat!', 'Max: "One scrap for the pup? Please?"'] } ] },
+  { char: 'Owen', sheet: 'anim_owen', frame: 96, rows: [
+    { name: 'Power Up', lines: ['Owen channels tech power!', 'Owen powers up! Energy at 100%!', 'Owen: "Charging the list... fully charged!"'] },
+    { name: 'Data Beam', lines: ['Owen beams a check mark!', 'Owen fires a data beam. Item logged!', 'Owen: "Uploading loot to the list!"'] },
+    { name: 'Tech Levitate', lines: ['Owen hovers on a disc of light!', 'Owen levitates with pure tech!', 'Owen: "Anti-gravity mode, engaged!"'] } ] },
+];
+let checkAnims = [], actorTimer = 0;
+const actorRecent = [];
+function loadCheckAnims() {
+  CHECK_ANIMS.forEach(c => {
+    if (!art[c.sheet]) return; // not in the manifest yet
+    const img = new Image();
+    img.onload = () => { if (img.naturalWidth === c.frame * 4 && img.naturalHeight === c.frame * c.rows.length) checkAnims.push({ ...c, url: new URL(art[c.sheet], document.baseURI).href }); };
+    img.src = art[c.sheet];
+  });
+}
+// Weighted pick: recently used character/move pairs are less likely, never banned.
+function pickCheckAnim() {
+  const pool = checkAnims.flatMap(c => c.rows.map((row, r) => ({ c, row, r, key: c.char + r })));
+  if (!pool.length) return null;
+  const weights = pool.map(p => {
+    const age = actorRecent.indexOf(p.key);
+    return (age < 0 ? 1 : [0.08, 0.25, 0.5, 0.75][age] ?? 1) * (actorRecent[0]?.startsWith(p.c.char) ? 0.6 : 1);
+  });
+  let roll = Math.random() * weights.reduce((a, b) => a + b, 0), i = 0;
+  while ((roll -= weights[i]) > 0 && i < pool.length - 1) i++;
+  actorRecent.unshift(pool[i].key); actorRecent.length = Math.min(actorRecent.length, 4);
+  return pool[i];
+}
+function checkAnim(fallback) {
+  const pick = pickCheckAnim();
+  if (!pick) { quip(fallback); return; }
+  const { c, row, r } = pick, el = $('actorsheet'), rows = c.rows.length;
+  const frame = f => { el.style.backgroundPosition = `${f / 3 * 100}% ${rows > 1 ? r / (rows - 1) * 100 : 0}%`; };
+  clearInterval(actorTimer);
+  el.style.backgroundImage = `url("${c.url}")`; el.style.backgroundSize = `400% ${rows * 100}%`;
+  el.dataset.char = c.char; el.dataset.move = row.name;
+  $('pugimg').hidden = true; el.hidden = false;
+  quip(row.lines[Math.floor(Math.random() * row.lines.length)], !!c.bark);
+  const done = () => { clearInterval(actorTimer); el.hidden = true; $('pugimg').hidden = false; };
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { frame(3); actorTimer = setTimeout(done, 700); return; }
+  let f = 0; frame(0);
+  actorTimer = setInterval(() => { if (++f < 5) frame(Math.min(f, 3)); else done(); }, 135);
 }
 function checkBadges(x, y) {
   for (const b of allBadges()) {
@@ -139,8 +193,8 @@ function setItem(id, on, { local = true, award = null, x = innerWidth / 2, y = i
       renderCombo();
       sfx.check(Math.min(combo, 6)); setTimeout(sfx.coin, 120);
       pop(x, y, `+${XP_PER_ITEM + bonus} EXP`); coinTrail(x, y, 6 + Math.min(combo, 6));
-      if (combo > 2) { sfx.combo(combo); pop(x, y - 30, `x${combo} COMBO!`, 'big'); quip(COMBO_QUIPS[combo % COMBO_QUIPS.length]); }
-      else quip(QUIPS[Math.floor(Math.random() * QUIPS.length)]);
+      if (combo > 2) { sfx.combo(combo); pop(x, y - 30, `x${combo} COMBO!`, 'big'); }
+      checkAnim(combo > 2 ? COMBO_QUIPS[combo % COMBO_QUIPS.length] : QUIPS[Math.floor(Math.random() * QUIPS.length)]);
     } else {
       const reward = { xp: Number.isInteger(award?.xp) && award.xp >= 10 && award.xp <= 20 ? award.xp : 10, coins: award?.coins === 2 ? 2 : 1 };
       P.awards[id] = reward; P.xp += reward.xp; P.coins += reward.coins;
@@ -351,6 +405,7 @@ async function boot() {
   $('party').innerHTML = [['portrait_cart', 'hero_cart', 'Gabe'], ['portrait_scroll', 'hero_scroll', 'Owen'], ['portrait_pug', 'hero_pug', 'Pug']]
     .map(([c, f, n]) => `<figure><img src="${sprite(c, f)}" alt="${n}"><figcaption>${n}</figcaption></figure>`).join('');
   $('pugimg').src = sprite('portrait_pug');
+  loadCheckAnims();
   if (art.receipt_dragon) $('dragon').style.backgroundImage = `url("${art.receipt_dragon}")`;
   else $('dragon').classList.add('noart');
   [['cartbody','hero_cart_full'],['scrollbody','hero_scroll_full'],['pugbody','pug_full'],['bosscart','hero_cart_full'],['bossscroll','hero_scroll_full'],['bosspug','pug_full']].forEach(([id,key]) => {

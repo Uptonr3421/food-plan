@@ -6,6 +6,10 @@
   pug pounce), damage numbers and crits, chunked HP drain, dragon quips, defeat then fanfare;
   the receipt photo claims the loot, or finishes the dragon if it is still standing.
 
+- Check animations: each local check plays a 4-frame move for Gabe, Max or Owen in the sticky
+  header (anim_*.png, 4x3 grids) with a quip naming who acts. Add a character with one
+  CHECK_ANIMS entry in main.js plus a manifest id; missing art is skipped. Recency-weighted pick.
+
 **Latest user direction:** Offline support is not needed. This overrides the offline
 requirements elsewhere in this handoff; keep the game usable online without party sync.
 After merging the updated food plan, `node quest/tests/smoke.mjs` passed on October 30,
