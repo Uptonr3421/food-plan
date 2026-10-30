@@ -74,6 +74,17 @@ try {
     assert(await page.locator('#screen-list').isVisible());
     pass((query || 'data.js') + ': items, tap and saved progress');
     if (!query) {
+      await page.evaluate(() => {
+        Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
+        Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async () => { throw new Error('denied'); } } });
+        window.EventSource = class { close() {} };
+        const original = window.fetch;
+        window.fetch = (url, options) => String(url).startsWith('https://ntfy.sh/')
+          ? Promise.resolve(new Response('', { status: 200 })) : original(url, options);
+      });
+      await page.locator('#sharebtn2').click();
+      assert.match(await page.locator('#sharemsg2').innerText(), /^Copy this party link: .*#party=hsq-/);
+      pass('party link remains visible when clipboard access fails');
       await page.locator('.item').nth(1).click();
       await page.locator('.item').nth(2).click();
       assert.match(await page.locator('#combo').innerText(), /COMBO/);
@@ -98,6 +109,26 @@ try {
       await page.locator('#rewardsback').click();
       await page.locator('#pastbtn2').click();
       assert.equal(await page.locator('.past').count(), 1);
+      await page.evaluate(async () => {
+        const id = JSON.parse(localStorage.getItem('hsq:history'))[0].receiptId;
+        const db = await new Promise((ok, bad) => { const r = indexedDB.open('hsq-receipts', 1); r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error); });
+        await new Promise((ok, bad) => {
+          const tx = db.transaction('receipts', 'readwrite'), store = tx.objectStore('receipts'), request = store.get(id);
+          request.onsuccess = () => store.put({ ...request.result, store: 'Test Market' });
+          tx.oncomplete = ok; tx.onerror = () => bad(tx.error);
+        });
+        db.close();
+      });
+      // Reload the log so it reads the updated synthetic receipt from IndexedDB.
+      await page.locator('#pastback').click(); await page.locator('#pastbtn2').click();
+      await page.locator('.past[role="button"]').click();
+      await page.evaluate(() => {
+        Object.defineProperty(navigator, 'canShare', { configurable: true, value: () => true });
+        Object.defineProperty(navigator, 'share', { configurable: true, value: async data => { window.__sharedReceipt = data; } });
+      });
+      await page.locator('#sendjudas').click();
+      assert.match(await page.evaluate(() => window.__sharedReceipt.text), /^Test Market receipt,/);
+      pass('reopened receipt shares its original store');
       pass('boss, synthetic receipt, rewards and history');
     }
   }
