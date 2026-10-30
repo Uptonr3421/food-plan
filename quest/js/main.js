@@ -154,7 +154,7 @@ function onListClick(e) {
 // ---- party sync (optional) ----
 function syncStatus(s) {
   const el = $('sync'); el.hidden = false;
-  el.textContent = s === 'synced' ? '● Party synced' : s === 'offline' ? '○ Offline' : '◌ Syncing';
+  el.textContent = s === 'synced' ? '● Party connected' : s === 'offline' ? '○ Party unavailable' : '◌ Connecting';
   el.classList.toggle('warn', s !== 'synced');
 }
 function startParty(topic) {
@@ -176,7 +176,7 @@ async function shareParty() {
     else { await navigator.clipboard.writeText(link); if (msg) msg.textContent = 'Party link copied!'; }
   } catch { if (msg) msg.textContent = link; }
   // After a share, also publish current state so the friend catches up.
-  Object.keys(P.checked).forEach(id => party.send({ t: 'check', id }));
+  Object.keys(P.checked).forEach(id => party.send({ t: 'check', id, award: P.awards[id] }));
 }
 
 // ---- boss + rewards ----

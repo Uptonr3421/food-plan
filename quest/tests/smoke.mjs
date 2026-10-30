@@ -116,3 +116,20 @@ try {
   await browser?.close();
   if(server) await new Promise(ok => server.close(ok));
 }
+
+// Exercise the optional transport without a real receipt or network service.
+const { Party } = await import('../js/sync.js');
+const savedFetch = globalThis.fetch;
+try {
+  let sent, status;
+  globalThis.fetch = async (_url, options) => { sent = JSON.parse(options.body); return { ok: true }; };
+  const party = new Party('test-topic', 'trip', 'client', () => {}, s => { status = s; });
+  assert.equal(await party.send({ t: 'check', id: 'item', award: { xp: 14, coins: 1 }, receipt: 'private', blob: 'private' }), true);
+  assert.deepEqual(Object.keys(sent).sort(), ['award', 'by', 'id', 't', 'trip', 'ts']);
+  globalThis.fetch = async () => ({ ok: false, status: 429 });
+  assert.equal(await party.send({ t: 'uncheck', id: 'item' }), false);
+  assert.equal(status, 'offline');
+  party.stop();
+  assert.equal(await party.send({ t: 'reset' }), false);
+  pass('party transport rejects server errors and excludes receipt fields');
+} finally { globalThis.fetch = savedFetch; }

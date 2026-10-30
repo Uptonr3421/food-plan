@@ -8,6 +8,10 @@ After merging the updated food plan, `node quest/tests/smoke.mjs` passed on Octo
 including the current root adapter, saved Aldi trip, template, complete synthetic receipt
 flow, responsive overflow checks, root page and console checks. This is Chromium evidence,
 not a substitute for real-phone sync or mobile Safari testing.
+- Party transport now treats HTTP errors as failures, sends only allowed event fields,
+  and labels an open connection as connected rather than proof that both phones agree.
+  A mocked transport test checks rejection and receipt-field exclusion. Real-device sync,
+  missed-event recovery, ordering and convergence remain unverified.
 
 This is unfinished work handed back at Owen's request. Preserve the full specification below.
 Local implementation commit: `6b27ad3`. New upstream food-plan commits through `e7346c1`
