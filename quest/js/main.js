@@ -127,7 +127,7 @@ const CHECK_ANIMS = [
     { name: 'Data Beam', lines: ['Owen beams a check mark!', 'Owen fires a data beam. Item logged!', 'Owen: "Uploading loot to the list!"'] },
     { name: 'Tech Levitate', lines: ['Owen hovers on a disc of light!', 'Owen levitates with pure tech!', 'Owen: "Anti-gravity mode, engaged!"'] } ] },
 ];
-let checkAnims = [], actorTimer = 0;
+let checkAnims = [], actorTimer = 0, actorBusy = false;
 const actorRecent = [];
 function loadCheckAnims() {
   CHECK_ANIMS.forEach(c => {
@@ -151,6 +151,7 @@ function pickCheckAnim() {
   return pool[i];
 }
 function checkAnim(fallback) {
+  if (actorBusy) return; // let the current move finish instead of restarting it
   const pick = pickCheckAnim();
   if (!pick) { quip(fallback); return; }
   const { c, row, r } = pick, el = $('actorsheet'), rows = c.rows.length;
@@ -158,12 +159,13 @@ function checkAnim(fallback) {
   clearInterval(actorTimer);
   el.style.backgroundImage = `url("${c.url}")`; el.style.backgroundSize = `400% ${rows * 100}%`;
   el.dataset.char = c.char; el.dataset.move = row.name;
-  $('pugimg').hidden = true; el.hidden = false;
+  el.classList.remove('idle'); actorBusy = true;
   quip(row.lines[Math.floor(Math.random() * row.lines.length)], !!c.bark);
-  const done = () => { clearInterval(actorTimer); el.hidden = true; $('pugimg').hidden = false; };
-  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { frame(3); actorTimer = setTimeout(done, 700); return; }
+  const done = () => { clearInterval(actorTimer); el.classList.add('idle'); actorBusy = false; };
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { frame(3); actorTimer = setTimeout(done, 1600); return; }
+  // Slower pace so each move reads: about 0.3 s per frame, then hold the final pose (about 2.2 s total).
   let f = 0; frame(0);
-  actorTimer = setInterval(() => { if (++f < 5) frame(Math.min(f, 3)); else done(); }, 135);
+  actorTimer = setInterval(() => { if (++f < 7) frame(Math.min(f, 3)); else done(); }, 320);
 }
 function checkBadges(x, y) {
   for (const b of allBadges()) {
@@ -404,7 +406,6 @@ async function boot() {
   if (art.title_banner) { $('banner').classList.add('art'); $('banner').innerHTML = `<img src="${art.title_banner}" alt="Heroic Shopping Quest - Level up your groceries">`; }
   $('party').innerHTML = [['portrait_cart', 'hero_cart', 'Gabe'], ['portrait_scroll', 'hero_scroll', 'Owen'], ['portrait_pug', 'hero_pug', 'Pug']]
     .map(([c, f, n]) => `<figure><img src="${sprite(c, f)}" alt="${n}"><figcaption>${n}</figcaption></figure>`).join('');
-  $('pugimg').src = sprite('portrait_pug');
   loadCheckAnims();
   if (art.receipt_dragon) $('dragon').style.backgroundImage = `url("${art.receipt_dragon}")`;
   else $('dragon').classList.add('noart');

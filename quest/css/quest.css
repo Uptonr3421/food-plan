@@ -89,6 +89,8 @@ h2{font-size:15px;margin:10px 0}
 .pug{position:sticky;top:var(--hudh,86px);z-index:9;display:flex;align-items:flex-end;gap:8px;margin:0 0 6px;pointer-events:none}
 .pug img,.actor-sheet{width:64px;height:64px;flex-shrink:0}
 .actor-sheet{display:block;background-repeat:no-repeat;image-rendering:pixelated}
+.actor-sheet.idle{visibility:hidden}
+#pugimg[hidden]{display:none}
 .quip{font-size:9px;padding:8px;background:#fff6d8;color:#2a1648;border-color:var(--gold);flex:1}
 .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
 .badge{font-size:8px;padding:8px;border:3px solid var(--gold);background:var(--bg2);box-shadow:0 0 0 2px #000}

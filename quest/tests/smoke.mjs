@@ -78,13 +78,13 @@ try {
     }
     if (await page.locator('.item').first().getAttribute('aria-pressed') === 'true') await page.locator('.item').first().click();
     await page.locator('.item').first().click();
-    // A named character acts in the header, then the pug portrait returns.
+    // A named character acts in the header, then the slot goes empty (no portrait).
     const actor = await page.evaluate(() => { const el = document.getElementById('actorsheet');
-      return { shown: !el.hidden, char: el.dataset.char, sheet: el.style.backgroundImage, quip: document.getElementById('quip').textContent }; });
+      return { shown: !el.classList.contains('idle'), char: el.dataset.char, sheet: el.style.backgroundImage, quip: document.getElementById('quip').textContent }; });
     assert(actor.shown && /^(Gabe|Max|Owen)$/.test(actor.char), 'header character animation');
     assert.match(actor.sheet, new RegExp('anim_' + actor.char.toLowerCase() + '\\.png'));
     assert(actor.quip.includes(actor.char) || /Badge|Fabulous/.test(actor.quip), 'quip names the character');
-    await page.waitForFunction(() => document.getElementById('actorsheet').hidden && !document.getElementById('pugimg').hidden);
+    await page.waitForFunction(() => document.getElementById('actorsheet').classList.contains('idle') && document.getElementById('pugimg').hidden);
     if (!query) pass('checking an item plays a named character animation in the header');
     await page.reload({waitUntil:'networkidle'});
     await page.waitForFunction(() => !!window.__quest);
