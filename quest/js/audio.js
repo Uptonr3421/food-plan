@@ -1,7 +1,7 @@
 // WebAudio: plays the verified audio pack (assets/audio, ogg or mp3) from decoded buffers,
 // falling back to the small synth below when a file is missing or not decoded yet.
 // All sound starts after a user gesture; music is opt-in.
-let ctx, master, sfxBus, musicBus, muted = false, music = false, scene = 'store', timer, beat = 0;
+let ctx, master, sfxBus, musicBus, muted = false, music = false, scene = 'title', timer, beat = 0;
 const BASE = new URL('../assets/audio/', import.meta.url).href;
 const buffers = {}, loading = {}, failed = {};
 const QUIET = new Set(['tap', 'back', 'screen', 'toggle_on', 'toggle_off', 'coin_small', 'exp', 'combo_end', 'streak_tick', 'confetti', 'paper', 'party_check', 'text_blip_1', 'text_blip_2', 'text_blip_3']);
@@ -69,22 +69,45 @@ const SONGS = {
   store: [523,659,784,659,587,698,880,698,659,784,1047,784,587,698,784,0],
   boss: [220,0,220,330,233,0,233,349,196,0,196,294,208,311,233,0],
 };
-function updateLoop() {
-  clearInterval(timer); timer = null;
-  if (!music || !ctx || document.hidden) return;
+// Music: one sample-accurate looping buffer per scene on a quieter bus. Stops while muted,
+// switched off or hidden. Falls back to the synth loop if a track cannot be loaded.
+const TRACKS = { title: 'title', list: 'store', store: 'store', boss: 'boss', rewards: 'victory' };
+let loop = null;
+function stopLoop() {
+  if (!loop) return;
+  const { src, gain } = loop, t = ctx.currentTime; loop = null;
+  gain.gain.setTargetAtTime(0, t, 0.08);
+  src.onended = () => { src.disconnect(); gain.disconnect(); };
+  try { src.stop(t + 0.4); } catch {}
+}
+function synthLoop() {
+  const notes = SONGS[scene === 'boss' ? 'boss' : 'store'];
   const tick = () => {
     if (muted || ctx.state !== 'running') return;
-    const notes = SONGS[scene], index = beat++ % notes.length;
+    const index = beat++ % notes.length;
     if (notes[index]) tone(notes[index], 0, 0.13, 'triangle', 0.035);
     if (index % 4 === 0) tone(scene === 'boss' ? 110 : 131, 0, 0.18, 'triangle', 0.025);
   };
   timer = setInterval(tick, scene === 'boss' ? 155 : 220);
   tick();
 }
+function updateLoop() {
+  clearInterval(timer); timer = null;
+  const want = music && !muted && ctx && !document.hidden ? 'bgm_' + scene : null;
+  if (loop && loop.name !== want) stopLoop();
+  if (!want || loop) return;
+  if (failed[want]) { synthLoop(); return; }
+  if (!buffers[want]) { load(want).then(updateLoop); return; }
+  const src = ctx.createBufferSource(), gain = ctx.createGain(), t = ctx.currentTime;
+  src.buffer = buffers[want]; src.loop = true;
+  gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(1, t + 0.3);
+  src.connect(gain).connect(musicBus); src.start(t);
+  loop = { name: want, src, gain };
+}
 export function setMusic(value) { music = !!value; updateLoop(); }
 export function setScene(value) {
-  const next = value === 'boss' ? 'boss' : 'store';
-  if (next !== scene) { scene = next; beat = 0; updateLoop(); }
+  const next = TRACKS[value];
+  if (next && next !== scene) { scene = next; beat = 0; updateLoop(); }
 }
 document.addEventListener('visibilitychange', updateLoop);
 let preloaded = false;
@@ -125,4 +148,4 @@ export const sfx = {
   bgm_store: () => { setScene('store'); setMusic(true); },
   bgm_boss: () => { setScene('boss'); setMusic(true); },
 };
-window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext };
+window.__audio = { decoded: () => Object.keys(buffers), failed: () => Object.keys(failed), ext: () => ext, state: () => ctx?.state, music: () => loop?.name || (timer ? 'synth' : null) };
