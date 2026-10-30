@@ -22,8 +22,8 @@ const sectionsById = {};
 function applyTheme(t) {
   const r = document.documentElement.style;
   Object.entries(t.colors || {}).forEach(([k, v]) => r.setProperty('--' + k, v));
-  const img = t.backgroundImage && art['bg_' + t.id] ? `url(${art['bg_' + t.id]}),` : '';
-  r.setProperty('--scene', img ? `linear-gradient(rgba(20,10,40,.55),rgba(20,10,40,.8)),${img.slice(0, -1)}` : t.background);
+  const img = art['bg_store_' + t.id] || art.bg_store_generic;
+  r.setProperty('--scene', img ? `linear-gradient(rgba(20,10,40,.55),rgba(20,10,40,.8)),url("${new URL(img, document.baseURI).href}")` : t.background);
 }
 const sprite = name => art[name] || art.loot_bag || '';
 function show(name) {
@@ -223,7 +223,7 @@ function showRewards() {
 const receiptName = () => `receipt-${(receipt.store || 'store').toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${receipt.date.slice(0, 10)}.${receipt.blob.type === 'image/png' ? 'png' : 'jpg'}`;
 async function sendJudas() {
   const r = await shareReceipt(receipt.blob, receiptName(), `${receipt.store} receipt, ${receipt.date.slice(0, 10)}`);
-  $('sendmsg').textContent = r === 'shared' ? 'Receipt shared with your chosen app.' : r === 'cancelled' ? '' : 'Use Download, then attach the photo to your text or email.';
+  $('sendmsg').textContent = r === 'shared' ? 'Share sheet completed. Check your chosen app to finish sending.' : r === 'cancelled' ? '' : 'Use Download, then attach the photo to your text or email.';
 }
 function claim() {
   if (!receipt) return;
@@ -235,13 +235,13 @@ async function showPast() {
   pastUrls.splice(0).forEach(url => URL.revokeObjectURL(url));
   const h = history.list();
   if (!h.length) { $('pastlist').innerHTML = '<p class="center small">No past quests yet. Go loot something!</p>'; return; }
-  $('pastlist').innerHTML = h.map(q => `<div class="past panel" data-r="${esc(q.receiptId || '')}"><img alt="" src="${sprite('art_scroll', 'scroll')}"><div><b>${esc(q.store)} · ${esc(new Date(q.date).toLocaleDateString())}</b><br><span class="small">${q.checked}/${q.total} items · LV ${q.level} · ${esc((q.badges || []).join(', ') || 'no badges')}</span></div></div>`).join('');
+  $('pastlist').innerHTML = h.map(q => `<div class="past panel" data-r="${esc(q.receiptId || '')}"><img alt=""${sprite('loot_bag') ? ` src="${esc(sprite('loot_bag'))}"` : ''} hidden><div><b>${esc(q.store)} · ${esc(new Date(q.date).toLocaleDateString())}</b><br><span class="small">${q.checked}/${q.total} items · LV ${q.level} · ${esc((q.badges || []).join(', ') || 'no badges')}</span></div></div>`).join('');
   for (const el of document.querySelectorAll('.past[data-r]')) {
     if (!el.dataset.r) continue;
     try {
       const rec = await getReceipt(el.dataset.r);
       if (rec && rec.blob) {
-        const url = URL.createObjectURL(rec.blob); pastUrls.push(url); el.querySelector('img').src = url;
+        const url = URL.createObjectURL(rec.blob); pastUrls.push(url); el.querySelector('img').src = url; el.querySelector('img').hidden = false;
         el.tabIndex = 0; el.setAttribute('role', 'button'); el.setAttribute('aria-label', `Open ${rec.store} receipt`);
         el.onclick = () => { receipt = { ...rec, stored: true }; showRewards(); };
         el.onkeydown = event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); el.click(); } };

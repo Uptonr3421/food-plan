@@ -137,6 +137,18 @@ try {
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No overflow at ' + width);
   }
   pass('320, 768 and 1280px layouts');
+  // Simulate a completed theme asset without changing the real asset manifest.
+  await page.route('**/assets/ASSET-MANIFEST.json', async route => {
+    const response = await route.fetch(), manifest = await response.json();
+    const aldi = manifest.assets.find(asset => asset.id === 'bg_store_aldi');
+    aldi.status = 'in_review'; aldi.file = 'assets/final/characters/portrait_pug.png';
+    await route.fulfill({ response, json: manifest });
+  });
+  await page.goto(base + '?trip=aldi-week-of-oct-29.json', { waitUntil:'networkidle' });
+  await page.waitForFunction(() => !!window.__quest);
+  assert.match(await page.evaluate(() => getComputedStyle(document.body).backgroundImage), /portrait_pug\.png/);
+  await page.unroute('**/assets/ASSET-MANIFEST.json');
+  pass('store theme uses its manifest background when available');
   await page.goto(new URL('../',base).href,{waitUntil:'networkidle'});
   assert.equal(await page.locator('#list .item').count(),expected.length);
   pass('root food page');
