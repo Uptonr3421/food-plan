@@ -29,6 +29,7 @@ const sprite = name => art[name] || art.loot_bag || '';
 function show(name) {
   setScene(name); sfx.screen();
   document.querySelectorAll('.screen').forEach(s => s.hidden = s.id !== 'screen-' + name);
+  if (name === 'title' && P) $('start').textContent = P.started ? 'Continue Quest' : 'Start Dungeon Run';
   $('hud').hidden = !(name === 'list' || name === 'boss');
   window.scrollTo(0, 0);
 }
@@ -328,7 +329,8 @@ async function boot() {
   $('sharebtn').onclick = $('sharebtn2').onclick = shareParty;
   const topic = topicFromHash(); if (topic) startParty(topic);
   window.addEventListener('hashchange', () => { const t = topicFromHash(); if (t && (!party || party.topic !== t)) startParty(t); });
-  show(P.started ? 'list' : 'title');
+  // Always open on the title screen; it stays until the player taps Start or Continue.
+  show('title');
   window.__quest = { trip, theme, art };
 }
 boot();

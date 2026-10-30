@@ -81,6 +81,11 @@ try {
     await page.reload({waitUntil:'networkidle'});
     await page.waitForFunction(() => !!window.__quest);
     assert.equal(await page.locator('.item').first().getAttribute('aria-pressed'), 'true');
+    assert(await page.locator('#screen-title').isVisible());
+    assert.equal((await page.locator('#start').textContent()).trim(), 'Continue Quest');
+    await page.waitForTimeout(1500);
+    assert(await page.locator('#screen-title').isVisible());
+    await page.locator('#start').click();
     assert(await page.locator('#screen-list').isVisible());
     pass((query || 'data.js') + ': items, tap and saved progress');
     if (!query) {
