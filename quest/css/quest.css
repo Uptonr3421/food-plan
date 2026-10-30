@@ -34,6 +34,8 @@ h2{font-size:15px;margin:10px 0}
 .actor.hero{width:96px;height:96px;background-size:384px 96px;animation:hero-walk 1.2s steps(2) infinite}
 .actor.dog{width:64px;height:64px;background-size:256px 64px;animation:pug-wag .7s steps(2) infinite}
 @keyframes hero-walk{from{background-position:-96px 0}to{background-position:-288px 0}}
+#scrollbody{animation-name:hero-idle}
+@keyframes hero-idle{from{background-position:0 0}to{background-position:-192px 0}}
 @keyframes pug-wag{from{background-position:-64px 0}to{background-position:-192px 0}}
 /* hud */
 .hud{position:sticky;top:0;z-index:10;padding:8px 10px;margin-bottom:12px;background:var(--panelDark)}
@@ -65,7 +67,7 @@ h2{font-size:15px;margin:10px 0}
 .box{flex:0 0 30px;height:30px;border:3px solid var(--gold);background:#000;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:16px}
 .item.done{background:#2e3b24;opacity:.85}.item.done .nm{text-decoration:line-through;text-decoration-thickness:3px}
 .item.done .box::after{content:"✔"}
-.pug{position:sticky;top:86px;z-index:9;display:flex;align-items:flex-end;gap:8px;margin:0 0 6px;pointer-events:none}
+.pug{position:sticky;top:var(--hudh,86px);z-index:9;display:flex;align-items:flex-end;gap:8px;margin:0 0 6px;pointer-events:none}
 .pug img{width:56px;height:56px}
 .quip{font-size:9px;padding:8px;background:#fff6d8;color:#2a1648;border-color:var(--gold);flex:1}
 .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}

@@ -17,9 +17,11 @@ export async function loadTrip(params = new URLSearchParams(location.search)) {
   if (!window.FOOD) await loadScript('../data.js');
   return tripFromFood(window.FOOD);
 }
+// Store themes that exist in themes/. Other stores use the default theme without a 404.
+export const THEMES = ['aldi', 'walmart'];
 export async function loadTheme(id) {
   const base = await getJSON('themes/default.json');
-  if (!id || id === 'default') return base;
+  if (!id || !THEMES.includes(slug(id))) return base;
   try { const t = await getJSON('themes/' + slug(id) + '.json'); return { ...base, ...t, colors: { ...base.colors, ...t.colors }, sectionDefaults: { ...base.sectionDefaults, ...t.sectionDefaults } }; }
   catch { return base; }
 }

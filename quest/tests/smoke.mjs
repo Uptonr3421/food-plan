@@ -159,6 +159,15 @@ try {
   assert.match(await page.evaluate(() => getComputedStyle(document.body).backgroundImage), /portrait_pug\.png/);
   await page.unroute('**/assets/ASSET-MANIFEST.json');
   pass('store theme uses its manifest background when available');
+  // A store without its own theme falls back to default colors and the generic storefront without a 404.
+  await page.route('**/data.js', async route => { const response = await route.fetch();
+    await route.fulfill({ response, body: (await response.text()).replace(/store: "[^"]*"/, 'store: "Giant Eagle"') }); });
+  await page.goto(base, { waitUntil:'networkidle' });
+  await page.waitForFunction(() => !!window.__quest);
+  assert.deepEqual(await page.evaluate(() => [window.__quest.trip.theme, window.__quest.theme.id]), ['giant-eagle', 'default']);
+  assert.match(await page.evaluate(() => getComputedStyle(document.body).backgroundImage), /bg_store_generic\.png/);
+  await page.unroute('**/data.js');
+  pass('unknown store uses the default theme and generic storefront');
   await page.goto(new URL('../',base).href,{waitUntil:'networkidle'});
   assert.equal(await page.locator('#list .item').count(),expected.length);
   pass('root food page');
@@ -170,6 +179,12 @@ try {
   if(server) await new Promise(ok => server.close(ok));
 }
 
+// Trip IDs come from the week date; pick the nearest year and keep undated weeks stable.
+const { isoFromWeek } = await import('../js/adapter.js');
+assert.equal(isoFromWeek('Week of Jan 2', new Date(2026, 11, 30)), '2027-01-02');
+assert.equal(isoFromWeek('Week of Dec 29', new Date(2027, 0, 3)), '2026-12-29');
+assert.equal(isoFromWeek('Next week', new Date(2026, 9, 30, 23, 30)), isoFromWeek('Next week', new Date(2026, 9, 26, 8)));
+pass('week dates give stable trip IDs across the new year');
 // Exercise the optional transport without a real receipt or network service.
 const { Party } = await import('../js/sync.js');
 const savedFetch = globalThis.fetch;

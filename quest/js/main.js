@@ -279,6 +279,8 @@ async function boot() {
   P = progress.load(trip.id);
   P.awards = P.awards || {}; P.unchecks = P.unchecks || 0; P.startedAt = P.startedAt || Date.now();
   applyTheme(theme);
+  // Keep the sticky pug and quip below the sticky HUD, whose height changes with the combo meter.
+  if (window.ResizeObserver) new ResizeObserver(([e]) => { if (e.target.offsetHeight) document.documentElement.style.setProperty('--hudh', (e.target.offsetHeight + 8) + 'px'); }).observe($('hud'));
   [['checkbox', 'art-checkbox'], ['coin', 'art-coin']].forEach(([key, cls]) => {
     if (!art[key]) return;
     document.documentElement.style.setProperty('--' + key, `url("${new URL(art[key], document.baseURI).href}")`);
