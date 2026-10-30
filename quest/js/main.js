@@ -106,7 +106,7 @@ function checkBadges(x, y) {
     const extra = !b.rule || (finished && (b.rule === 'speed' ? Date.now() - P.startedAt <= 20 * 60 * 1000 : b.rule === 'no-uncheck' ? P.unchecks === 0 : P.bestCombo >= trip.items.length));
     if (extra && items.length && items.every(i => P.checked[i.id])) {
       P.badges.push(b.name); sfx.badge(); pop(x, y - 40, '🏅 ' + b.name, 'big'); confetti(b.section ? 50 : 160);
-      quip(b.section ? `Badge unlocked: ${b.name}! So proud of you!` : 'Every item looted! Fabulous Forager! Now face the Receipt Dragon!');
+      quip(b.name === 'Fabulous Forager' ? 'Every item looted! Fabulous Forager! Now face the Receipt Dragon!' : `Badge unlocked: ${b.name}! So proud of you!`);
     }
   }
 }
@@ -170,11 +170,11 @@ function startParty(topic) {
 async function shareParty() {
   let topic = topicFromHash();
   if (!topic) { topic = newTopic(); window.history.replaceState(null, '', '#party=' + topic); startParty(topic); }
-  const link = partyLink(topic), msg = $('screen-title').hidden ? null : $('sharemsg');
+  const link = partyLink(topic), msg = $('screen-title').hidden ? $('sharemsg2') : $('sharemsg');
   try {
     if (navigator.share) await navigator.share({ title: 'Heroic Shopping Quest', text: 'Join my shopping party!', url: link });
-    else { await navigator.clipboard.writeText(link); if (msg) msg.textContent = 'Party link copied!'; }
-  } catch { if (msg) msg.textContent = link; }
+    else { await navigator.clipboard.writeText(link); msg.textContent = 'Party link copied!'; }
+  } catch (err) { msg.textContent = err?.name === 'AbortError' ? '' : `Copy this party link: ${link}`; }
   // After a share, also publish current state so the friend catches up.
   Object.keys(P.checked).forEach(id => party.send({ t: 'check', id, award: P.awards[id] }));
 }
@@ -222,7 +222,7 @@ function showRewards() {
 }
 const receiptName = () => `receipt-${(receipt.store || 'store').toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${receipt.date.slice(0, 10)}.${receipt.blob.type === 'image/png' ? 'png' : 'jpg'}`;
 async function sendJudas() {
-  const r = await shareReceipt(receipt.blob, receiptName(), `${trip.store} receipt, ${receipt.date.slice(0, 10)}`);
+  const r = await shareReceipt(receipt.blob, receiptName(), `${receipt.store} receipt, ${receipt.date.slice(0, 10)}`);
   $('sendmsg').textContent = r === 'shared' ? 'Receipt shared with your chosen app.' : r === 'cancelled' ? '' : 'Use Download, then attach the photo to your text or email.';
 }
 function claim() {
