@@ -2,6 +2,13 @@
 
 ## Continuation checkpoint - October 30, 2026
 
+**Latest user direction:** Offline support is not needed. This overrides the offline
+requirements elsewhere in this handoff; keep the game usable online without party sync.
+After merging the updated food plan, `node quest/tests/smoke.mjs` passed on October 30,
+including the current root adapter, saved Aldi trip, template, complete synthetic receipt
+flow, responsive overflow checks, root page and console checks. This is Chromium evidence,
+not a substitute for real-phone sync or mobile Safari testing.
+
 This is unfinished work handed back at Owen's request. Preserve the full specification below.
 Local implementation commit: `6b27ad3`. New upstream food-plan commits through `e7346c1`
 were merged, preserving their changes to root data.js rather than overwriting them.
@@ -20,7 +27,7 @@ were merged, preserving their changes to root data.js rather than overwriting th
   overflow checks, root food list, and no console errors. Re-run after merging the new plan:
   the saved Oct 29 trip and current root adapter can now differ legitimately.
 - Still missing: remaining manifest assets and background variants, corrected scroll-hero
-  sheet, complete UI-art integration, offline worker, trip README, visual browser review,
+  sheet, complete UI-art integration, visual browser review,
   receipt network-isolation test, real-phone sync and mobile Safari validation.
 - Existing synth music is implemented but needs listening/gameplay review; manifest audio
   statuses have not been certified. No audio was recorded. No receipts were uploaded.
