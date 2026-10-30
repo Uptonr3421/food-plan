@@ -766,79 +766,364 @@
  ],
  "audio": [
   {
-   "id": "start",
-   "current": "js/audio.js sfx.start",
-   "desc": "Start Dungeon Run jingle",
-   "status": "exists (synth), polish"
+   "id": "sfx_back",
+   "file": "assets/audio/sfx_back.ogg",
+   "fallback": "assets/audio/sfx_back.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "check",
-   "current": "js/audio.js sfx.check",
-   "desc": "Item check blip, pitch rises with combo",
-   "status": "exists (synth), polish"
+   "id": "sfx_badge",
+   "file": "assets/audio/sfx_badge.ogg",
+   "fallback": "assets/audio/sfx_badge.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "uncheck",
-   "current": "js/audio.js sfx.uncheck",
-   "desc": "Uncheck",
-   "status": "exists (synth), polish"
+   "id": "sfx_boss_defeat",
+   "file": "assets/audio/sfx_boss_defeat.ogg",
+   "fallback": "assets/audio/sfx_boss_defeat.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "coin",
-   "current": "js/audio.js sfx.coin",
-   "desc": "Coin",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_1",
+   "file": "assets/audio/sfx_check_1.ogg",
+   "fallback": "assets/audio/sfx_check_1.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "combo",
-   "current": "js/audio.js sfx.combo",
-   "desc": "Combo x3+ arpeggio",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_2",
+   "file": "assets/audio/sfx_check_2.ogg",
+   "fallback": "assets/audio/sfx_check_2.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "level",
-   "current": "js/audio.js sfx.level",
-   "desc": "Level up",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_3",
+   "file": "assets/audio/sfx_check_3.ogg",
+   "fallback": "assets/audio/sfx_check_3.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "badge",
-   "current": "js/audio.js sfx.badge",
-   "desc": "Badge unlock",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_4",
+   "file": "assets/audio/sfx_check_4.ogg",
+   "fallback": "assets/audio/sfx_check_4.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "roar",
-   "current": "js/audio.js sfx.roar",
-   "desc": "Dragon roar",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_5",
+   "file": "assets/audio/sfx_check_5.ogg",
+   "fallback": "assets/audio/sfx_check_5.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "hit",
-   "current": "js/audio.js sfx.hit",
-   "desc": "Boss hit",
-   "status": "exists (synth), polish"
+   "id": "sfx_check_6",
+   "file": "assets/audio/sfx_check_6.ogg",
+   "fallback": "assets/audio/sfx_check_6.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "fanfare",
-   "current": "js/audio.js sfx.fanfare",
-   "desc": "Victory fanfare",
-   "status": "exists (synth), polish"
+   "id": "sfx_claim",
+   "file": "assets/audio/sfx_claim.ogg",
+   "fallback": "assets/audio/sfx_claim.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "bgm_store",
-   "desc": "Looping 16-bit store theme (optional, off by default, mute respected)",
-   "status": "todo"
+   "id": "sfx_coin",
+   "file": "assets/audio/sfx_coin.ogg",
+   "fallback": "assets/audio/sfx_coin.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_coin_small",
+   "file": "assets/audio/sfx_coin_small.ogg",
+   "fallback": "assets/audio/sfx_coin_small.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_combo_3",
+   "file": "assets/audio/sfx_combo_3.ogg",
+   "fallback": "assets/audio/sfx_combo_3.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_combo_5",
+   "file": "assets/audio/sfx_combo_5.ogg",
+   "fallback": "assets/audio/sfx_combo_5.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_combo_end",
+   "file": "assets/audio/sfx_combo_end.ogg",
+   "fallback": "assets/audio/sfx_combo_end.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_confetti",
+   "file": "assets/audio/sfx_confetti.ogg",
+   "fallback": "assets/audio/sfx_confetti.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_error",
+   "file": "assets/audio/sfx_error.ogg",
+   "fallback": "assets/audio/sfx_error.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_exp",
+   "file": "assets/audio/sfx_exp.ogg",
+   "fallback": "assets/audio/sfx_exp.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_fanfare",
+   "file": "assets/audio/sfx_fanfare.ogg",
+   "fallback": "assets/audio/sfx_fanfare.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_hit_1",
+   "file": "assets/audio/sfx_hit_1.ogg",
+   "fallback": "assets/audio/sfx_hit_1.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_hit_2",
+   "file": "assets/audio/sfx_hit_2.ogg",
+   "fallback": "assets/audio/sfx_hit_2.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_hit_3",
+   "file": "assets/audio/sfx_hit_3.ogg",
+   "fallback": "assets/audio/sfx_hit_3.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_level",
+   "file": "assets/audio/sfx_level.ogg",
+   "fallback": "assets/audio/sfx_level.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_paper",
+   "file": "assets/audio/sfx_paper.ogg",
+   "fallback": "assets/audio/sfx_paper.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_party_check",
+   "file": "assets/audio/sfx_party_check.ogg",
+   "fallback": "assets/audio/sfx_party_check.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_party_join",
+   "file": "assets/audio/sfx_party_join.ogg",
+   "fallback": "assets/audio/sfx_party_join.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_photo",
+   "file": "assets/audio/sfx_photo.ogg",
+   "fallback": "assets/audio/sfx_photo.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_pug_1",
+   "file": "assets/audio/sfx_pug_1.ogg",
+   "fallback": "assets/audio/sfx_pug_1.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_pug_2",
+   "file": "assets/audio/sfx_pug_2.ogg",
+   "fallback": "assets/audio/sfx_pug_2.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_roar",
+   "file": "assets/audio/sfx_roar.ogg",
+   "fallback": "assets/audio/sfx_roar.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_screen",
+   "file": "assets/audio/sfx_screen.ogg",
+   "fallback": "assets/audio/sfx_screen.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_section_clear",
+   "file": "assets/audio/sfx_section_clear.ogg",
+   "fallback": "assets/audio/sfx_section_clear.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_start",
+   "file": "assets/audio/sfx_start.ogg",
+   "fallback": "assets/audio/sfx_start.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_streak_tick",
+   "file": "assets/audio/sfx_streak_tick.ogg",
+   "fallback": "assets/audio/sfx_streak_tick.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_tap",
+   "file": "assets/audio/sfx_tap.ogg",
+   "fallback": "assets/audio/sfx_tap.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_text_blip_1",
+   "file": "assets/audio/sfx_text_blip_1.ogg",
+   "fallback": "assets/audio/sfx_text_blip_1.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_text_blip_2",
+   "file": "assets/audio/sfx_text_blip_2.ogg",
+   "fallback": "assets/audio/sfx_text_blip_2.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_text_blip_3",
+   "file": "assets/audio/sfx_text_blip_3.ogg",
+   "fallback": "assets/audio/sfx_text_blip_3.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_toggle_off",
+   "file": "assets/audio/sfx_toggle_off.ogg",
+   "fallback": "assets/audio/sfx_toggle_off.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_toggle_on",
+   "file": "assets/audio/sfx_toggle_on.ogg",
+   "fallback": "assets/audio/sfx_toggle_on.mp3",
+   "kind": "sfx_quiet",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "sfx_uncheck",
+   "file": "assets/audio/sfx_uncheck.ogg",
+   "fallback": "assets/audio/sfx_uncheck.mp3",
+   "kind": "sfx",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
    "id": "bgm_boss",
-   "desc": "Boss battle loop",
-   "status": "todo"
+   "file": "assets/audio/bgm_boss.ogg",
+   "fallback": "assets/audio/bgm_boss.mp3",
+   "kind": "music",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   },
   {
-   "id": "pug_bark",
-   "desc": "Pug bark/snort on quip",
-   "status": "todo"
+   "id": "bgm_store",
+   "file": "assets/audio/bgm_store.ogg",
+   "fallback": "assets/audio/bgm_store.mp3",
+   "kind": "music",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "bgm_title",
+   "file": "assets/audio/bgm_title.ogg",
+   "fallback": "assets/audio/bgm_title.mp3",
+   "kind": "music",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
+  },
+  {
+   "id": "bgm_victory",
+   "file": "assets/audio/bgm_victory.ogg",
+   "fallback": "assets/audio/bgm_victory.mp3",
+   "kind": "music",
+   "status": "in_review",
+   "verify": "assets/audio/VERIFY.md"
   }
  ]
 }
