@@ -390,7 +390,9 @@ async function boot() {
   startTitleMoves();
   window.__quest = { trip, theme, art, boss: () => ({ hp: bossHp, down: !!bossDown }) };
 }
-// Title screen: every few seconds a random adventurer does a move (cheer, point or hop).
+// Title screen: every few seconds a random adventurer does a move: cheer, Gabe's cart dash,
+// Owen's point or spin, Max's flip or zoomies (CSS under 'random title moves').
+const TITLE_MOVES = { cartbody: ['cheer', 'dash', 'dash'], scrollbody: ['cheer', 'point', 'spin'], pugbody: ['cheer', 'flip', 'zoom'] };
 function startTitleMoves() {
   const actors = ['cartbody', 'scrollbody', 'pugbody'].map($).filter(a => a && !a.hidden);
   if (!actors.length) return;
@@ -399,7 +401,7 @@ function startTitleMoves() {
     if (!$('screen-title').hidden && !document.hidden) {
       const pool = actors.length > 1 ? actors.filter(a => a !== last) : actors;
       const a = pool[Math.floor(Math.random() * pool.length)]; last = a;
-      const kind = a.id === 'scrollbody' && Math.random() < 0.5 ? 'point' : 'cheer';
+      const kinds = TITLE_MOVES[a.id] || ['cheer'], kind = kinds[Math.floor(Math.random() * kinds.length)];
       a.classList.add('move', kind);
       setTimeout(() => a.classList.remove('move', kind), 1300);
     }

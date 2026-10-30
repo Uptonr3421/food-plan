@@ -44,6 +44,18 @@ h2{font-size:15px;margin:10px 0}
 #pugbody.move.cheer{background-position:-192px 0 !important}
 @keyframes hop{50%{transform:translateY(-10px)}}
 @media (prefers-reduced-motion:reduce){.actor.move{animation:none !important}}
+/* extra title moves (motion only): Gabe dashes with the cart, Owen spins, Max flips or zooms */
+.actor.move{position:relative;z-index:2}
+@media (prefers-reduced-motion:no-preference){
+#cartbody.move.dash{animation:hero-walk .3s steps(2) infinite,dash-run 1.2s ease-in-out !important}
+#scrollbody.move.spin{animation:spin .9s steps(8) !important}
+#pugbody.move.flip{background-position:-192px 0 !important;animation:flip .8s ease-out !important}
+#pugbody.move.zoom{animation:pug-wag .16s steps(2) infinite,zoom-run 1.2s ease-in-out !important}
+}
+@keyframes dash-run{35%,50%{transform:translateX(44px)}85%{transform:translateX(-6px)}}
+@keyframes spin{25%{transform:scaleX(0) translateY(-6px)}50%{transform:scaleX(-1) translateY(-10px)}75%{transform:scaleX(0) translateY(-6px)}}
+@keyframes flip{15%{transform:translateY(4px) scaleY(.85)}55%{transform:translateY(-34px) rotate(-200deg)}80%{transform:translateY(-8px) rotate(-340deg)}}
+@keyframes zoom-run{30%{transform:translateX(-150px)}31%,60%{transform:translateX(-150px) scaleX(-1)}61%{transform:translateX(-150px)}100%{transform:none}}
 /* hud */
 .hud{position:sticky;top:0;z-index:10;padding:8px 10px;margin-bottom:12px;background:var(--panelDark)}
 .hud-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
