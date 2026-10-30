@@ -195,7 +195,60 @@ async function shareParty() {
 }
 
 // ---- boss + rewards ----
-function openBoss() { show('boss'); $('hp').style.width = '100%'; $('dragon').classList.remove('defeated'); sfx.roar(); quip('A wild Receipt Dragon appears!'); }
+const pause = ms => new Promise(ok => setTimeout(ok, ms));
+const DRAGON_QUIPS = { 75: 'Rawr! My receipt is longer than your list!', 50: 'You forgot the coupons, heroes!', 25: 'No... not the self-checkout!' };
+const ATTACKS = [['bosscart', 'dash'], ['bossscroll', 'zap'], ['bosspug', 'pounce']];
+let bossHp = 100, bossDown = null, bossTurn = 0, lastHit = 0, dragonQuipTimer = 0;
+const bossQuipped = new Set();
+// Restart a one-shot CSS class so repeated taps replay the animation.
+function flick(el, cls, ms) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(el['_' + cls]); el['_' + cls] = setTimeout(() => el.classList.remove(cls), ms); }
+function dragonSay(text) {
+  const q = $('dragonquip'); q.textContent = text; q.hidden = false;
+  clearTimeout(dragonQuipTimer); dragonQuipTimer = setTimeout(() => { q.hidden = true; }, 2000);
+}
+function setHp(hp) { bossHp = Math.max(0, Math.round(hp)); $('hp').style.width = bossHp + '%'; $('hplag').style.width = bossHp + '%'; }
+function openBoss() {
+  show('boss'); bossDown = null; bossTurn = 0; bossQuipped.clear(); setHp(100);
+  $('dragon').classList.remove('defeated', 'hit', 'dying');
+  $('receiptlabel').classList.remove('ready'); $('receiptmsg').textContent = '';
+  $('bosshint').textContent = 'Tap the dragon to attack!';
+  sfx.roar(); quip('A wild Receipt Dragon appears!'); dragonSay('ROAR! Who dares check out?');
+}
+// One hit: flash, shake, damage number, HP chunk, quips at 75/50/25%. Returns the defeat promise on the final blow.
+function hitDragon(dmg, x, y, crit = false) {
+  const before = bossHp;
+  sfx.hit(); flick($('dragon'), 'hit', 180); shake(crit ? document.body : document.querySelector('.arena'));
+  pop(x + Math.random() * 40 - 20, y, crit ? `CRIT ${dmg}!` : String(dmg), crit ? 'dmg crit' : 'dmg');
+  setHp(bossHp - dmg);
+  for (const t of [75, 50, 25]) if (before > t && bossHp <= t && bossHp > 0 && !bossQuipped.has(t)) { bossQuipped.add(t); dragonSay(DRAGON_QUIPS[t]); if (t === 50) setTimeout(sfx.roar, 200); }
+  return bossHp ? null : defeatDragon();
+}
+function attack(e) {
+  if (bossDown || receiptBusy) return;
+  const now = Date.now(); if (now - lastHit < 140) return; lastHit = now;
+  unlock();
+  const [id, move] = ATTACKS[bossTurn++ % ATTACKS.length];
+  if (!$(id).hidden) flick($(id), move, 500);
+  const r = $('dragon').getBoundingClientRect(), crit = Math.random() < 0.18;
+  const x = e && e.clientX ? e.clientX : r.left + r.width / 2, y = e && e.clientY ? e.clientY : r.top + r.height / 3;
+  hitDragon((crit ? 2 : 1) * (10 + Math.floor(Math.random() * 5)), x, y, crit);
+}
+function defeatDragon() {
+  if (bossDown) return bossDown;
+  return (bossDown = (async () => {
+    const d = $('dragon'); d.classList.remove('hit'); d.classList.add('dying');
+    dragonSay('Nooo... my coupons...!'); sfx.boss_defeat(); shake(document.body);
+    await pause(700);
+    d.classList.remove('dying'); d.classList.add('defeated'); $('dragonquip').hidden = true;
+    const r = d.getBoundingClientRect();
+    setScene('rewards'); setTimeout(sfx.fanfare, 400);
+    confetti(160); coinTrail(r.left + r.width / 2, r.top + r.height / 2, 18); pop(innerWidth / 2, r.top + 40, 'VICTORY!', 'big');
+    ['bosscart', 'bossscroll', 'bosspug'].forEach(id => flick($(id), 'cheer', 1800));
+    quip('We did it! Snap the receipt to claim the loot!');
+    $('bosshint').textContent = 'Victory! Snap the receipt to claim your loot!';
+    $('receiptlabel').classList.add('ready');
+  })());
+}
 async function onReceipt(e) {
   const f = e.target.files && e.target.files[0]; if (!f) return;
   if (receiptBusy) return;
@@ -208,17 +261,20 @@ async function onReceipt(e) {
     receipt = { id, tripId: trip.id, title: trip.title, store: trip.store, date: new Date().toISOString(), count: checkedCount(), total: trip.items.length, xp: P.xp, level: level(), badges: [...P.badges], blob };
     try { await saveReceipt(receipt); receipt.stored = true; }
     catch { receipt.stored = false; }
-    const pause = ms => new Promise(ok => setTimeout(ok, ms));
-    for (const hp of [65, 30, 0]) {
-      shake(); sfx.hit(); $('hp').style.width = hp + '%';
-      $('dragon').classList.toggle('hit'); await pause(250);
-    }
-    $('dragon').classList.remove('hit'); $('dragon').classList.add('defeated');
-    sfx.boss_defeat(); setTimeout(sfx.fanfare, 1200); confetti(160); coinTrail(innerWidth / 2, innerHeight / 2, 18);
-    await pause(500); showRewards();
+    $('receiptmsg').textContent = '';
+    if (!bossDown) {
+      // The receipt is a finishing move: a quick three-hit combo from wherever the HP is.
+      const r = $('dragon').getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 3;
+      for (let i = 0; i < 3 && bossHp > 0; i++) {
+        flick($(ATTACKS[i][0]), ATTACKS[i][1], 500);
+        const down = hitDragon(i === 2 ? bossHp : Math.ceil(bossHp / 2), x, y, i === 2);
+        await (down || pause(260));
+      }
+      await pause(900);
+    } else { await bossDown; await pause(300); }
+    showRewards();
   } catch {
     sfx.error(); $('receiptmsg').textContent = 'That image could not be opened. Try another photo.';
-    $('hp').style.width = '100%';
   } finally {
     receiptBusy = false; e.target.disabled = false; $('bossback').disabled = false; e.target.value = '';
   }
@@ -296,8 +352,8 @@ async function boot() {
     .map(([c, f, n]) => `<figure><img src="${sprite(c, f)}" alt="${n}"><figcaption>${n}</figcaption></figure>`).join('');
   $('pugimg').src = sprite('portrait_pug');
   if (art.receipt_dragon) $('dragon').style.backgroundImage = `url("${art.receipt_dragon}")`;
-  else $('dragon').hidden = true;
-  [['cartbody','hero_cart_full'],['scrollbody','hero_scroll_full'],['pugbody','pug_full']].forEach(([id,key]) => {
+  else $('dragon').classList.add('noart');
+  [['cartbody','hero_cart_full'],['scrollbody','hero_scroll_full'],['pugbody','pug_full'],['bosscart','hero_cart_full'],['bossscroll','hero_scroll_full'],['bosspug','pug_full']].forEach(([id,key]) => {
     if (art[key]) $(id).style.backgroundImage = `url("${art[key]}")`;
     else $(id).hidden = true;
   });
@@ -315,12 +371,12 @@ async function boot() {
   document.addEventListener('click', e => {
     const b = e.target.closest('button, .btn'); if (!b) return;
     unlock();
-    if (b.matches('.item, #start, #music, #mute, #claim')) return;
+    if (b.matches('.item, #start, #music, #mute, #claim, #dragon')) return;
     if (['bossback', 'rewardsback', 'pastback', 'titlebtn'].includes(b.id)) sfx.back(); else sfx.tap();
   }, true);
   $('mute').onclick = () => { const v = !settings.muted(); if (v) sfx.toggle(false); settings.setMuted(v); setMuted(v); if (!v) sfx.toggle(true); $('mute').classList.toggle('off', v); $('mute').setAttribute('aria-pressed', String(v)); $('mute').setAttribute('aria-label', v ? 'Unmute sound' : 'Mute sound'); };
   $('music').onclick = () => { const v = !settings.music(); settings.setMusic(v); unlock(); setMusic(v); sfx.toggle(v); $('music').setAttribute('aria-pressed', String(v)); $('music').setAttribute('aria-label', v ? 'Disable background music' : 'Enable background music'); };
-  $('bossbtn').onclick = openBoss; $('bossback').onclick = () => show('list'); $('rewardsback').onclick = () => show('list');
+  $('bossbtn').onclick = openBoss; $('dragon').onclick = attack; $('bossback').onclick = () => show('list'); $('rewardsback').onclick = () => show('list');
   $('receiptin').addEventListener('change', onReceipt);
   $('sendjudas').onclick = sendJudas; $('dl').onclick = () => receipt && downloadBlob(receipt.blob, receiptName());
   $('claim').onclick = claim;
@@ -332,7 +388,7 @@ async function boot() {
   // Always open on the title screen; it stays until the player taps Start or Continue.
   show('title');
   startTitleMoves();
-  window.__quest = { trip, theme, art };
+  window.__quest = { trip, theme, art, boss: () => ({ hp: bossHp, down: !!bossDown }) };
 }
 // Title screen: every few seconds a random adventurer does a move (cheer, point or hop).
 function startTitleMoves() {

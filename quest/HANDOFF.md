@@ -2,6 +2,10 @@
 
 ## Continuation checkpoint - October 30, 2026
 
+- Boss fight: tap the Receipt Dragon to attack (heroes take turns: cart dash, scroll spark,
+  pug pounce), damage numbers and crits, chunked HP drain, dragon quips, defeat then fanfare;
+  the receipt photo claims the loot, or finishes the dragon if it is still standing.
+
 **Latest user direction:** Offline support is not needed. This overrides the offline
 requirements elsewhere in this handoff; keep the game usable online without party sync.
 After merging the updated food plan, `node quest/tests/smoke.mjs` passed on October 30,

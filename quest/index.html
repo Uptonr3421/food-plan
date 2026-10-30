@@ -39,10 +39,15 @@
  </section>
 
  <section id="screen-boss" class="screen boss" hidden>
-  <h2>Final Boss</h2><p class="center">Defeat the Receipt Dragon</p>
-  <div id="dragon" class="dragon" role="img" aria-label="Receipt Dragon"></div>
-  <div class="hpbar"><div id="hp" class="hpfill"></div></div>
-  <label class="btn big file">📸 Snap the receipt<input id="receiptin" type="file" accept="image/*" capture="environment"></label>
+  <h2>Final Boss</h2>
+  <div class="arena">
+   <div id="dragonquip" class="dragon-quip" aria-live="polite" hidden></div>
+   <button id="dragon" class="dragon" type="button" aria-label="Attack the Receipt Dragon"></button>
+   <div class="hpbar" aria-label="Dragon health"><div id="hplag" class="hplag"></div><div id="hp" class="hpfill"></div></div>
+   <div class="boss-party" aria-hidden="true"><span id="bosscart" class="actor hero"></span><span id="bossscroll" class="actor hero"></span><span id="bosspug" class="actor dog"></span></div>
+  </div>
+  <p id="bosshint" class="center boss-hint" role="status">Tap the dragon to attack!</p>
+  <label id="receiptlabel" class="btn big file">📸 Snap the receipt<input id="receiptin" type="file" accept="image/*" capture="environment"></label>
   <p class="small center">The photo stays on this phone. It is never uploaded or synced.</p>
   <p id="receiptmsg" class="small center" role="status"></p>
   <button id="bossback" class="btn">Back to the list</button>

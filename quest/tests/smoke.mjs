@@ -118,6 +118,14 @@ try {
       await page.waitForFunction(() => window.__audio.decoded().length >= 31 && !window.__audio.failed().length, null, { timeout: 15000 });
       pass('audio pack effects decode after the first tap');
       if (!await page.locator('#screen-boss').isVisible()) await page.locator('#bossbtn').click();
+      assert.equal(await page.evaluate(() => window.__quest.boss().hp), 100);
+      for (let i = 0; i < 20 && !await page.evaluate(() => window.__quest.boss().down); i++) {
+        await page.locator('#dragon').click(); await page.waitForTimeout(160);
+      }
+      assert.deepEqual(await page.evaluate(() => window.__quest.boss()), { hp: 0, down: true });
+      await page.waitForFunction(() => document.getElementById('dragon').classList.contains('defeated'));
+      assert(await page.locator('#receiptlabel').evaluate(el => el.classList.contains('ready')));
+      pass('tapping defeats the Receipt Dragon');
       await page.locator('#receiptin').setInputFiles({name:'synthetic-receipt.png',mimeType:'image/png',
         buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jZ1kAAAAASUVORK5CYII=','base64')});
       await page.locator('#screen-rewards').waitFor({state:'visible'});

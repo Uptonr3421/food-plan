@@ -90,13 +90,43 @@ h2{font-size:15px;margin:10px 0}
 .pride-art{display:block;width:128px;height:auto;margin:4px auto 0}
 .boss-cta{margin-top:20px}
 /* boss */
-.boss .dragon{display:block;width:192px;height:192px;margin:10px auto;background-size:576px 192px;background-repeat:no-repeat;background-position:0 0;image-rendering:pixelated;animation:bob 1s steps(2) infinite}
+.arena{position:relative;margin:0 0 4px}
+.boss .dragon{display:block;width:192px;height:192px;margin:4px auto 0;padding:0;border:0;background-color:transparent;background-size:576px 192px;background-repeat:no-repeat;background-position:0 0;image-rendering:pixelated;animation:bob 1s steps(2) infinite;cursor:pointer;touch-action:manipulation;font:inherit}
+.dragon.noart::before{content:"🐉";font-size:120px}
 @keyframes bob{50%{transform:translateY(-6px)}}
-.hpbar{height:16px;border:3px solid var(--gold);background:#000;margin:8px 20px}
-.hpfill{height:100%;width:100%;background:#e40303;transition:width .6s steps(8)}
+.dragon.hit{background-position:-192px 0;filter:brightness(1.8) saturate(.6);animation:recoil .18s steps(2)}
+@keyframes recoil{50%{transform:translate(6px,-4px) scale(1.04)}}
+.dragon.dying{background-position:-192px 0;animation:dying .7s steps(7) forwards}
+@keyframes dying{0%,28%,56%{filter:brightness(2.4)}14%,42%,70%{filter:none}100%{transform:translateY(8px)}}
+.dragon.defeated{animation:none;background-position:-384px 0;cursor:default}
+.dragon:focus-visible{outline-offset:-4px}
+.dragon-quip{position:absolute;z-index:5;top:0;left:4px;max-width:150px;padding:6px;font-size:8px;line-height:1.5;color:#2a1648;background:#fff6d8;border:3px solid #000;box-shadow:3px 3px 0 #0008;pointer-events:none}
+.dragon-quip::after{content:"";position:absolute;right:-9px;top:12px;border:6px solid transparent;border-left-color:#000}
+.hpbar{position:relative;height:16px;border:3px solid var(--gold);background:#000;margin:6px 20px}
+.hpfill,.hplag{position:absolute;left:0;top:0;height:100%;width:100%}
+.hpfill{background:#e40303;transition:width .2s steps(4)}
+.hplag{background:#fff6d8;transition:width .5s steps(5) .35s}
+.boss-party{display:flex;justify-content:center;align-items:flex-end;gap:14px;height:76px;margin-top:2px}
+.boss-party .actor{position:relative;background-size:400% 100%}
+.boss-party .hero{width:72px;height:72px;animation:arena-idle 1.2s steps(2) infinite}
+.boss-party .dog{width:48px;height:48px;animation:arena-wag .7s steps(2) infinite}
+@keyframes arena-idle{from{background-position:0 0}to{background-position:66.667% 0}}
+@keyframes arena-wag{from{background-position:33.333% 0}to{background-position:100% 0}}
+/* attack moves: Gabe rams with the cart, Owen points a spark, Max pounces */
+#bosscart.dash{background-position:33.333% 0;animation:dash .5s ease-out}
+@keyframes dash{40%{transform:translate(34px,-40px)}}
+#bossscroll.zap{background-position:66.667% 0;animation:none}
+#bossscroll.zap::after{content:"✦";position:absolute;left:50%;top:10px;color:#ffed00;font-size:20px;text-shadow:0 0 6px #fff,2px 2px 0 #000;animation:zap .45s steps(5) forwards}
+@keyframes zap{from{transform:translate(0,0)}to{transform:translate(0,-110px) scale(1.6);opacity:0}}
+#bosspug.pounce{background-position:100% 0;animation:pounce .5s ease-out}
+@keyframes pounce{45%{transform:translate(-30px,-56px) rotate(-20deg)}}
+.boss-party .actor.cheer{background-position:100% 0;animation:hop .4s ease-in-out 4}
+.boss-hint{min-height:20px;margin:4px 0;font-size:10px;color:var(--gold);text-shadow:2px 2px 0 #000}
 .file{position:relative;overflow:hidden}.file input{position:absolute;inset:0;opacity:0;font-size:100px;cursor:pointer}
-.dragon.defeated{animation:none;background-position:-384px 0}
-.dragon.hit{background-position:-192px 0;filter:brightness(1.3)}
+.file.ready{animation:glow .8s steps(2) infinite}
+@keyframes glow{50%{background:var(--bg2);color:#fff}}
+.pop.dmg{font-size:18px;color:#fff;z-index:55;text-shadow:2px 2px 0 #000,-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000}
+.pop.crit{font-size:22px;color:#ffed00}
 .btn:disabled{cursor:default;opacity:.7;transform:none}
 /* rewards */
 .pride{padding:12px;text-align:center;font-size:11px;background:linear-gradient(180deg,#e40303 0 16.6%,#ff8c00 0 33.3%,#ffed00 0 50%,#008026 0 66.6%,#004dff 0 83.3%,#750787 0);text-shadow:2px 2px 0 #000;margin:6px 0 14px}
