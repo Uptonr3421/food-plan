@@ -331,6 +331,24 @@ async function boot() {
   window.addEventListener('hashchange', () => { const t = topicFromHash(); if (t && (!party || party.topic !== t)) startParty(t); });
   // Always open on the title screen; it stays until the player taps Start or Continue.
   show('title');
+  startTitleMoves();
   window.__quest = { trip, theme, art };
+}
+// Title screen: every few seconds a random adventurer does a move (cheer, point or hop).
+function startTitleMoves() {
+  const actors = ['cartbody', 'scrollbody', 'pugbody'].map($).filter(a => a && !a.hidden);
+  if (!actors.length) return;
+  let last = null;
+  const tick = () => {
+    if (!$('screen-title').hidden && !document.hidden) {
+      const pool = actors.length > 1 ? actors.filter(a => a !== last) : actors;
+      const a = pool[Math.floor(Math.random() * pool.length)]; last = a;
+      const kind = a.id === 'scrollbody' && Math.random() < 0.5 ? 'point' : 'cheer';
+      a.classList.add('move', kind);
+      setTimeout(() => a.classList.remove('move', kind), 1300);
+    }
+    setTimeout(tick, 2200 + Math.random() * 1800);
+  };
+  setTimeout(tick, 1200);
 }
 boot();

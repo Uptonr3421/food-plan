@@ -37,6 +37,13 @@ h2{font-size:15px;margin:10px 0}
 #scrollbody{animation-name:hero-idle}
 @keyframes hero-idle{from{background-position:0 0}to{background-position:-192px 0}}
 @keyframes pug-wag{from{background-position:-64px 0}to{background-position:-192px 0}}
+/* random title moves: one actor at a time shows a special frame and hops */
+.actor.move{animation:hop .4s ease-in-out 3 !important}
+#cartbody.move.cheer,#scrollbody.move.cheer{background-position:-288px 0 !important}
+#scrollbody.move.point{background-position:-192px 0 !important;animation:none !important}
+#pugbody.move.cheer{background-position:-192px 0 !important}
+@keyframes hop{50%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.actor.move{animation:none !important}}
 /* hud */
 .hud{position:sticky;top:0;z-index:10;padding:8px 10px;margin-bottom:12px;background:var(--panelDark)}
 .hud-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
